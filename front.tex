@@ -1,0 +1,50 @@
+% *************** Title page ***************
+\pagestyle{empty} \sffamily \noindent
+%\reversemarginpar
+    \begin{center}
+        \vskip80mm
+        %\textbf{\huge Title (single line)}
+        \textbf{\huge Updating the Solid Ecosystem to a scalable and microservices oriented project}
+        \vskip50mm
+        \begin{Large}
+            \textbf{Pedro Manuel Ribeiro Piloto}\\
+        \end{Large}
+        \vskip35mm
+        Supervisors \\
+        Nuno Bettencourt\\
+        \vskip40mm
+    \end{center}
+    \null
+    \begin{picture}(0,0)(-125,25)
+        \includegraphics[width=4.5cm]{ISEP_logo.jpg}
+    \end{picture}
+    \null
+    \begin{center}
+        \vskip10mm
+        \textbf{Mestrado em Engenharia Informática}\\
+        Instituto Superior de Engenharia do Porto\\
+        Departamento de Engenharia Informática\\
+        Rua Dr. António Bernardino de Almeida, 431, P-4200-072 Porto\\
+        June 2020 \\
+    \end{center}
+\cleardoublepage \rmfamily \normalfont
+% *************** Portuguese Abstract ***************
+\input{resumo.tex}
+\cleardoublepage
+% *************** Table of contents ***************
+\renewcommand*\contentsname{Indice}
+\pagenumbering{roman} \pagestyle{headings} \tableofcontents
+\cleardoublepage
+% *************** Table of figures ***************
+\renewcommand{\listfigurename}{Lista de Figuras}
+\listoffigures \cleardoublepage
+% *************** Table of tables ***************
+\renewcommand{\listtablename}{Lista de Tabelas}
+\listoftables \cleardoublepage
+% *************** Table of symbols ***************
+\input{glossary.tex}
+\cleardoublepage
+% *************** Acknowledgments ***************
+\addcontentsline{toc}{chapter}{Agradecimentos}
+\input{acknowledgements.tex}
+\cleardoublepage

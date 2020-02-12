@@ -1,0 +1,43 @@
+\title{TEDI 1130271 Márcia Costa}
+
+\documentclass[a4paper,11pt]{memoir}
+
+\input{style.tex}
+
+\begin{document}
+
+% *************** Hifenização ***************
+\hyphenation{
+    ca-pa-ci-da-de
+    }
+
+% *************** Front matter ***************
+\frontmatter
+\input{front.tex}
+
+% *************** Main matter ****************
+\mainmatter
+
+\input{chap1_introducao.tex}
+
+\input{chap2_estado_arte.tex}
+
+\input{chap3_analise_valor.tex}
+
+\input{chap4_desenho.tex}
+
+\input{chap5_implementacao.tex}
+
+\input{chap6_avaliacao_experimentacao.tex}
+
+\input{chap7_conclusao.tex}
+
+\cleardoublepage
+
+% *************** Bibliography ***************
+\renewcommand*\bibname{Bibliography}
+\bibliographystyle{ieeetr}
+\bibliography{bibliografia}
+\cleardoublepage
+
+\end{document}

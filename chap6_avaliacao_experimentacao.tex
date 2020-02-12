@@ -1,0 +1,20 @@
+% ************ Chapter 6 ************
+%\renewcommand{\chaptername}{Chapter}
+
+\chapter{Avaliação e Experimentação}
+\label{cap:6}
+\emph{Este capítulo deverá ter em conta a forma como a implementação será validada e os respetivos resultados}
+
+\section{Metodologia}
+
+A implementação do sistema passou pela migração do projeto Solid para uma arquitetura orientada a micro-serviços, sob o pretexto de introduzir a possibilidade de rápido escalamento da plataforma.
+
+Desta forma, a avaliação com vista à validação da estratégia adotada, deve ter por base a sua escalabilidade, para tal devem ser realizados testes de carga recorrendo à ferramenta \emph{JMeter}. Os testes devem ser divididos em duas partes:
+\begin{itemize}
+    \item Testes de carga à plataforma Solid sem micro-serviços
+    \item Testes de carga a cada serviço da plataforma Solid orientada a micro-serviços
+\end{itemize}
+
+A validação da solução está pendente de cada serviço conseguir atingir um throughput (numero de pedidos processados por segundo) equivalente ao do processo monólito da plataforma de Solid.
+
+\section{Resultados}
