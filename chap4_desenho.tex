@@ -31,7 +31,7 @@ Tendo por base as camadas apresentadas, seguem-se duas arquiteturas (\ref{subsec
 
 \subsection{Arquitetura baseada em pedidos HTTP} \label{subsection:arquitetura_1}
 
-Esta arquitetura introduz o conceito de API Gateway como o ponto de entrada para todos o micro-serviços. Este padrão (c.f em \ref{api_gateway} permite, desta forma, encapsular os diferentes serviços em pedidos \emph{HTTP}, que reencaminham o pedido para o serviço mais indicado. Esta abstração oferece vantagens como:
+Esta arquitetura introduz o conceito de API Gateway como o ponto de entrada para todos o micro-serviços. Este padrão (c.f em \ref{api_gateway}) permite, desta forma, encapsular os diferentes serviços em pedidos \emph{HTTP}, que reencaminham o pedido para o serviço mais indicado. Esta abstração oferece vantagens como:
 
 \begin{itemize}
     \item Escalabilidade - No futuro, a separação dos serviços existentes ou a criação de novos, não adicionará complexidade para além da de alterar as regras de encaminhamento na API Gateway. Esta camada, Podendo inclusive ser utilizada para migrações controladas de tráfego entre serviços legados e novos.
@@ -40,22 +40,21 @@ Esta arquitetura introduz o conceito de API Gateway como o ponto de entrada para
 \end{itemize}
 
 \subsubsection{Diagrama de componentes}
-\begin{figure}[h]
+\begin{figure}[H]
     \begin{center}
     % Requires \usepackage{graphicx}
     \includegraphics[width=1 \textwidth]{figures/component_diagram_2.png}
     \caption{Diagrama de Componentes Arquitetura 1}
     \end{center}
 \end{figure}
-\pagebreak
 
 \subsection{Arquitetura baseada em pedidos HTTP e eventos} \label{subsection:arquitetura_2}
 
 Esta arquitetura mantêm o conceito de API Gateway, mas introduz a adoção de mecanismos de troca de mensagens assíncrona (c.f. em \ref{troca_mensagens_assincrona}) como possível forma de actualização assíncrona das permissões de acesso a recursos no LDP.
 
-Na prática o que isto permite é que a leitura das permissões seja independente da escrita das mesmas. E, desta forma, aplica-se o padrão CQRS (Command Query Responsability Segregation) (c.f secção \ref{cqrs}, contribuindo para um menor acoplamento entre o LDP e o ACL. Este conceito introduz indiretamente um outro: \emph{Eventual Consistency}, este por sua vez consiste na assunção de que alterações a um determinado modelo eventualmente induzirão num estado consistente no sistema como um todo. De acordo com o teorema de CAP (c.f secção \ref{_theorem}), consistência é o parâmetro que devemos abdicar para conseguirmos escalabilidade e tolerância a falhas.
+Na prática o que isto permite é que a leitura das permissões seja independente da escrita das mesmas. E, desta forma, aplica-se o padrão CQRS (c.f secção \ref{cqrs}), contribuindo para um menor acoplamento entre o LDP e o ACL. Este conceito introduz indiretamente um outro: \emph{Eventual Consistency}, este por sua vez consiste na assunção de que alterações a um determinado modelo eventualmente induzirão num estado consistente no sistema como um todo. De acordo com o teorema de CAP (c.f secção \ref{cap_theorem}), consistência é o parâmetro que devemos abdicar para conseguirmos escalabilidade e tolerância a falhas.
 
-A utilização da arquitetura permite também a adoção do padrão \emph{Event Sourcing} (c.f. secção \ref{event_sourcing}, este consiste na persistência dos eventos de alteração de estado e permite que o estado do sistema seja obtido a qualquer momento pela "soma" das alterações de estado a que o mesmo foi sujeito.
+A utilização da arquitetura permite também a adoção do padrão \emph{Event Sourcing} (c.f. secção \ref{event_sourcing}), este consiste na persistência dos eventos de alteração de estado e permite que o estado do sistema seja obtido a qualquer momento pela "soma" das alterações de estado a que o mesmo foi sujeito.
 
 \begin{figure}[H]
     \begin{center}

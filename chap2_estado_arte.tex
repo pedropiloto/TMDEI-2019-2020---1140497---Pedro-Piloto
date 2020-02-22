@@ -18,7 +18,7 @@ Um modelo de descentralização da web, vem sendo discutido desde tempos atrás,
 Nesta secção são apresentadas diferentes alternativas que podem servir de base para um novo paradigma de web descentralizada. Para tal devem ser soluções robustas e que ofereçam ferramentas auxiliares para o desenvolvimento e posterior integração de novas aplicações.
 
 \subsection{Solid}
-A arquitetura implícita para o desenvolvimento de aplicações baseadas em Solid permite que os utilizadores escolham um POD (\emph{Personal online datastore} \label{sym:POD})  à sua escolha (próprio ou recorrendo a um servidor de POD \label{sym:POD}) para conceder às aplicações autorização para armazenar ou ler informação a partir do mesmo. Por si só, este facto permite que os utilizadores escapem dos tradicionais "silos de dados". Além disto, esses PODs \label{sym:POD} podem oferecer diferentes granularidades de privacidade, confiabilidade, disponibilidade, proteção legal e reutilização de dados \cite{solid_official}. Desta forma este componente do Solid, confere a camada de persistência de informação dos utilizadores, podendo inclusive ser viste como o novo \emph{backend} das aplicações, que poderão aceder à informação através da interface Rest \cite{rest_foundations} disponibilizada por cada POD, baseada em Linked Data Platform (LDP \label{sym:LDP}), uma recomendação da comunidade W3C, assim como um mecanismo baseado em queries SPARQL.\cite{solid_spec}
+A arquitetura implícita para o desenvolvimento de aplicações baseadas em Solid permite que os utilizadores escolham um POD (\emph{Personal online datastore} \label{sym:POD})  à sua escolha (próprio ou recorrendo a um servidor de POD para conceder às aplicações autorização para armazenar ou ler informação a partir do mesmo. Por si só, este facto permite que os utilizadores escapem dos tradicionais "silos de dados". Além disto, esses PODs podem oferecer diferentes granularidades de privacidade, confiabilidade, disponibilidade, proteção legal e reutilização de dados \cite{solid_official}. Desta forma este componente do Solid, confere a camada de persistência de informação dos utilizadores, podendo inclusive ser viste como o novo \emph{backend} das aplicações, que poderão aceder à informação através da interface Rest \cite{rest_foundations} disponibilizada por cada POD, baseada em Linked Data Platform (LDP \label{sym:LDP}), uma recomendação da comunidade W3C, assim como um mecanismo baseado em queries SPARQL.\cite{solid_spec}
 
 \subsubsection{Autenticação}
 A identidade dos utilizadores no Solid baseia-se em URIs WebID, estes funcionam como nomes universais que permitem identificar determinado utilizador de forma descentralizada. Segue-se um exemplo de um possível WebID:
@@ -47,7 +47,7 @@ Seguem-se alguns dos conceitos mais relevantes neste protocolo:
     \item \emph{POD} - Unidade online de armazenamento pessoal. Este componente do sistema desempenha vários papeis na arquitetura atual: armazena informação do utilizador (actua como \emph{Resource Server}), instancia um servidor de identidade webID-OIDC e pode também actuar como \emph{Relying Party} quando um utilizador requisita recursos a partir de um token.
 \end{itemize}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \begin{center}
     % Requires \usepackage{graphicx}
     \includegraphics[width=1 \textwidth]{figures/WedId-OIDC.png}
@@ -55,9 +55,7 @@ Seguem-se alguns dos conceitos mais relevantes neste protocolo:
     \end{center}
 \end{figure}
 
-\pagebreak
-
-Conforme é possível perceber pela figura acima, assemelha-se bastante ao protocolo OpenId Connect, adicionando dois passos extra:\cite{solid_webid_oidc}
+Conforme é possível perceber pela figura 2.1, assemelha-se bastante ao protocolo OpenId Connect, adicionando dois passos extra:\cite{solid_webid_oidc}
 \begin{itemize}
     \item Obter o WebId através do token de acesso
     \item Verificar se o servidor indicado para autenticação é de facto o servidor de identidade autorizado para o WebId em questão
@@ -75,15 +73,15 @@ Seguem-se algumas das suas principais características:
 
 \subsubsection{Armazenamento}
 O Solid lida com dois tipos de informação:
-\begin{itemize}
-    \item Recursos \emph{Linked Data}
-    \item Todo o restante tipo de informação
-\end{itemize}
+\begin{description}
+    \item Recursos \emph{Linked Data}, que podem recorrer às capacidades implícitas no Solid para aplicar lógica no lado da aplicação cliente
+    \item Todo o restante tipo de informação, como por exemplo imagens, documentos, videos, audio, etc
+\end{description}
 Desta forma, é possível construir aplicações baseadas em Solid com ou sem recursos sob a forma de \emph{Linked Data}.\cite{solid_spec}
 
 Os recursos são agrupados em contentores baseados em directórios (cumprindo a especificação \emph{LDP Basic Container Spec}.\cite{solid_spec}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \begin{center}
     % Requires \usepackage{graphicx}
     \includegraphics[width=1\textwidth]{figures/estado_arte-Solid.png}
@@ -91,7 +89,6 @@ Os recursos são agrupados em contentores baseados em directórios (cumprindo a 
     \end{center}
 \end{figure}
 
-\pagebreak
 
 \subsection{Blockstack}
 Blockstack é um projeto open-source que pretende construir uma rede de computação descentralizada assente na camada de transporte da Internet e protocolos de comunicação subjacentes. Para atingir este estatuto, está assente nas seguintes camadas:
@@ -110,7 +107,7 @@ Estes repositórios disponibilizam uma interface de aplicação RESTful, permiti
 
 Em termos de autenticação, o Blockstack consegue providenciar autenticação descentralizada através do mecanismo de autenticação por chave pública criptográfica. A partir do login, a aplicação recebe três peças essenciais de informação: o nome de utilizador, uma chave privada específica de aplicação e a localização do repositório para armazenar informação.\cite{blockstack_white_paper}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \begin{center}
     % Requires \usepackage{graphicx}
     \includegraphics[width=1\textwidth]{figures/estado_arte-Blockstack.png}
@@ -121,11 +118,11 @@ Em termos de autenticação, o Blockstack consegue providenciar autenticação d
 \subsection{Diaspora}
 Diaspora é um projeto com uma visão um pouco mais reduzida que as restantes alternativas, na medida em que foca-se apenas em apresentar um protótipo daquilo que poderia ser uma rede social descentralizada. Este projeto assenta em servidores de informação independentes, que o utilizador pode escolher ou até mesmo configurar o seu. \cite{diaspora_wiki}
 
-O conceito principal desta rede é o POD \label{sym:POD} (assim como no Solid), a sua arquitetura é relativamente intuitiva, tendo as aplicações a interagir com as instâncias servidoras distribuídas pelo mundo. Estes servidores são mantidos em sincronização utilizando a tecnologia WebSub. \cite{diaspora_wiki}
+O conceito principal desta rede é o POD (assim como no Solid), a sua arquitetura é relativamente intuitiva, tendo as aplicações a interagir com as instâncias servidoras distribuídas pelo mundo. Estes servidores são mantidos em sincronização utilizando a tecnologia WebSub. \cite{diaspora_wiki}
 
 Relativamente a autenticação, não é adotado nenhum mecanismo fora do comum, sendo apenas o método comum username/password.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \begin{center}
     % Requires \usepackage{graphicx}
     \includegraphics[width=1\textwidth]{figures/estado_arte-Diaspora.png}
@@ -150,7 +147,7 @@ Relativamente à autenticação, esta plataforma introduz um ID descentralizado 
 
 O ID pode ser utilizado para efeitos de rastreamento, autenticação e estabelecimento de ligações seguras. De forma simplificada, a camada Elastos Carrier é a combinação entre DID e a comunicação P2P, assegurando assim que a informação é transmitida em segurança após a autenticação e a autorização serem devidamente validadas.\cite{elastos_white_paper}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \begin{center}
     % Requires \usepackage{graphicx}
     \includegraphics[width=1\textwidth]{figures/estado_arte-Elastos.png}
@@ -176,10 +173,10 @@ As diferentes serão de seguida comparada, sob a forma de tabela, em função de
 
 \bottomrule\endfoot
 
-Solid & Os utilizadores são identificados através de um WebId. Autenticação baseada em camada abstrata que permite utilizar o protocolo WebId-TLS ou WebId-OIDC \cite{solid_spec}. &  Garantida por um sistema WAC (\emph{Web Access Control} \label{sym:WAC}). Este sistema por sua vez é composto por documentos que contêm regras sobre a forma declarativas, denominadas ACLs \label{sym:ACL}, que indicam o tipo de acesso que cada WebId tem a determinado recurso \cite{solid_web_access_control}. & PODs disponibilizam uma camada de persistência baseada em \label{sym:LDP}. Esta camada é acessível através de uma interface Rest. \cite{solid_spec} \\
+Solid & Os utilizadores são identificados através de um WebId. Autenticação baseada em camada abstrata que permite utilizar o protocolo WebId-TLS ou WebId-OIDC \cite{solid_spec}. &  Garantida por um sistema WAC (\emph{Web Access Control} \label{sym:WAC}). Este sistema por sua vez é composto por documentos que contêm regras sobre a forma declarativas, denominadas ACLs \label{sym:ACL}, que indicam o tipo de acesso que cada WebId tem a determinado recurso \cite{solid_web_access_control}. & PODs disponibilizam uma camada de persistência baseada em LDP. Esta camada é acessível através de uma interface Rest. \cite{solid_spec} \\
 Blockstack & Autenticação descentralizada através do mecanismo de autenticação por chave pública criptográfica \cite{blockstack_white_paper}. & Chave privada específica de aplicação confere o acesso a determinada partição do repositório e, consequentemente, aos seus recursos \cite{blockstack_white_paper}. & Sistema de ficheiros descentralizado chamado Gaia Hub, que permite aos utilizadores escolher e providenciar o seu repositório de informação \cite{blockstack_white_paper}. \\
-Diaspora & Não é adotado nenhum mecanismo fora do comum, sendo apenas o método comum username/password \cite{diaspora_wiki}. & Autorização de acesso baseada no conceito \emph{Aspect}, este funciona como um agrupador de utilizadores que tem acesso a um determinado recurso \cite{diaspora_wiki}. & Os diferentes PODs \label{sym:POD} existentes pelo mundo conferem o funcionamento da rede social e mantem-se sincronizados utilizando a tecnologia WebSub \cite{diaspora_wiki}. \\
-Elastos & Introduz um ID descentralizado (DID), construído na rede Blockchain e providencia IDs confiáveis para tudo e para todos \cite{elastos_white_paper}. & A camada \emph{Elastos Runtime contém um sistema de gestão de permissões que confere ou o acesso de determinado utilizador a um recurso} \cite{elastos_white_paper} & Recorre a um sistema de arquivos interplanetário (IPFS \label{sym:IPFS}) como base. \cite{elastos_developer} \\
+Diaspora & Não é adotado nenhum mecanismo fora do comum, sendo apenas o método comum username/password \cite{diaspora_wiki}. & Autorização de acesso baseada no conceito \emph{Aspect}, este funciona como um agrupador de utilizadores que tem acesso a um determinado recurso \cite{diaspora_wiki}. & Os diferentes PODs existentes pelo mundo conferem o funcionamento da rede social e mantem-se sincronizados utilizando a tecnologia WebSub \cite{diaspora_wiki}. \\
+Elastos & Introduz um ID descentralizado (DID), construído na rede Blockchain e providencia IDs confiáveis para tudo e para todos \cite{elastos_white_paper}. & A camada \emph{Elastos Runtime contém um sistema de gestão de permissões que confere ou o acesso de determinado utilizador a um recurso} \cite{elastos_white_paper} & Recorre a um sistema de arquivos interplanetário (IPFS) como base. \cite{elastos_developer} \\
 
 \end{longtable}
 
@@ -189,14 +186,14 @@ Elastos & Introduz um ID descentralizado (DID), construído na rede Blockchain e
 No decorrer do desenvolvimento do projeto, foram constantemente estudados métodos, técnicas e tecnologias, de forma a responder a diferentes necessidades surgidas nas diferentes fases. Esta secção tem como propósito agrupar e explicar esses conceitos.
 
 \subsection{Análise}
-Nesta subsecção conceitos relativos à análise de valor do projeto (Capítulo 3), Sendo, desta forma, apresentados os seguintes: \emph{New Concept Development}, AHP (\emph{Analytic Hierarchy  Process} \label{sym:AHP}, modelo \emph{FAST} e o modelo de negócio Canvas
+Nesta subsecção conceitos relativos à análise de valor do projeto (Capítulo 3), Sendo, desta forma, apresentados os seguintes: \emph{New Concept Development}, AHP (\emph{Analytic Hierarchy  Process}) \label{sym:AHP}, modelo \emph{FAST} e o modelo de negócio Canvas
 
 \subsubsection{New Concept Development}
 O processo de inovação é divido em três componentes: \emph{Fuzzy
 Front End}, o processo \emph{New Product Development} e comercialização \cite{fuzzy_frontend}. A Figura seguinte
 apresenta o processo de inovação.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \begin{center}
     % Requires \usepackage{graphicx}
     \includegraphics[width=1\textwidth]{figures/new_product_development.png}
@@ -220,7 +217,7 @@ O modelo \emph{New Concept Development Model} é a representação das principai
 
 \end{itemize}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \begin{center}
     % Requires \usepackage{graphicx}
     \includegraphics[width=0.5\textwidth]{figures/The-New-Concept-Development-NCD-model-Koen-et-al-2001.png}
@@ -230,7 +227,7 @@ O modelo \emph{New Concept Development Model} é a representação das principai
 
 O modelo apresenta duas vias de entrada e uma única saída, sendo este iniciado pela identificação de uma oportunidade ou pela geração de uma ideia. Essa irá posteriormente interagir com os restantes componentes do modelo.
 
-\subsubsection{Analytic Hierarchy Process (AHP) \label{sym:AHP}}
+\subsubsection{Analytic Hierarchy Process (AHP) \label{sym:AHP_section}}
 
 Este método foi criado por Tomas L. Saaty em 1980, sendo um dos métodos mais conhecidos de apoio à decisão. O seu principio baseia-se em desconstruir a ideia em fragmentos cada vez mais pequenos de modo a tonar a sua análise mais fácil. Para atingir esse fim, o método divide-se em três fases: Divisão Hierárquica, Definição de Prioridades e Consistência \cite{ahp}.
 
@@ -292,7 +289,7 @@ Dois padrões associados a este mecanismo de troca de mensagens são \emph{Messa
 
 \paragraph{\emph{Message Queueing}} \label{message_queueing} consiste num padrão em que as aplicações emissoras podem enviar para uma mesma fila, no entanto, existindo  apenas uma fila, qualquer mensagem poderá ser consumida apenas por um consumidor.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \begin{center}
     % Requires \usepackage{graphicx}
     \includegraphics[width=1\textwidth]{figures/message_queueing.png}
@@ -302,17 +299,17 @@ Dois padrões associados a este mecanismo de troca de mensagens são \emph{Messa
 
 \paragraph{\emph{Publish/Subscribe}} \label{publish_subscribe} tem um comportamento idêntico ao padrão \emph{Message Queueing}, adicionando a este uma camada que permite que a mesma mensagem seja enviada para mais do que uma fila.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \begin{center}
     % Requires \usepackage{graphicx}
     \includegraphics[width=1\textwidth]{figures/pub_sub.png}
-    \caption{Publish/subscribe}
+    \caption{Publish/Subscribe}
     \end{center}
 \end{figure}
 
 \paragraph{\emph{RabbitMQ}} é uma implementação de um \emph{Message Broker}, este suporta, de forma nativa, os dois padrão de de troca de mensagens assíncrona (c.f em \ref{message_queueing} e \ref{publish_subscribe}). Para a implementação da lógica no sentido do padrão \emph{Publish/subcribe}, \emph{RabbitMQ} introduz o conceito de \emph{Exchange}, este componente é responsável por reencaminhar a mesma mensagem para as diferentes filas que subscreveram aquele tipo de mensagem.
 
-\paragraph{\emph{Apache Kafka}}, por outro lado, é uma plataforma distribuida de streaming. Ao contrário de \emph{RabbitMQ}, que é baseado em filas e \emph{exchanges}, a camada de armazenamento do \emph{Kafka} é implementada utilizando transações de logs particionadas.
+\paragraph{\emph{Apache Kafka},} por outro lado, é uma plataforma distribuida de streaming. Ao contrário de \emph{RabbitMQ}, que é baseado em filas e \emph{exchanges}, a camada de armazenamento do \emph{Kafka} é implementada utilizando transações de logs particionadas.
 
 \subsubsection{\emph{Command Query Responsability Segregation} (CQRS)} \label{cqrs}
 Nas arquiteturas mais tradicionais, é utilizado o mesmo modelo de dados tanto para consultar como para atualizar a camada de persistência da aplicação. Esta abordagem é simples e funciona bem para operações CRUD básicas. Por outro lado, em aplicações mais complexas onde as cargas de leitura e de escrita são assimétricas, esta abordagem torna-se mais problemática e pode colocar em risco a escalabilidade do sistema. Neste contexto, o padrão CQRS incide em separar o modelo de leitura do modelo de escrita, existindo múltiplas abordagens para a sua implementação. \cite{cqrs}
