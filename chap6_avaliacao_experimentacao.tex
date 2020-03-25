@@ -26,9 +26,7 @@ Uma hipótese consiste numa afirmação que se quer corroborar através de teste
 No contexto deste projeto, foram definidas quatro hipóteses:
 \begin{itemize}
     \item Sucesso 100\% dos testes de software e cobertura superior a 80\%;
-    \item \emph{Throughput} de cada micro-serviço pelo menos 75\% ao da plataforma actual (monolítico) durante os testes de performance;
-    \item Taxa de erro abaixo de 2\% nos testes de performance;
-    \item Tempo de resposta médio inferior a 1s nos testes de performance;
+    \item Capacidade de cada micro-serviço deve ser de pelo menos 75\% da suportada pela plataforma actual (monolítico) para uma determinada carga, mantendo o tempo máximo de resposta de cada pedido inferior a 400 milissegundos.
 \end{itemize}
 
 \subsection{Metodologias de Avaliação}
@@ -36,10 +34,6 @@ As metodologias de avaliação consistem na forma como serão verificadas as hip
 
 A primeira hipótese, tendo em conta a qualidade da solução implementada, deve recorrer a testes de software, nomeadamente testes unitários e testes de integração que são executados através de ferramentas específicas para este efeito. Tendo em conta que esta metodologia é directa, não deverá ser necessário tratamento estatístico.
 
-A segunda hipótese consiste em corroborar que cada micro-serviço implementado tem pelo menos 75\% do \emph{throughput} da plataforma actual \emph{monolítico}. Para esta hipótese, deverão ser realizados testes de performance aos diferentes micro-serviços e à plataforma actual. Estes testes deverão ser executados recorrendo a ferramentas para este efeito (como por exemplo JMeter) e os resultados devem ser apontados de forma a poderem ser tiradas conclusões. É importante referir que no caso dos micro-serviços, é expectável que os pedidos realizados durante os testes de carga passem pela \emph{API-Gateway}, de forma a que o cenário se aproxime o mais possível da realidade.
-
-A terceira hipótese deverá garantir que a taxa de erro é inferior a 2\% durante os testes de performance.
-
-Por último, a quarta hipótese consiste em verificar que o tempo de resposta médio das transações é inferior 1 segundo durante os testes de performance realizados à nova arquitetura do POD.
+A segunda hipótese consiste em corroborar que cada micro-serviço do sistema, sob uma determinada carga, consegue suportar pelo menos 75\% do \emph{throughput} da plataforma actual (monólito), mantendo o tempo de resposta de cada pedido abaixo de 400 milissegundos. Para esta hipótese, deverão ser realizados testes de performance aos diferentes micro-serviços e à plataforma actual. Estes testes deverão ser executados recorrendo a ferramentas para este efeito (como por exemplo JMeter) e os resultados devem ser apontados de forma a poderem ser tiradas conclusões. É importante referir que no caso dos micro-serviços, é expectável que os pedidos realizados durante os testes de carga passem pela \emph{API-Gateway}, de forma a que o cenário se aproxime o mais possível da realidade.
 
 \section{Resultados}

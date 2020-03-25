@@ -233,7 +233,7 @@ Este método foi criado por Tomas L. Saaty em 1980, sendo um dos métodos mais c
 
 A divisão hierárquica do AHP consiste na definição do objetivo, dos critérios de resolução do problema e, por último, nas alternativas que resolvem o problema. A lógica é que tendo este conceitos organizados hierarquicamente, conseguimos perceber a relação entre eles.
 
-Depois da divisão hierárquica, é necessário definir prioridades entre os diferentes pares de critérios escolhidos. Esta priorização é subjetiva, sendo necessário calcular o índice de consistência de modo a validar a decisão. Para fazer a priorização de critérios é possível utilizar-se a tabela que apresenta a relação entre cada par de critérios utilizando a escala de Saaty. A escala de Saaty consiste numa escala numerada de 1 a 9, em que 1 corresponde a uma igualdade de importância entre critérios, 3 corresponde a uma fraca diferença de importância e 9 corresponde a uma diferença de importância absoluta. 
+Depois da divisão hierárquica, é necessário definir prioridades entre os diferentes pares de critérios escolhidos. Esta priorização é subjetiva, sendo necessário calcular o índice de consistência de modo a validar a decisão. Para fazer a priorização de critérios é possível utilizar-se a tabela que apresenta a relação entre cada par de critérios utilizando a escala de Saaty. Esta escala consiste numa escala numerada de 1 a 9, em que 1 corresponde a uma igualdade de importância entre critérios, 3 corresponde a uma fraca diferença de importância e 9 corresponde a uma diferença de importância absoluta. 
 
 
 Por fim, é necessário garantir a consistência da decisão, uma vez que a priorização dos critérios é baseada em opinião e é subjetiva. Para isso são calculados os
@@ -270,7 +270,7 @@ Seguem-se algumas características de sistemas orientados a micro-serviços:
 \emph{Bounded Context} é um padrão crucial em DDD (\emph{Domain Driven Design}). É o foco da fase de desenho de grandes modelos. Para lidar com grandes modelos,DDD recorre a divisão em diferentes \emph{bounded contexts}. Estes tem como objetivo delimitar o domínio complexo em contextos baseados na intenção do negócio \cite{bounded_context}.
 
 \subsubsection{REST}
-\emph{Representational State Transfer} (\emph{REST}), é um estilo arquitetural que torna mais fácil a comunicação entre sistemas. Sistemas compativeis com \emph{REST}, são caracterizados por manterem um elevado desacoplamento entre o cliente e o servidor.
+\emph{Representational State Transfer} (\emph{REST}), é um estilo arquitetural que torna mais fácil a comunicação entre sistemas. Sistemas compatíveis com \emph{REST}, são caracterizados por manterem um elevado desacoplamento entre o cliente e o servidor.
 Neste estilo arquitetural, as aplicações cliente fazem pedidos para obter ou alterar recursos em aplicações servidor, estes pedidos são constituídos por \cite{rest}:
 \begin{description}
     \item Verbo HTTP - Define o tipo de ação a realizar, pode ser \emph{GET}, \emph{POST}, \emph{PUT}, \emph{PATCH} ou \emph{DELETE}
@@ -285,7 +285,7 @@ Esta camada da arquitetura de um sistema permite ainda a implementação de meca
 
 \subsubsection{\emph{Troca de Mensagens Assíncrona}} \label{troca_mensagens_assincrona}
 A troca de mensagens assíncrona consiste numa forma de troca de mensagens em que a aplicação que emite a mensagem não conhece o(s)seu(s) recetor(es), contribui para o incremento do desacoplamento entre as diferentes aplicações de um sistema.
-Dois padrões associados a este mecanismo de troca de mensagens são \emph{Message Queueing} \emph{Publish/subscribe}.
+Dois padrões associados a este mecanismo de troca de mensagens são \emph{Message Queueing} \emph{Publish/Subscribe}.
 
 \paragraph{\emph{Message Queueing}} \label{message_queueing} consiste num padrão em que as aplicações emissoras podem enviar para uma mesma fila, no entanto, existindo  apenas uma fila, qualquer mensagem poderá ser consumida apenas por um consumidor.
 
