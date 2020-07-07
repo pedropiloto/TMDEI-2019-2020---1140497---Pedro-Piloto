@@ -4,3 +4,467 @@
 \chapter{Implementação}
 \label{cap:5}
 \emph{Este capítulo incide na apresentação da forma como a arquitetura proposta foi implementada}
+
+O projeto de base a esta implementação encontra-se em num repositório público. \footnote{https://github.com/solid/node-solid-server}, este representa todo o POD desenvolvido em Node.JS sob uma arquitetura em monólito.
+
+A implementação necessária passa por reestruturar esta aplicação em 5 micro-serviços, seguindo o diagrama de componentes da arquitetura proposta apresentado na figura \ref{implementacao_arquitetura_2_diagrama_componentes}  (\emph{c.f.} secção \ref{conclusão_arquitetura}):
+\begin{itemize}
+    \item \emph{Accounts Web}
+    \item \emph{Solid-ID Web}
+    \item \emph{Solid-ID Consumer}
+    \item \emph{Storage Web}
+    \item \emph{Storage Consumer}
+\end{itemize}
+
+\begin{figure}[H]
+    \begin{center}
+    % Requires \usepackage{graphicx}
+    \includegraphics[width=1 \textwidth]{figures/arquitetura_2_diagrama_componentes.eps}
+    \caption{Diagrama de Componentes arquitetura proposta}
+    \label{implementacao_arquitetura_2_diagrama_componentes}
+    \end{center}
+\end{figure}
+
+As nomenclaturas dos projetos seguem uma estrutura semelhante (\emph{c.f. excerto de código \ref{code_regex_projects_name}}) para facilitar a perceção da responsabilidade e do tipo de interação disponível em cada projeto. Sendo o primeiro nome relativo à responsabilidade lógica e o segundo nome, \emph{Web} ou \emph{Consumer} conforme a interface de aplicação que disponibilizem.
+
+\begin{lstlisting}[caption={Expressão regular}, label={code_regex_projects_name}]
+(.*?)\b[^] (Web|Consumer)
+\end{lstlisting}
+
+De forma a manter a consistência os cinco serviços foram desenvolvidos na mesma linguagem (\emph{Node.JS} e seguem, numa perspetiva mais baixo nível, uma arquitetura relativamente semelhante à documentada na secção \ref{section_arquitetura_proposta}, tendo esta por base o diagrama de módulos exposto na figura \ref{implementation_module_diagram}.
+
+\begin{figure}[H]
+    \begin{center}
+    % Requires \usepackage{graphicx}
+    \includegraphics[width=0.6 \textwidth]{figures/module_diagram.eps}
+    \label{implementation_module_diagram}
+    \caption{Diagrama de Módulos}
+    \end{center}
+\end{figure}
+
+O sistema foi construído com recurso à tecnologia de \emph{containers}, neste caso adjacente às ferramentas \emph{docker} e \emph{docker-compose}, permitindo que o processo de implantação seja simples e sem necessitar de configuração de máquinas. Cada projeto tem o seu \emph{dockerfile} (\emph{\emph{c.f.} excerto de código \ref{code:dockerfile}}) e na raiz do projeto principal e existe um ficheiro \emph{docker-compose.yml} (\emph{c.f.} excerto de código \ref{code:docker-compose}) que permite instanciar um sistema POD executando apenas a instrução apresentada no excerto de código \ref{code_docker_compose_up_instruction}.
+
+\begin{lstlisting}[caption={Expressão regular}, label={code_docker_compose_up_instruction}]
+$ docker-compose build && docker-compose up
+\end{lstlisting}
+
+\begin{lstlisting}[language=docker,caption={Ficheiro Dockerfile},breaklines=true,label={code:dockerfile}]
+FROM node:8.11.2-onbuild
+COPY . .
+COPY config.json-default config.json
+RUN npm install
+RUN chmod +x wait-for-it.sh
+RUN openssl req \
+    -new \
+    -newkey rsa:4096 \
+    -x509 \
+    -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=*.solid.com" \
+    -keyout ../privkey.pem \
+    -out ../fullchain.pem
+\end{lstlisting}
+
+\begin{lstlisting}[language=docker-compose-2,caption={Ficheiro \emph{docker-compose.yml}},breaklines=true,label={code:docker-compose}]
+version: '2'
+services:
+  version: "3.7"
+
+services:
+  solid-id-web:
+    build:
+      context: ./solid-id
+      dockerfile: Dockerfile
+    command:
+      ["./wait-for-it.sh", "rabbitmq:5672", "--", "node", "bin/solid", "start"]
+    environment:
+      AMQP_URL: amqp://guest:guest@rabbitmq:5672
+      SOLID_SSL_KEY: ../privkey.pem
+      SOLID_SSL_CERT: ../fullchain.pem
+      SOLID_SERVER_URI: https://solid-id.com:8443
+      SOLID_PORT: 8443
+      SOLID_GATEWAY_URI: https://solid.com:8442
+    volumes:
+      - ./store:/usr/src/app/.db
+    depends_on:
+      - rabbitmq
+
+  solid-id-consumer:
+    build:
+      context: ./solid-id
+      dockerfile: Dockerfile
+    command:
+      ["./wait-for-it.sh", "rabbitmq:5672", "--", "node", "bin/solid", "start"]
+    environment:
+      AMQP_URL: amqp://guest:guest@rabbitmq:5672
+      SOLID_SSL_KEY: ../privkey.pem
+      SOLID_SSL_CERT: ../fullchain.pem
+      SOLID_SERVER_URI: https://solid-id.com:8443
+      SOLID_PORT: 8443
+      SOLID_GATEWAY_URI: https://solid.com:8442
+    volumes:
+      - ./store:/usr/src/app/.db
+    depends_on:
+      - rabbitmq
+    links:
+      - rabbitmq
+
+  rabbitmq:
+    image: rabbitmq:3
+
+\end{lstlisting}
+
+No Excerto de código \ref{code:docker-compose} é possível ver que o ficheiro \emph{docker-compose.yml} está organizado pelos diferentes serviços constituintes da solução, e para cada um destes são definidas as dependências de outros projetos e, caso existam, variáveis de ambiente.
+
+Com o propósito de mostrar pormenores relativos a cada sistema, estes serão, de seguida, abordados em subsecções.
+
+\section{Accounts Web}
+Este projeto apenas dispõe uma interface de aplicação REST. É responsável por receber o pedido de criação de conta e propagar o mesmo para os restantes sistemas. (\emph{c.f.} \ref{create_user_use_case_design}).
+
+Conforme é possível perceber no excerto de código \ref{accounts_web_account_controller}, após a validação dos dados de entrada, a mensagem é publicada para o \emph{RabbitMQ} no \emph{controller} responsável pelo caso de uso de registo de conta - \emph{AccountController}.
+
+\newpara
+\newpara
+\newpara
+\newpara
+
+\begin{lstlisting}[caption={\emph{AccountController} responsável por validar e propagar informação do utilizador}, label={accounts_web_account_controller}]
+if(!validator.validate(req.body.email)){ throw (Object.assign(new Error('invalid email'), { status: 400 }))}
+
+    let account = new Account(req.body.username, req.body.name, req.body.email, req.body.password);
+
+    publisher.publishMessage(
+      "accounts-api.account.registered",
+      JSON.stringify({
+        event: "account_registered",
+        object: {
+          account
+        },
+      })
+    );
+}
+\end{lstlisting}
+
+A emissão de eventos é da responsabilidade do ficheiro \emph{Publisher} presente na camada \emph{Services} do projeto, este recorre à biblioteca \emph{amqplib} obtida através do \emph{NPM} (\emph{c.f.} secção \ref{estado_arte_npm}).
+
+\begin{lstlisting}[caption={\emph{Publisher} responsável por emitir os eventos para o \emph{RabbitMQ}}, label={accounts_web_publisher_code}]
+
+require("dotenv").config();
+'use strict'
+
+const EXCHANGE = 'solid.events'
+const createChannel = async () => {
+  const channel = async () => {
+    const conn = await require('amqplib').connect(
+      process.env.AMQP_URL
+    )
+    return conn.createChannel().then(channel => {
+      return Promise.resolve(channel)
+    })
+  }
+  let rabbitMQChannel = await channel()
+  rabbitMQChannel.assertExchange(EXCHANGE, 'topic')
+  global.globalRabbitMQChannel = rabbitMQChannel}
+const publishMessage = async (routingKey, message) => {
+  globalRabbitMQChannel.publish(EXCHANGE, routingKey, Buffer.from(message))}
+module.exports = { createChannel, publishMessage }
+\end{lstlisting}
+
+Conforme é possível perceber no excerto de código \ref{accounts_web_publisher_code}, o ficheiro \emph{Publisher} está a criar uma ligação a um \emph{exchange} de uma instância de \emph{RabbitMQ}, para onde publica mensagens com um determinado tópico.
+
+\section{\emph{Solid-ID Web}}
+Este sistema é o único, para além da \emph{API-Gateway}, exposto ao mundo por interface REST (\emph{c.f.} \ref{subsection:arquitetura_2}), esta decisão arquitetural implica que tenha de conhecer o endereço da \emph{API-Gateway}, de forma a que possa indicar à \emph{Relying Party App} onde deve aceder para obter recursos após concluir o processo de autenticação.
+
+As rotas e os \emph{Middleware} de autenticação (\emph{c.f.} secção \ref{design_authentication}) são inicializados no arranque da aplicação e está implementado de forma a suportar futuros diferentes mecanismos de autenticação diferentes do atual \emph{Open-ID Connect} (\emph{c.f.} excerto de código \ref{code_solid_web_authentication_initialization}).
+
+\begin{lstlisting}[caption={Inicialização da autenticação no arranque}, label={code_solid_web_authentication_initialization}]
+function initAuthentication (app, argv) {
+  const auth = argv.forceUser ? 'forceUser' : argv.auth
+  if (!(auth in API.authn)) {
+    throw new Error(`Unsupported authentication scheme: ${auth}`)
+  }
+  API.authn[auth].initialize(app, argv)
+}
+\end{lstlisting}
+
+O fluxo de autenticação \emph{Open-ID Connect} é garantido neste sistema através de duas bibliotecas desenvolvidas pela comunidade Solid:
+\begin{itemize}
+    \item \emph{oidc-auth-manager} - Responsável por gerir todo o fluxo, esta biblioteca é agnóstica e pode ser utilizada tanto no \emph{Identity Provider} como no \emph{Resource Server} (\emph{c.f.} excerto de código \ref{code_solid_id_web_oidc_manager}).
+    \item oidc-op - Esta biblioteca representa o \emph{Identity Provider} e todas as entidades lógicas associadas ao mesmo (\emph{c.f.} excerto de código \ref{code_solid_id_web_oidc_op}).
+\end{itemize}
+
+Assim, a alteração relativa a incluir os dados sobre \emph{API Gateway} foram realizadas nestas bibliotecas externas.
+
+\newpara
+\newpara
+
+\begin{lstlisting}[caption={Alteração ao \emph{OIDCManager} na biblioteca nativa do \emph{Solid} \emph{oidc-auth-manager}}, label={code_solid_id_web_oidc_manager}]
+
+this.gatewayUri = options.gatewayUri
+
+// ...
+
+gatewayUri: config.gatewayUri,
+
+//  ...
+
+providerConfig.gateway = this.gatewayUri
+
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Alteração ao \emph{ProviderSchema} na biblioteca \emph{oidc-op}}, label={code_solid_id_web_oidc_op}]
+const schema = new JSONSchema({
+  type: "object",
+  properties: {
+  
+    \\ ...
+
+    gateway: {
+      type: "string",
+      format: "uri",
+    },
+
+    // ...
+  }  
+});
+
+\end{lstlisting}
+
+Este sistema expõe uma interface REST através da biblioteca externa \emph{express} e um emissor de eventos igual ao do serviço \emph{Accounts Web} recorrendo à biblioteca externa \emph{amqplib}.
+
+\section{\emph{Solid-ID Consumer}}
+O código desta aplicação partilha o mesmo projeto que o \emph{Solid-ID Web}, visto terem em comum grande parte das dependências e apesar de terem interfaces diferentes, os controladores de casos de uso são os mesmo.
+
+Este sistema é responsável por disponibilizar um consumidor para eventos lógicos de criação de novos utilizadores, que deverá posteriormente utilizar para criar os dados necessários para aplicar o fluxo de autenticação (\emph{c.f.} excerto de código \ref{code_solid_id_consumer_rabbitmq_connection}).
+
+\begin{lstlisting}[caption={\emph{Consumer} responsável pela ligação ao \emph{RabbitMQ}}, label={code_solid_id_consumer_rabbitmq_connection}]
+function start (argv, accountManager, userStore) {
+  amqp.connect(argv.amqpUrl, function (
+    error0,
+    connection
+  ) {
+    if (error0) {
+      throw error0
+    }
+    connection.createChannel(function (error1, channel) {
+      var exchange = 'solid.events'
+
+      channel.assertExchange(exchange, 'topic', {
+        durable: true
+      })
+      channel.assertQueue(
+        'solid-id-consumer.queue',
+        {   exclusive: false    },
+        function (error2, q) {
+          channel.bindQueue(q.queue, exchange, '*.account.*')
+          channel.consume(
+            q.queue,
+            function (msg) {
+              console.log(
+              const body = JSON.parse(msg.content.toString())
+              if (body.event === 'account_registered') {
+                new CreateAccountController(accountManager, userStore, body.object.account).call()
+              }
+            },
+            {   noAck: true }
+          )
+        }
+      )
+    })
+  })
+}
+
+\end{lstlisting}
+
+Este \emph{consumer} está a criar uma fila que irá escutar todos os eventos com a \emph{routing key} \emph{"*.account.*"} e está a aplicar lógica de negócio ao evento com o tipo \emph{"account\_registered"} que deverá ser emitido pelo component \emph{Accounts Web} após receber um pedido \emph{REST} de criação d eum novo utilizador  (\emph{c.f.}  \ref{create_user_use_case_design}).
+
+\newpara
+\newpara
+
+\begin{lstlisting}[caption={código CreateAccountController}]
+async call () {
+    try {
+      this.validate()
+      await this.createAccount()
+    } catch (error) {
+      debug('error creating account:', error)
+    }
+  }
+
+  /**
+   * Creates an account for a given user (from a POST to `/api/accounts/new`)
+   *+
+   * @throws {Error} If errors were encountering while validating the username.
+   *
+   * @return {Promise<UserAccount>} Resolves with newly created account instance
+   */
+  async createAccount () {
+    const userAccount = this.userAccount
+    const accountManager = this.accountManager
+
+    this.cancelIfUsernameInvalid(userAccount)
+    this.cancelIfBlacklistedUsername(userAccount)
+    if (!await this.userStore.findUser(userAccount.id)) {
+      await this.createAccountStorage(userAccount)
+      await this.saveCredentialsFor(userAccount)
+      // 'return' not used deliberately, no need to block and wait for email
+      if (userAccount && userAccount.email) {
+        debug('Sending Welcome email')
+        accountManager.sendWelcomeEmail(userAccount)
+      }
+      debug('user created with success')
+    } else {
+      debug('user could not be created because already existed')
+    }
+
+    return userAccount
+  }
+
+\end{lstlisting}
+
+A lógica relativa a criar o utilizador neste sistema é posteriormente tratada no \emph{CreateController} (\emph{c.f.} secção \ref{create_user_use_case_design}).
+
+\section{Storage Web}
+Este sistema é responsável por garantir o acesso autenticado e autorizado aos recursos do utilizador, sendo esta uma peça fulcral no \emph{puzzle} do POD. A funcionalidade é relativamente simples, tratando-se na prática apenas de um repositório de ficheiro, mas as particularidades relativas ao processo de autenticação e autorização de pedidos conferem-lhe uma grande robustez.
+
+Em termos de autenticação, segundo o fluxo \emph{Open-ID Connect WebID} (\emph{c.f.} figura \ref{web-id-oidc-sequence-diagram}), O componente \emph{Storage Web} representa o \emph{Resource Server}, tendo responsabilidade de garantir uma barreira de validação ao token de acesso passado no pedido \emph{HTTP/HTTPS}.
+
+A implementação do processo de autenticação dos pedidos neste componente, tratando-se de algo transversal, é alcançada com recurso à utilização de um \emph{Middleware} (funcionalidade exposta pela biblioteca externa \emph{Express}). As alterações necessárias a efectuar a este middlewar passam por garantir que irá, para cada pedido, validar a autenticidade do \emph{token de acesso} tal como explicado na secção \ref{design_authentication}.
+Assim como o projeto \emph{Solid-ID web}, este recorre às seguintes bibliotecas desenvolvidas pela comunidade Solid (\emph{c.f.} excerto de código \ref{code_storage_web_middleware_initialization}):
+\begin{itemize}
+    \item \emph{oidc-auth-manager} - Gere todo o fluxo de autenticação sob o protocolo \emph{Open-ID Connect WebID}
+    \item \emph{oidc-rs} - Implementa a lógica relativa à camada \emph{Resource Server}
+\end{itemize}
+
+\begin{lstlisting}[caption={Inicialização do \emph{Middleware} de autenticação de pedidos REST}, label={code_storage_web_middleware_initialization}]
+  const oidc = OidcManager.resourceServerOnly(argv)
+  oidc.initRs()
+  app.use('/', async (req, res, next) => {
+    oidc.rs.authenticate()(req, res, (err) => {
+      if (err) {
+        req.authError = err
+        res.status(200)
+      }
+      next()
+    })
+  })
+
+// ...
+
+}
+
+\end{lstlisting}
+
+O \emph{Middleware} de validação do pedido, compreende duas importantes partes (\emph{c.f.} excerto de código \ref{code_storage_web_validacao_pedido_e_token}):
+\begin{itemize}
+    \item Validação Pedido - Incide principalmente em garantir que o pedido está bem formado e tem todos os campos necessários
+    \item Validação do \emph{token} de acesso - Tratando-se de um \emph{token} em formato \emph{JWT}, esta parte incide em aplicar as validações padrão (\emph{c.f.} figura \ref{retrieve_resource_sd}) de forma a garantir a autenticidade do token, bem como extrair informação como o \emph{webID} utilizador para que seja possível prosseguir para a fase de autorização
+\end{itemize}
+
+\begin{lstlisting}[caption={Camada de validação do pedido e do token de acesso na biblioteca \emph{oidc-rs}}, label={code_storage_web_validacao_pedido_e_token}]
+  static authenticate (rs, req, res, next, options) {
+    let request = new AuthenticatedRequest(rs, req, res, next, options)
+    Promise.resolve(request)
+      .then(request.validateAuthorizationHeader)
+      .then(request.validateQueryParameter)
+      .then(request.validateBodyParameter)
+      .then(request.requireAccessToken)
+      .then(request.validateAccessToken)
+      .then(request.success)
+      .catch(error => request.error(error))
+  }
+  
+  // ...
+
+  validateAccessToken (request) {
+    let {token, options} = request
+
+    if (options.optional && !token) {
+      return Promise.resolve(request)
+    }
+
+    return Promise.resolve(request)
+      .then(request.decode)
+      .then(request.validatePoPToken)
+      .then(request.allow)
+      .then(request.deny)
+      .then(request.resolveKeys)
+      .then(request.verifySignature)
+      .then(request.validateExpiry)
+      .then(request.validateNotBefore)
+      .then(request.validateScope)
+  }
+
+\end{lstlisting}
+
+Após o pedido estar devidamente autenticado, é necessário garantir que o mesmo tem acesso ao recurso que está a tentar aceder, bem como autorização para a ação que pretende ver realizada sobre o mesmo. Para tal é utilizado também um \emph{Middleware} que será responsável por permitir que o pedido avance ou não para o acesso propriamente dito.
+Esta funcionalidade é implementada recorrendo à biblioteca externa \emph{acl-checker} desenvolvida pela comunidade Solid, e permite iterar sobre o sistema de ficheiros em busca de ficheiros \emph{.acl} hierarquicamente relevantes ao arquivo em causa de forma a averiguar se o pedido está de facto autorizado (\emph{c.f.} excerto de código \ref{code_storage_web_oidc_manager_lib_change}).
+
+\begin{lstlisting}[caption={Alteração ao \emph{OIDCManager} na biblioteca \emph{oidc-auth-manager}}, label={code_storage_web_oidc_manager_lib_change}]
+function LdpMiddleware (corsSettings) {
+  const router = express.Router('/')
+
+  // Add Link headers
+  router.use(header.linksHandler)
+
+  if (corsSettings) {
+    router.use(corsSettings)
+  }
+
+  router.copy('/*', allow('Write'), copy)
+  router.get('/*', index, allow('Read'), header.addPermissions, get)
+  router.post('/*', allow('Append'), post)
+  router.patch('/*', allow('Append'), patch)
+  router.put('/*', allow('Write'), put)
+  router.delete('/*', allow('Write', true), del)
+
+  return router
+}
+
+\end{lstlisting}
+
+\section{Storage Consumer}
+Esta aplicação tem como responsabilidade escutar eventos aplicacionais que possam ter impacto na unidade de persistência de dados, estes eventos podem ser (\emph{c.f.} excerto de código \ref{code_storage_consumer_process_events}):
+\begin{itemize}
+    \item \emph{account\_created} - Este evento cria a necessidade de que seja criado no sistema de ficheiros um directório com base num template base de recursos para novos utilizadores.
+    \item \emph{register\_app} - Indica ao sistema que deve adicionar à \emph{acl} base do sistema de ficheiros do utilizador um novo domínio autorizado.
+\end{itemize}
+
+\newpara
+\newpara
+\newpara
+\newpara
+
+\begin{lstlisting}[caption={\emph{Consumer} responsável por interpretar os eventos aplicacionais com impacto no sistema de ficheiros}, label={code_storage_consumer_process_events}]
+channel.assertQueue(
+      'ldp-consumer.queue',
+      {
+        exclusive: false,
+      },
+      function (error2, q) {
+        console.log(' [*] Waiting for logs. To exit press CTRL+C')
+        channel.bindQueue(q.queue, exchange, '*.account.*')
+
+        channel.consume(
+          q.queue,
+          function (msg) {
+            console.log(
+              ' [x] %s: \'%s\'',
+              msg.fields.routingKey,
+              msg.content.toString()
+            )
+            let body = JSON.parse(msg.content.toString())
+            if (body.event === 'account_created') {
+              handleBootstrapAccount(accountManager, body.object)
+            }
+            if (body.event === 'register_app') {
+              registerApp(accountManager.store, body.object.appOrigin, body.object.accessModes, body.object.webID)
+            }
+          },
+          {
+            noAck: true,
+          }
+        )
+      }
+    )
+
+\end{lstlisting}
+

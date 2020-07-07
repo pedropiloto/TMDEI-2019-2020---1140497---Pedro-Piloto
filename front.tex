@@ -25,16 +25,16 @@
         Instituto Superior de Engenharia do Porto\\
         Departamento de Engenharia Informática\\
         Rua Dr. António Bernardino de Almeida, 431, P-4200-072 Porto\\
-        June 2020 \\
+        July 2020 \\
     \end{center}
 \cleardoublepage \rmfamily \normalfont
 % *************** Portuguese Abstract ***************
 \input{resumo.tex}
 \cleardoublepage
 % *************** Table of contents ***************
-\renewcommand*\contentsname{Indice}
+\renewcommand*\contentsname{Índice}
 \pagenumbering{roman} \pagestyle{headings} \tableofcontents
-\cleardoublepage
+\cleardoublepage \addtocontents{toc}{\setcounter{tocdepth}{2}} 
 % *************** Table of figures ***************
 \renewcommand{\listfigurename}{Lista de Figuras}
 \listoffigures \cleardoublepage
@@ -47,6 +47,16 @@
 % *************** Acknowledgments ***************
 \addcontentsline{toc}{chapter}{Agradecimentos}
 \input{acknowledgements.tex}
+
+\renewcommand{\chaptername}{Capítulo}
+
+\renewcommand{\figurename}{Figura}
+
+\renewcommand{\tablename}{Tabela}
+
+\renewcommand{\lstlistingname}{Excerto de código}
+
+
 
 
 \cleardoublepage

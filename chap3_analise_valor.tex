@@ -8,18 +8,18 @@ Aplicando o modelo de Peter A. Koen, \emph{New Concept Development}, é possíve
 se esta oportunidade representa ou não valor para a organização.
 
 \subsection{Identificação da Oportunidade}
-Neste contexto, a oportunidade surge no sentido de prevenir o acontecimento de escândalos como o conhecido Cambridge Analytica e outros "leaks" \cite{cambridge_analytica} de informação que acontecem a um ritmo cada vez superior numa web baseada num paradigma que parece cada vez mais desajustado para a realidade que vivemos nos dias de hoje.
+Neste contexto, a oportunidade surge no sentido de prevenir o acontecimento de escândalos como o conhecido Cambridge Analytica e outros \emph{“leaks”} \cite{cambridge_analytica} de informação que acontecem a um ritmo cada vez superior numa web baseada num paradigma que parece cada vez mais desajustado para a realidade que vivemos nos dias de hoje.
 
 \subsection{Análise da Oportunidade}
-O conceito "descentralização da web" não é novo, mas tem ganho ênfase nos últimos tempos e existem esforços notáveis para tornar este conceito numa realidade e tornar viável o surgimento de uma web mais livre e transparente.
+O conceito “descentralização da web” não é novo, mas tem ganho ênfase nos últimos tempos e existem esforços notáveis para tornar este conceito numa realidade e tornar viável o surgimento de uma web mais livre e transparente.
 
-Esta tese passa inicialmente por perceber que alternativas existem e qual pode ter mais potencial numa vertente de adoção massiva a médio prazo. Os seguintes projetos que serão analisados são aqueles que foram abordados no estado da arte: Solid, Blockstack, Diaspora e Elastos.
+Esta tese passa inicialmente por perceber que alternativas existem e qual pode ter mais potencial numa vertente de adoção massiva a médio prazo. Os projetos que serão analisados são aqueles que foram abordados com maior destaque no estado da arte (\emph{c.f. secção \ref{section_modelos_descentralizados}}): Solid, Blockstack, Diaspora e Elastos.
 
 \subsection{Enriquecimento da ideia}
-Nesta fase é importante perceber os fatores que se apresentam como mais relevantes para uma framework capaz de potencializar um novo paradigma de web descentralizada:
+Nesta fase é importante perceber os fatores que se apresentam como mais relevantes para uma \emph{framework} capaz de potencializar um novo paradigma de web descentralizada:
 
 \begin{itemize}
-\item  Gestão de informação - No sentido de prevenir escândalos de acessos indevidos a informação pessoal e combater a monopolização dos dados, existe necessidade de garantir a defesa da sua propriedade. O facto de ser num contexto descentralizado, torna relevante perceber como poderão eventualmente ser acedidos os dados em diferentes contextos e aplicações
+\item  Gestão de informação - No sentido de prevenir escândalos de acessos indevidos a informação pessoal e combater a monopolização dos dados, existe necessidade de garantir a defesa da sua propriedade. O facto de ser num contexto descentralizado, torna relevante perceber como poderão eventualmente ser acedidos os dados em diferentes contextos e aplicações;
 
 \item Mecanismo de autenticação e autorização - A propriedade dos dados é assegurada por mecanismos de autenticação e autorização. Este é um ponto crucial e complexo, na medida em que terá de ser o ponto de entrada para acesso a qualquer recurso.
 
@@ -27,7 +27,7 @@ Nesta fase é importante perceber os fatores que se apresentam como mais relevan
 
 \subsection{Seleção da ideia}
 
-Para esta componente foi utilizada a técnica Analytic Hierarchy Proccess (AHP) (c.f secção \ref{sym:AHP_section}).
+Para esta componente foi utilizada a técnica Analytic Hierarchy Proccess (AHP) (\emph{c.f.} secção \ref{sym:AHP_section}).
 
 \subsubsection{Divisão Hierárquica}
 
@@ -64,9 +64,9 @@ Soma & 1 & 1 & 1 & 100\% \\
 \pagebreak
 
 \subsubsection{Definição de Prioridades}
-Após os critérios estarem e as devidas prioridades estarem apresentadas, segue-se a apresentação das diferentes alternativas, bem como a sua prestação face aos diferentes critérios.
+Após os critérios e as devidas prioridades estarem identificadas, segue-se a apresentação das diferentes alternativas, bem como a sua prestação face aos diferentes critérios.
 
-\textbf{Autenticação}
+Neste sentido, apresentam-se em seguida as tabelas de prioridades relativas para cada critério: Autenticação (tabela 3.3), autorização (tabela 3.4) e armazenamento (tabela 3.5). 
 
 \begin{table}[h]
 \centering
@@ -82,8 +82,6 @@ Elastos & 28\% & 16\% & 22\% & 22\% & 22\% \\
 \end{tabular}
 \end{table}
 
-\textbf{Autorização}
-
 \begin{table}[h]
 \centering
 \caption{Prioridades Relativas Autorização}
@@ -97,10 +95,6 @@ Diaspora &  43\% &	13\% &	17\% &	10\% & 20\% \\
 Elastos & 13\% & 28\% &	42\% & 24\% & 27\% \\
 \end{tabular}
 \end{table}
-
-\pagebreak
-
-\textbf{Armazenamento}
 
 \begin{table}[h]
 \centering
@@ -116,11 +110,14 @@ Elastos & 13\% & 28\% & 42\% & 24\% & 27\% \\
 \end{tabular}
 \end{table}
 
+\newpara
+
 \subsubsection{Consistência}
 
 \begin{table}[h]
 \centering
 \caption{Resultados AHP}
+\label{tabela_resultados_ahp}
 \vspace{0.5cm}
 \begin{tabular}{c|c|c|c|c|c} 
  - & Autenticação & Autorização & Armazenamento & Valor Final & \\
@@ -133,31 +130,32 @@ Elastos & 22\% & 27\% & 27\% & 25\% & \\
 \end{table}
 
 
-Tendo em conta os estudos apresentados na tabela 3.6, o caminho a seguir será aprofundar a framework Solid de forma a torná-la mais escalável e preparada para a uma possível adoção massiva.
+Tendo em conta os estudos apresentados na tabela \ref{tabela_resultados_ahp}, o caminho a seguir será aprofundar a framework Solid de forma a torná-la mais escalável e preparada para a uma possível adoção massiva.
 
 \subsection{Definição do Conceito}
 O momento da definição do conceito corresponde à fase final da formalização da ideia já escolhida anteriormente.
 
-O conceito introduzido pelo Solid, em conjunto com o possível potencial de escalabilidade, permite tonar uma realidade o conceito de "Web Descentralizada"
+O conceito introduzido pelo Solid, em conjunto com o possível potencial de escalabilidade, permite tornar uma realidade o conceito de “Web Descentralizada”
 
 \section{Proposta de Valor}
 Para estudar da proposta de valor serão utilizados o modelo FAST e o modelo de negócio Canvas.
 
-\subsection{Modelo Fast}
-Este modelo permite, de forma esquematizada, representar o a funcionalidade do sistema, baseando em pensamento crítico.
+\subsection{Modelo \emph{Fast}}
+Este modelo permite, de forma esquematizada, representar a funcionalidade do sistema tendo por base pensamento crítico.
 
 \begin{figure}[h]
     \begin{center}
     % Requires \usepackage{graphicx}
     \includegraphics[width=1\textwidth]{figures/Canvas-FAST.png}
-    \caption{Modelo Fast}
+    \caption{Modelo \emph{Fast}}
     \end{center}
 \end{figure}
 
-Este modelo permite perceber que o "core" de toda framework são os dados dos utilizadores. Essa é a grande falha do modelo actual de web, modelo este que torna a informação infinitamente redundante e a expropria do utilizador.
-Um novo paradigma deve garantir que os dados estão sob alçada do seu utilizador, podendo o mesmo a qualquer momento tomar ações como revogar acesso a determinadas aplicações (\emph{relying parties} \footnote{POD ou aplicação cliente que utiliza um token providenciado por um servidor de identidade.}).
+Este modelo permite perceber que o “core” de toda framework são os dados dos utilizadores. Essa é a grande falha do modelo atual de web, modelo este que torna a informação infinitamente redundante e a expropria do utilizador.
+Um novo paradigma deve garantir que os dados estão sob alçada do seu utilizador, podendo o mesmo a qualquer momento tomar ações como revogar acesso a determinadas aplicações (\emph{relying party} \footnote{POD ou aplicação cliente que utiliza um token providenciado por um servidor de identidade.}).
 
 \subsection{Modelo Canvas}
+O modelo canvas é uma ferramenta de gestão estratégica que permite o desenvolvimento do modelo de negócio para determinado projeto. A sua estrutura conta com nove blocos pré-definidos que permitem, de forma visual, criar ou adaptar um modelo já existente\cite{alexander:2006}.
 \begin{figure}[h]
     \begin{center}
     % Requires \usepackage{graphicx}

@@ -1,27 +1,77 @@
 % ************ Chapter 1 ************
-%\renewcommand{\chaptername}{Chapter}
 \chapter{Introdução}
 \label{cap:1}
-\emph{Este capítulo incide na apresentação contextualizada do tema que servirá de base a todo trabalho desenvolvido. Neste sentido, é importante explicar o contexto do tema e realçar as motivações que alicerçaram todo o estudo à sua volta. Não menos importante é explicar os objetivos propostos para esta tese, por forma a balizar e mensurar o trabalho desenvolvido.
-Em suma, este capítulo deverá servir de resumo àquilo que o leitor deve esperar encontrar nos restantes capítulos do presente documento.}
-
 
 \section{Contextualização}
 Numa era em que o principal ativo das empresas é a informação, a ponto de existirem empresas que trocam serviços altamente valiosos por informação pessoal (ex: Google, Facebook, etc)\cite{top_three_issues_centralized_web}, surgem inevitavelmente questões sobre para que são realmente utilizados esses dados e se o utilizador está realmente ciente que estes estão disponíveis para toda e qualquer utilização que seja proveitosa para essas empresas \cite{facebook_data_hell_medium}. Este problema torna-se crítico quando mentes geniais aliadas a poderes incríveis de processamento conseguem literalmente manipular opiniões e culminar em acontecimentos inéditos \cite{cambridge_analytica}.
 
-A descentralização da web é um tema que assenta também em como tratar estes dados, não estivesse o tema aliado ao conceito da nova “World Wide Web”, e de entre outros projetos destacar-se o projeto “Solid”, fundado por Tim Berners-Lee. O projeto Solid está ainda numa fase de desenvolvimento, estando, portanto, aberto a contribuições que possam de facto garantir melhorias e impacto positivo para o futuro \cite{why_web_decentralization_future}.
+A descentralização da web é um tema que assenta também em como tratar estes dados, não estivesse o tema aliado ao conceito da nova “World Wide Web”, e de entre outros projetos destacar-se o projeto “Solid”, fundado por Tim Berners-Lee. O projeto Solid está ainda numa fase de desenvolvimento, estando, portanto, aberto a contribuições que possam de facto garantir melhorias e impacto positivo para o futuro \cite{why_web_decentralization_future}. Este projeto mantém atualmente duas ramificações, a original e uma outra desenvolvida e mantida pela \emph{spinoff} denominada \emph{inrupt} fundada também por Tim Berners-Lee. Esta última ramificação tem base a original mas com uma vertente mais comercial e uma visão mais ambiciosa no sentido de proliferar a utilização do Solid.
 
 \section{Motivação}
 A descentralização da web não é um tema consensual, e de certo vai contra muitos modelos de negócio actuais. Porém, assim como protegemos as nossas propriedades, devemos proteger os nossos dados, os seus acessos e respetivas utilizações.
 
-O paradigma actual gira em torno de oferecer serviços em troca de publicidade segmentada, com a justificação de sustentar custos de infraestrutura e de desenvolvimento \cite{top_three_issues_centralized_web}. Com um novo paradigma de web descentralizada poderiam ser cortados os custos de infraestrutura, porque deixariam de ser necessários "back-ends", e as aplicações cliente utilizam apenas recursos do cliente. Restariam os custos desenvolvimento, que poderiam eventualmente ser sustentados pela extinção do conceito "gratuito" nas empresas de base digital \cite{why_web_decentralization_future}.
+O paradigma atual gira em torno de oferecer serviços em troca de publicidade segmentada, com a justificação de sustentar custos de infraestrutura e de desenvolvimento \cite{top_three_issues_centralized_web}. Com um novo paradigma de web descentralizada poderiam ser cortados os custos de infraestrutura, porque deixariam de ser necessários \emph{“back-ends”}, e as aplicações cliente utilizariam apenas recursos do cliente. Restariam os custos desenvolvimento, que poderiam eventualmente ser sustentados pela extinção do conceito “gratuito” nas empresas de base digital \cite{why_web_decentralization_future}.
 
-É possível que este tema seja apenas um "não tema" e que não seja possível de implementar massivamente, mas todo o contexto por trás e a quantidade de dados sensíveis (saúde, seguros, etc) que circulam todos os segundos nos trâmites do actual paradigma da web,
+É possível que este tema seja apenas um “não tema” e que não seja possível de implementar massivamente, mas todo o contexto por trás e a quantidade de dados sensíveis (saúde, seguros, etc) que circulam todos os segundos nos trâmites do atual paradigma da web,
 merece que sejam dedicados esforços e que pelo menos sirva de alavanca a uma reformulação profunda daquilo que é a web que conhecemos hoje \cite{why_web_decentralization_future}.
 
-\section{Objectivos}
+\section{Objectivos \label{objetivos}}
 Os objetivos desta dissertação passam por explorar o tema da descentralização da web. O estudo irá ter em conta as alternativas mais relevantes apresentadas neste contexto até ao dia de hoje. Destas alternativas, serão trabalhadas soluções de escalabilidade para o projeto que se apresentar mais promissor.
-Passando, desta forma, o objetivo também pela contribuição para um projeto open-source com alto potencial de revolucionar a web, sendo esta contribuição no sentido de trabalhar sobre o mesmo numa prespetiva mais global com vista ao incremento da sua escalabilidade, através da migração para uma arquitetura orientada a micro-serviços, o baixo acoplamento, alta coesão e, consequentemente, a gestão rápida dos diferentes componentes.
+
+Assim, está também subjacente como objetivo a contribuição para um projeto \emph{open-source} com alto potencial de revolucionar a \emph{world wide web}, sendo esta contribuição no sentido de trabalhar numa perspetiva mais global com vista ao incremento da sua escalabilidade, através da migração para uma arquitetura orientada a micro-serviços, o baixo acoplamento, alta coesão e, consequentemente, a gestão rápida dos diferentes componentes.
+
+\section{Hipóteses \label{section_hypothesis}}
+De forma a estabelecer um ponto de partida para a solução a desenvolver, apresentam-se as hipóteses que deverão ser corroboradas:
+\begin{enumerate}
+    \item A solução a desenvolver será mais escalável que a atual.
+    \item A solução a desenvolver, nas mesmas condições de escalamento vertical e horizontal, não deverá ter menos \emph{performance} que a atual.
+    \item A experiência de utilização numa perspetiva de utilizador final não irá sofrer alterações.
+\end{enumerate}
+
+\section{Questões de Investigação \label{section_investigation_questions}}
+Estas hipóteses levantam uma série de questões que deverão servir também por base à investigação adjacente a esta dissertação, das quais destacam-se as seguintes:
+\begin{enumerate}
+    \item \textbf{Como pode o \emph{Solid} ser escalado horizontal e verticalmente?}
+    \begin{itemize}
+        \item A escalabilidade horizontal e vertical correspondem a escalar os recursos de determinada instância e escalar o numero de instâncias, respetivamente. Estas duas abordagens tem custos e benefícios diferentes, que devem pesados nas diferentes circunstâncias em que exista decréscimo de performance na instância atual.
+        \item O escalamento horizontal implica que possa existir redundância de determinado serviço ou de todo o monólito no caso de se tratar de uma arquitetura monolítica.
+    \end{itemize}
+    \item \textbf{É possível existir apenas uma implantação do \emph{Solid} escalada de forma descentralizada e anónima?}
+    \begin{itemize}
+        \item Esta questão está dependente da anterior questão relativa à possibilidade de escalamento horizontal de forma redundante, isto porque esse seria primeiro passo para tornar isto possível.
+        \item Por outro lado, o escalamento descentralizado iria implicar uma mecanismo de deteção de novas instâncias dos diferentes serviços na rede, para que possam servir tráfego.
+    \end{itemize}
+    \item \textbf{O mecanismo de autenticação utilizado atualmente pode ser mantido tendo em conta a migração para uma arquitetura orientada a micro-serviços?}
+    \begin{itemize}
+        \item A arquitetura orientada a micro-serviços assenta no princípio de baixo acoplamento entre os diferentes serviços constituintes do sistema, assim o mecanismo de autenticação não deve criar uma forte dependência para o com os restantes serviços\cite{building_microservices:2015}.
+    \end{itemize}
+\end{enumerate}
+
+\section{Metodologia de Investigação}
+Para a investigação no âmbito do desenvolvimento deste projeto foi utilizado o método \emph{Design Science Research}, esta abordagem aplica-se sobretudo a investigações com vista a construir novas soluções ou implantar soluções inovadoras sobre problemas que possam já ter outras resoluções descobertas\cite{design_science_research}.
+
+Este processo inclui geralmente seis passos\cite{design_science_research}:
+\begin{enumerate}
+    \item Identificar o problema, assim como identificar os desafios da investigação e os potenciais benefícios da solução
+    \item \textbf{Definição} dos objetivos para a solução.
+    \item \textbf{Desenho} e desenvolvimento os artefactos.
+    \item \textbf{Demonstração} da resolução do problema com recursos aos artefactos desenvolvidos.
+    \item \textbf{Avaliação} da solução, comparando os objetivos com os resultados obtidos.
+    \item \textbf{Comunicação} do problema, dos artefactos constituintes da solução, a sua utilidade e a forma como realmente contribuir para criar impacto positivo.
+\end{enumerate}
+
+\section{Contribuições da Investigação \label{section_contribuicoes_investigacao}}
+O trabalho resultante desta dissertação visa a criar uma possível solução escalável e capaz de alicerçar a proliferação de uma nova \emph{world wide web} descentralizada. Seguem-se algumas contribuições resultantes do mesmo:
+\begin{itemize}
+    \item \emph{A Study About Web Development Frameworks Focused on Users’ Privacy}\cite{solid_article}
+    \item Repositório \emph{Node Solid Server} segundo arquitetura orientada a micro-serviços proposta\cite{repo_node_solid_server}
+    \item Repositório \emph{OpenID Connect provider} para \emph{Node.js}\cite{repo_oidc_op}.
+    \item Repositório \emph{OpenID Connect relying party client}\cite{repo_oidc_rp}.
+    \item Repositório \emph{OpenID Connect authentication manager}\cite{repo_oidc_auth_manager}.
+    \item Repositório \emph{Solid auth client}\cite{repo_solid_auth_client}.
+    \item Repositório aplicação cliente \emph{Solid} micro-serviços com funcionalidade de gestão de ficheiros\cite{repo_solid_filemanager}
+    \item Repositório aplicação cliente \emph{Solid} monólito com funcionalidades clínicas\cite{repo_steve_clinic}.
+\end{itemize}
 
 \section{Estrutura da Tese}
 
@@ -33,7 +83,7 @@ O capítulo \ref{cap:2} (Estado da Arte) dedica-se ao estado da arte, no sentido
 
 O capítulo \ref{cap:3} (Análise de Valor) incide na proposta de valor assente nos diferentes projetos referentes à descentralização da web apresentados no estado da arte.
 
-O capítulo \ref{cap:4} (Desenho) apresenta uma proposta de desenho para uma possível solução. Tendo em conta que esta tese se desenrolará sobre uns dos projetos de descentralização da web apresentados.
+O capítulo \ref{cap:4} (Desenho) apresenta uma proposta de desenho para uma possível solução. Tendo em conta que esta tese se desenrolará sobre um dos projetos de descentralização da web apresentados.
 
 No capítulo \ref{cap:5} (Implementação) apresentam-se alguns pormenores e linhas gerais da implementação proposta.
 
