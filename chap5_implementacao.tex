@@ -121,23 +121,14 @@ Este projeto apenas dispõe uma interface de aplicação REST. É responsável p
 
 Conforme é possível perceber no excerto de código \ref{accounts_web_account_controller}, após a validação dos dados de entrada, a mensagem é publicada para o \emph{RabbitMQ} no \emph{controller} responsável pelo caso de uso de registo de conta - \emph{AccountController}.
 
-\newpara
-\newpara
-\newpara
-\newpara
-
 \begin{lstlisting}[caption={\emph{AccountController} responsável por validar e propagar informação do utilizador}, label={accounts_web_account_controller}]
 if(!validator.validate(req.body.email)){ throw (Object.assign(new Error('invalid email'), { status: 400 }))}
-
     let account = new Account(req.body.username, req.body.name, req.body.email, req.body.password);
-
     publisher.publishMessage(
       "accounts-api.account.registered",
       JSON.stringify({
         event: "account_registered",
-        object: {
-          account
-        },
+        object: { account },
       })
     );
 }
@@ -193,19 +184,12 @@ O fluxo de autenticação \emph{Open-ID Connect} é garantido neste sistema atra
 
 Assim, a alteração relativa a incluir os dados sobre \emph{API Gateway} foram realizadas nestas bibliotecas externas.
 
-\newpara
-\newpara
-
 \begin{lstlisting}[caption={Alteração ao \emph{OIDCManager} na biblioteca nativa do \emph{Solid} \emph{oidc-auth-manager}}, label={code_solid_id_web_oidc_manager}]
 
 this.gatewayUri = options.gatewayUri
-
 // ...
-
 gatewayUri: config.gatewayUri,
-
 //  ...
-
 providerConfig.gateway = this.gatewayUri
 
 \end{lstlisting}
@@ -214,14 +198,11 @@ providerConfig.gateway = this.gatewayUri
 const schema = new JSONSchema({
   type: "object",
   properties: {
-  
     \\ ...
-
     gateway: {
       type: "string",
       format: "uri",
     },
-
     // ...
   }  
 });
@@ -274,10 +255,7 @@ function start (argv, accountManager, userStore) {
 
 \end{lstlisting}
 
-Este \emph{consumer} está a criar uma fila que irá escutar todos os eventos com a \emph{routing key} \emph{"*.account.*"} e está a aplicar lógica de negócio ao evento com o tipo \emph{"account\_registered"} que deverá ser emitido pelo component \emph{Accounts Web} após receber um pedido \emph{REST} de criação d eum novo utilizador  (\emph{c.f.}  \ref{create_user_use_case_design}).
-
-\newpara
-\newpara
+Este \emph{consumer} está a criar uma fila que irá escutar todos os eventos com a \emph{routing key} \emph{"*.account.*"} e está a aplicar lógica de negócio ao evento com o tipo \emph{"account\_registered"} que deverá ser emitido pelo component \emph{Accounts Web} após receber um pedido \emph{REST} de criação de um novo utilizador  (\emph{c.f.}  \ref{create_user_use_case_design}).
 
 \begin{lstlisting}[caption={código CreateAccountController}]
 async call () {

@@ -3,24 +3,24 @@
 \chapter{Estado da Arte \label{chapter_estado_arte}}
 \label{cap:2}
 
-O tema descentralização da web não é novo, existindo até ao momento alguns projetos relevantes nesta área.
+O tema descentralização da \emph{Web} não é novo, existindo até ao momento alguns projetos relevantes nesta área.
 Este capitulo consiste numa apresentação mais detalhada sobre a alternativas que demonstram mais potencial.
 É expectável que os detalhes estudados e apresentados permitam tirar mais conclusões no capitulo correspondente à análise de valor.
 
-Assistimos hoje em dia a problemas sérios e crescentes relativos a manipulação de informação, consequentes de um paradigma de web que foi explorado ao limite, por forma a criar modelos de negócio obscuros e com pouca transparência na recolha e utilização dos dados de utilizadores.
+Assistimos hoje em dia a problemas sérios e crescentes relativos a manipulação de informação, consequentes de um paradigma de \emph{Web} que foi explorado ao limite, por forma a criar modelos de negócio obscuros e com pouca transparência na recolha e utilização dos dados de utilizadores.
 
-O modelo atual é um autêntico colosso, onde a informação se encontra replicada infinitamente, e a camada de persistência de dados nas diferentes arquiteturas é provavelmente aquela que mais destaque tem para todas as estruturas organizacionais, na medida em que persiste o ativo principal das empresas, os dados relativos a toda a atividade todos seus clientes\cite{top_three_issues_centralized_web}. Isto torna-se um problema, quando não existe respeito pelos utilizadores e a manipulação dos dados passa a ser o \emph{“core business”}. Esta manipulação pode ser positiva, no sentido de criar valor para a empresa e para o cliente, ou pode ser negativa se estivermos perante casos de uso de que invadam a privacidade ou que cedam os dados a terceiros não devidamente autorizados \cite{facebook_data_hell_medium}.
+O modelo atual é um autêntico colosso, onde a informação se encontra replicada infinitamente, e a camada de persistência de dados nas diferentes arquiteturas é provavelmente aquela que mais destaque tem para todas as estruturas organizacionais, na medida em que persiste o ativo principal das empresas, os dados relativos a toda a atividade todos seus clientes\cite{top_three_issues_centralized_web}. Isto torna-se um problema, quando não existe respeito pelos utilizadores e a manipulação dos dados passa a ser o \emph{“core business”}. Esta manipulação pode ser positiva, no sentido de criar valor para a empresa e para o cliente, ou pode ser negativa se estiver perante casos de uso de que coloquem em risco a privacidade ou que cedam os dados a terceiros não devidamente autorizados \cite{facebook_data_hell_medium}.
 
-Um modelo de descentralização da web, vem sendo discutido desde tempos atrás, com várias abordagens possíveis, mas sempre com a garantia de que a informação será sempre propriedade do utilizador\cite{why_web_decentralization_future}.
-A emersão de um novo modelo para a web, está dependente da migração do “antigo” para o novo, sendo que esta migração teria de ser massiva para o modelo descentralizado ter sucesso, na medida em que estaria pendente da aceitação de plataformas digitais com infraestruturas de dimensão considerável e de toda a comunidade de engenharia informática. Esta adoção massiva por sua vez requer um conjunto de ferramentas capazes de sustentar o seu funcionamento de forma eficaz e suficientemente escalável \cite{shift_power_to_users}.
+Um modelo de descentralização da web, vem sendo discutido desde tempos atrás, com várias abordagens possíveis, mas sempre com a garantia de que a informação será, em qualquer circunstância, propriedade do utilizador\cite{why_web_decentralization_future}.
+A emersão de um novo modelo para a \emph{Web} está dependente de uma migração massiva do “antigo” para o novo, na medida em que estaria pendente da aceitação de plataformas digitais com infraestruturas de dimensão considerável e de toda a comunidade de engenharia informática. Esta adoção massiva por sua vez requer um conjunto de ferramentas capazes de sustentar o seu funcionamento de forma eficaz e suficientemente escalável \cite{shift_power_to_users}.
 
 \section{Modelos Descentralizados \label{section_modelos_descentralizados}}
-Nesta secção são apresentadas diferentes alternativas que podem servir de base para um novo paradigma de web descentralizada. E, como tal, são soluções robustas que oferecem ferramentas auxiliares para o desenvolvimento e posterior integração de novas aplicações.
+Nesta secção são apresentadas diferentes alternativas que podem servir de base para um novo paradigma de \emph{Web} descentralizada. E, como tal, são soluções robustas que oferecem ferramentas auxiliares para o desenvolvimento e posterior integração de novas aplicações.
 
 \subsection{Solid \label{estado_arte_solid}}
 Um dos conceitos fundamentais do \emph{Solid} é o \emph{Personal online datastore \label{sym:POD}} (\emph{POD}), este, na sua definição, é a unidade de armazenamento de recursos no \emph{Solid}, recursos estes que pertencem a utilizadores e que poderão, com as devidas autorizações, ser utilizados por outras aplicações cliente.
 
-A arquitetura implícita para o desenvolvimento de aplicações baseadas em Solid permite que os utilizadores escolham um \emph{POD} à sua escolha, podendo este ser próprio ou recorrendo a um servidor partilhado para conceder às aplicações autorização para armazenar ou ler informação a partir do mesmo. Por si só, este facto permite que os utilizadores escapem dos tradicionais “silos de dados”. Além disto, esses PODs podem oferecer diferentes granularidades de privacidade, confiabilidade, disponibilidade, proteção legal e reutilização de dados\cite{solid_official}. Desta forma este componente do Solid, confere a camada de persistência de informação dos utilizadores, podendo inclusive ser viste como o novo \emph{backend} das aplicações, que poderão aceder à informação através da interface \emph{REST}\cite{rest_foundations} disponibilizada por cada POD, baseada em Linked Data Platform (LDP \label{sym:LDP}), uma recomendação da comunidade W3C, assim como um mecanismo baseado em queries SPARQL\cite{solid_spec}.
+A arquitetura implícita para o desenvolvimento de aplicações baseadas em Solid permite que os utilizadores escolham um \emph{POD} à sua escolha, podendo este ser próprio ou recorrendo a um servidor partilhado para conceder às aplicações autorização para armazenar ou ler informação a partir do mesmo. Por si só, este facto permite que os utilizadores escapem dos tradicionais “silos de dados”. Além disto, esses PODs podem oferecer diferentes granularidades de privacidade, confiabilidade, disponibilidade, proteção legal e reutilização de dados\cite{solid_official}. Desta forma, este componente do Solid confere a camada de persistência de informação dos utilizadores, podendo inclusive ser visto como o novo \emph{backend} das aplicações, que poderão aceder à informação através da interface \emph{REST}\cite{rest_foundations} disponibilizada por cada POD, baseada em Linked Data Platform (LDP \label{sym:LDP}), uma recomendação da comunidade W3C, assim como um mecanismo baseado em queries SPARQL\cite{solid_spec}.
 
 \subsubsection{Autenticação \label{section_estado_arte_solid_authentication}}
 A identidade dos utilizadores no Solid baseia-se em URIs WebID, estes funcionam como nomes universais que permitem identificar determinado utilizador de forma descentralizada. Segue-se um exemplo de um possível WebID:
@@ -31,21 +31,22 @@ A identidade dos utilizadores no Solid baseia-se em URIs WebID, estes funcionam 
 
 Neste sentido, o Solid, tratando-se de uma plataforma descentralizada, tem requisitos diferentes da maioria das aplicações existentes. Precisa de estar assente em mecanismos de autenticação \emph{cross-domain} suficientemente descentralizados e isolados de qualquer serviço ou entidade\cite{solid_spec}.
 
-Até ao momento, o mecanismo de autenticação a ser utilizado em determinada instância de um \emph{POD}, pode ser um de dois: \emph{WebID-TLS} ou \emph{WebID-OIDC}. Esta capacidade de abstração do mecanismo de autenticação, permite que possam continuamente ser estudados e adotados novos mecanismos que se entenda relevantes\cite{solid_spec}.
+Até ao momento, o mecanismo de autenticação a ser utilizado em determinada instância de um \emph{POD}, pode ser um de dois: \emph{WebID-TLS} ou \emph{WebID-OIDC}. Esta capacidade de abstração do mecanismo de autenticação, permite que possam continuamente ser estudados e adotados novos mecanismos que se entendam relevantes\cite{solid_spec}.
+\newpara
+\textbf{\emph{WebID-TLS}} foi o primeiro mecanismo de autenticação a ser implementado no Solid. Como forma de autenticar os \emph{WebIDs}, em vez das tradicionais \emph{passwords}, recorre a certificados criptográficos (guardados e geridos no navegador \emph{Web} do utilizador) para comprovar a identidade do utilizador\cite{solid_webid-tls:}.
 
-\paragraph{\emph{WebID-TLS}}
-foi o primeiro mecanismo de autenticação a ser implementado no Solid. Como forma de autenticar os \emph{WebIDs}, em vez das tradicionais \emph{passwords} recorre a certificados criptográficos (guardados e geridos no navegador web do utilizador) para comprovar a identidade do utilizador\cite{solid_webid-tls:}.
+Este mecanismo, apesar de poder ainda ser utilizado, deixou de ser a configuração por omissão para instanciações de novos PODs. Isto, porque muitos navegadores \emph{Web} removeram suporte ao elemento \emph{KEYGEN}, que servia como base para este protocolo gerar certificados através do navegador \emph{Web}\cite{solid_webid-tls:}.
 
-Este mecanismo, apesar de poder ainda ser utilizado, deixou de ser a configuração por omissão para instanciações de novos PODs. Isto, porque muitos navegadores web removeram suporte ao elemento \emph{KEYGEN}, que servia como base para este protocolo gerar certificados através do navegador web\cite{solid_webid-tls:}.
+\newpara
+\textbf{\emph{WebID-OIDC}} é também um mecanismo de autenticação baseado \emph{WebID}, tendo a particularidade de ser baseado no protocolo \emph{OpenID connect} (\emph{OIDC}). 
 
-\paragraph{\emph{WebID-OIDC}}
-é também um mecanismo de autenticação baseado \emph{WebID}, tendo a particularidade de ser baseado no protocolo \emph{OpenID connect} (\emph{OIDC}). Este mecanismo adiciona ao fluxo normal de \emph{OIDC} um passo extra que permite obter um URI \emph{WebID} através de um \emph{token} \emph{OIDC}\cite{solid_webid_oidc}.
+Este mecanismo adiciona ao fluxo normal de \emph{OIDC} um passo extra que permite obter um URI \emph{WebID} através de um \emph{token} \emph{OIDC}\cite{solid_webid_oidc}.
 
 Seguem-se alguns dos conceitos mais relevantes neste protocolo:
 \begin{itemize}
-    \item \emph{User} - Utilizador humano (pode ser também uma aplicação ou serviço se estes tiverem o seu próprio \emph{webID}). Também chamado \emph{Resource Owner}
-    \item \emph{User-Agent} - Nome formal para navegador Web;
-    \item \emph{Identity Provider (OP)} - Um servidor de identidade baseado no protocolo \emph{OpenID Connect}. Pode ser utilizado o próprio \emph{POD} uma instância externa.
+    \item \emph{User} - Utilizador humano (pode ser também uma aplicação ou serviço se estes tiverem o seu próprio \emph{webID}). Também chamado \emph{Resource Owner};
+    \item \emph{User-Agent} - Nome formal para navegador \emph{Web};
+    \item \emph{Identity Provider (OP)} - Um servidor de identidade baseado no protocolo \emph{OpenID Connect}. Pode ser utilizado o próprio \emph{POD} uma instância externa;
     \item \emph{Resource Server} - Um servidor responsável por alojar recursos que o utilizador precisa eventualmente de aceder, tais como \emph{HTML}, imagens, \emph{Linked Data} / \emph{RDF sources}, entre outros tipos de recursos;
     \item \emph{Relying Party (RP)} - É um \emph{POD} ou uma aplicação cliente que assenta a sua lógica num \emph{token} providenciado por um servidor de identidade;
     \item \emph{POD} - Unidade online de armazenamento pessoal. Este componente do sistema desempenha vários papéis na arquitetura atual: armazena informação do utilizador (actua como \emph{Resource Server}), instancia um servidor de identidade \emph{webID-OIDC} e pode também actuar como \emph{Relying Party} quando um utilizador requisita recursos a partir de um \emph{token}.
@@ -77,10 +78,10 @@ Conforme é possível perceber pela figura \ref{web-id-oidc-sequence-diagram}, a
 \end{figure}
 
 \subsubsection{Autorização}
-A autorização no Solid é garantida por um componente com o nome \emph{Web Access Control (WAC)}, este componente consiste num sistema de controlo de acesso entre domínios de origem cruzada. Os seus conceitos principais baseiam-se em modelos de controlo de acesso a diferentes sistemas de ficheiros e as suas principais responsabilidades consistem em garantir acesso a agentes (utilizadores, grupos, entre outros) para conseguirem realizar ações (ler, escrever, editar, eliminar, entre outras)\cite{solid_web_access_control}.
+A autorização no Solid é garantida por um componente com o nome \emph{Web Access Control (WAC)}. Este componente consiste num sistema de controlo de acesso entre domínios de origem cruzada. Os seus conceitos principais baseiam-se em modelos de controlo de acesso a diferentes sistemas de ficheiros e as suas principais responsabilidades consistem em garantir acesso a agentes (utilizadores, grupos, entre outros) para conseguirem realizar ações (ler, escrever, editar, eliminar, entre outras)\cite{solid_web_access_control}.
 Seguem-se algumas das suas principais características:
 \begin{itemize}
-    \item Os recursos são identificados por URLs, e podem referir-se a qualquer recursos disponível na web;
+    \item Os recursos são identificados por URLs, e podem referir-se a qualquer recursos disponível na \emph{Web};
     \item As politicas de controlo de acesso seguem uma estrutura declarativa;
     \item Utilizadores e grupos são também identificados URLs (WebIDs);
     \item Agnóstico em termos de domínio, ou seja, as politicas de acesso a um determinado ficheiro podem conter utilizadores e grupos alojados em qualquer servidor de identidade existente.
@@ -92,6 +93,7 @@ O \emph{POD} representa o componente que lida com toda a gestão de recursos do 
     \item Recursos \emph{Linked Data}, que podem recorrer às capacidades implícitas no Solid para aplicar lógica no lado da aplicação cliente;
     \item Todo o restante tipo de informação, como por exemplo imagens, documentos, vídeos, áudio, etc.
 \end{itemize}
+
 Desta forma, é possível construir aplicações baseadas em Solid com ou sem recursos sob a forma de \emph{Linked Data}\cite{solid_spec}.
 
 Os recursos são agrupados em contentores baseados em directórios (cumprindo a especificação \emph{LDP Basic Container Spec}\cite{solid_spec}.
@@ -116,7 +118,9 @@ Blockstack é um projeto \emph{open-source} que pretende construir uma rede de c
 \end{itemize}
 
 \subsubsection{Autenticação}
-Em termos de autenticação, o Blockstack consegue providenciar autenticação descentralizada através do mecanismo de autenticação por chave pública criptográfica. A partir do login, a aplicação recebe três peças essenciais de informação: o nome de utilizador, uma chave privada específica de aplicação e a localização do repositório para armazenar informação\cite{blockstack_white_paper}.
+Em termos de autenticação, o Blockstack consegue providenciar autenticação descentralizada através do mecanismo de autenticação por chave pública criptográfica. 
+
+A partir do login, a aplicação recebe três componentes essenciais de informação: o nome de utilizador, uma chave privada específica de aplicação e a localização do repositório para armazenar informação\cite{blockstack_white_paper}.
 
 \subsubsection{Autorização}
 Os pedidos \emph{REST} para aceder a informação de determinado utilizador devem ser acompanhado por um \emph{token} de autenticação assinado e validado pelo repositório. Cada aplicação tem uma chave privada que confere acesso a uma partição especifica do repositório impedindo que, ao contrário do Solid, possa haver partilha de informação entre as diferentes aplicações.
@@ -127,7 +131,7 @@ Um dos conceitos chave da arquitetura desta plataforma é o sistema de ficheiros
 
 Estes repositórios disponibilizam uma interface de aplicação \emph{RESTful}, permitindo que as aplicações cliente devidamente autorizadas giram a informação do utilizador (\emph{c.f.} figura \ref{estado_arte_representacao_blockstack}).
 
-sendo que cada pedido deve ser acompanhado por um \emph{token} autenticação assinado e validado pelo repositório. Cada aplicação tem uma chave privada que confere acesso a uma partição especifica do repositório impedindo a partilha de informação entre as diferentes aplicações\cite{blockstack_white_paper}.
+Sendo que cada pedido deve ser acompanhado por um \emph{token} autenticação assinado e validado pelo repositório. Cada aplicação tem uma chave privada que confere acesso a uma partição especifica do repositório impedindo a partilha de informação entre as diferentes aplicações\cite{blockstack_white_paper}.
 
 \begin{figure}[H]
     \begin{center}
@@ -158,12 +162,12 @@ O conceito principal desta rede é o \emph{POD} (assim como no Solid), este repr
 \end{figure}
 
 \subsection{Elastos}
-Elastos incide no desenvolvimento de um novo paradigma de web potenciado por tecnologia \emph{blockchain}\cite{a_bit_about_blockchain}. O foco principal incide não só na proteção dos dados, mas também na defesa dos direitos de autor.Conforme é possível ver na figura \ref{estado_arte_representacao_elastos}, A plataforma é constituída pelos seguintes quatro componentes:\cite{elastos_white_paper}
+Elastos incide no desenvolvimento de um novo paradigma de \emph{Web} potenciado por tecnologia \emph{blockchain}\cite{a_bit_about_blockchain}. O foco principal incide não só na proteção dos dados, mas também na defesa dos direitos de autor. Conforme é possível ver na figura \ref{estado_arte_representacao_elastos}, a plataforma é constituída pelos seguintes quatro componentes:\cite{elastos_white_paper}
 \begin{itemize}
-	\item Elastos Blockchain
-	\item Elastos Runtime
-	\item Elastos Carrier
-	\item Elastos SDK
+	\item Elastos Blockchain;
+	\item Elastos Runtime;
+	\item Elastos Carrier;
+	\item Elastos SDK.
 \end{itemize}
 
 O conceito baseia-se num sistema operativo relativamente leve que armazena a informação e previne que as aplicações e serviços tenham ligação direta Internet, sendo esta intermediada por meio do componente \emph{Elastos Carrier}. 
@@ -262,7 +266,7 @@ O modelo \emph{New Concept Development Model} é a representação das principai
 
 O modelo apresenta duas vias de entrada e uma única saída, sendo este iniciado pela identificação de uma oportunidade ou pela geração de uma ideia. Essa irá posteriormente interagir com os restantes componentes do modelo.
 
-\subsection{Analytic Hierarchy Process (AHP)\label{sym:AHP_section}}
+\subsection{\emph{Analytic Hierarchy Process} (\emph{AHP})\label{section_AHP}\label{sym:AHP}}
 
 Este método foi criado por Tomas L. Saaty em 1980, sendo um dos métodos mais conhecidos de apoio à decisão. O seu principio baseia-se em desconstruir a ideia em fragmentos cada vez mais pequenos de modo a tornar a sua análise mais fácil. Para atingir esse fim, o método divide-se em três fases: Divisão Hierárquica, Definição de Prioridades e Consistência \cite{ahp}.
 

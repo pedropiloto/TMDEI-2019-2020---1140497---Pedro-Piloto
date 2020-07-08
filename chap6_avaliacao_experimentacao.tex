@@ -116,6 +116,23 @@ CPU & RAM & Disco & Sistema Operativo \\
 2 cores & 4GB & 50GB SSD & CentOS 7 \\
 \end{tabular}
 \end{table}
+
+Estas experiências deverão incidir sobre, por um lado, sobre casos de uso que permitam exercitar os diferentes micro-serviços na arquitetura proposta ({c.f.} secção \ref{section_arquitetura_proposta}), e, por outro lado, casos de uso que representem funcionalidades cruciais para o \emph{POD}. Assim, os testes de performance irão incidir sobre três casos de uso:
+\begin{itemize}
+    \item Criação de uma nova conta
+    \item Autenticação
+    \item Obter recurso
+\end{itemize}
+
+No caso do monólito, o teste deverá incidir sobre a mesma instância aplicacional para os \emph{endpoints} correspondentes aos três pedidos de forma simultânea, permitindo simular circunstâncias o mais reais possíveis.
+
+Para a arquitetura orientada a micro-serviços, estes testes deverão fazer incidir os pedidos, de forma independente, nos serviços responsáveis pelos respetivos casos de uso:
+\begin{itemize}
+    \item \emph{Accounts Web} - Criação de uma nova conta
+    \item \emph{Solid ID Web} - Autenticação
+    \item \emph{Solid Storage Web} - Obter recurso
+\end{itemize}
+
 \subsubsection{Teste Monólito \label{section_tests_monolith}}
 
 Para o teste de performance ao monólito foi implantado o sistema \emph{Solid} sob a arquitetura monolítica numa das \emph{VPS} (\emph{c.f.} figura \ref{monolith_tests_implantation_diagram}). Estes testes incluíram, assim como proposto na secção \ref{section_setup_testes}), pedidos a três diferentes \emph{endpoints}, correspondentes a interações de registo de conta, autenticação e obtenção de recurso.
@@ -129,14 +146,13 @@ Para o teste de performance ao monólito foi implantado o sistema \emph{Solid} s
     \end{center}
 \end{figure}
 
+Os dados relevantes para este cenário de teste são o tempo médio de resposta (em milissegundos) e o \emph{throughput} (em pedidos/segundo), na medida em que estes são os dados que permitirão corroborar a hipótese formulada (\emph{c.f. tabela \ref{table_resultados_testes_performance_monolith}}).
+
 \begin{table}[h]
 \centering
 
-Os dados relevantes para este cenário de teste são o tempo médio de resposta (em milissegundos) e o \emph{throughput} (em pedidos/segundo), na medida em que estes são os dados que permitirão corroborar a hipótese formulada (\emph{c.f. tabela \ref{table_resultados_testes_performance_monolith}}).
-
 \caption{Resultados teste performance \emph{solid server} monólito}
 \vspace{0.5cm}
-\label{table_resultados_testes_performance_monolith}
 \begin{tabular}{c|c|c|c}
  - & Média tempo de resposta (ms) & \emph{Throughput} (p/s) \\
 \hline                          
