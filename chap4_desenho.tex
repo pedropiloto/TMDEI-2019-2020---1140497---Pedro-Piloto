@@ -100,7 +100,7 @@ A figura \ref{component_diagram_arquitetura1} apresenta uma demonstração gráf
 \begin{figure}[H]
     \begin{center}
     % Requires \usepackage{graphicx}
-    \includegraphics[width=1 \textwidth]{figures/arquitetura_1_diagrama_componentes.eps}
+    \includegraphics[width=0.6 \textwidth]{figures/arquitetura_1_diagrama_componentes.eps}
     \caption{Diagrama de Componentes Arquitetura 1}
     \label{component_diagram_arquitetura1}
     \end{center}
@@ -136,7 +136,7 @@ A grande diferença entre as duas é a introdução da componente Message Broker
 \vspace{0.5cm}
 \label{table_comparacao_arquiteturas}
 \begin{tabular}{c|c|c|c} 
-- & Arquitetura não orientada a eventos  & Arquitetura orientada a eventos \\
+- & \specialcell{Arquitetura não\\orientada a eventos}  &\specialcell{Arquitetura orientada\\a eventos} \\
 \hline                          
 Acoplamento & Elevado & Reduzido \\
 Complexidade & Reduzida & Elevada \\
@@ -149,17 +149,17 @@ Assim, e tendo em conta uma decisão fundada em critérios como escalabilidade e
 \section{Casos de uso}
 Nesta secção é apresentada uma vista arquitetural numa perspetiva de mais baixo nível, dando a entender de que forma os diferentes interagem no contexto dos casos de uso.
 
-\begin{figure}[H]
+\begin{figure}[h]
     \begin{center}
     % Requires \usepackage{graphicx}
-    \includegraphics[width=1 \textwidth]{figures/uc_diagram.eps}
+    \includegraphics[height=0.9 \textwidth]{figures/uc_diagram.eps}
     \caption{Diagrama de casos de uso
     \emph{Solid-ID}}
     \label{uc_diagram}
     \end{center}
 \end{figure}
 
-De forma a evitar redundância de informação, está secção, de todos os casos de uso (\emph{c.f.} figura \ref{uc_diagram}), terá foco naqueles que são arquiteturalmente mais relevantes.
+De forma a evitar redundância de informação, esta secção, de todos os casos de uso (\emph{c.f.} figura \ref{uc_diagram}), terá foco naqueles que são arquiteturalmente mais relevantes.
 
 \subsection{Criar Novo Utilizador \label{create_user_use_case_design}}
 
@@ -215,21 +215,20 @@ Este caso de uso será também subdividido em sub-partes de forma a apresentar d
 
 O cenário de autenticação deverá começar com a interação numa \emph{Relying Party App}, esta por sua vez irá encaminhar para um formulário de login servido pelo \emph{Solid-ID Web}. Os dados preenchidos no formulário serão de seguida validados e o utilizador será reencaminhado para o seguinte passo se as credenciais introduzidas estiverem correctas (\emph{c.f.} figura \ref{autenticacao_sd1}).
 
-\begin{figure}[H]
+\begin{figure}[h]
     \begin{center}
     % Requires \usepackage{graphicx}
-    \includegraphics[width=1 \textwidth]{figures/authentication_sd_1.eps}
+    \includegraphics[width=0.9 \textwidth]{figures/authentication_sd_1.eps}
     \caption{Diagrama de Sequência Autenticação de utilizador - Início autenticação}
         \label{autenticacao_sd1}
     \end{center}
 \end{figure}
 
 \subsubsection{Filtrar nível de acesso}
-
 O passo seguinte corresponde à escolha do nível de acesso da aplicação cliente aos dados no POD, esta escolha poderá ser editada pelo utilizador a qualquer altura.
 Este passo só deverá ser necessário realizar uma vez, sendo que nas restantes será avançado diretamente para o passo de geração do \emph{token} de acesso (\emph{c.f.} figura \ref{autenticacao_sd2}).
 
-\begin{figure}[H]
+\begin{figure}[h]
     \begin{center}
     % Requires \usepackage{graphicx}
     \includegraphics[width=1 \textwidth]{figures/authentication_sd_2.eps}
@@ -238,22 +237,22 @@ Este passo só deverá ser necessário realizar uma vez, sendo que nas restantes
     \end{center}
 \end{figure}
 
-\subsubsection{Actulização \emph{POD ACL}}
+\subsubsection{Atualização \emph{POD ACL}}
+Ainda no seguimento da escolha do nível de acesso de determinada aplicação cliente aos dados de um utilizador num POD, é necessário que essa informação seja adicionada à respetiva ACL.
 
-Ainda no seguimento da escolha do nível de acesso de determinada aplicação cliente aos dados de um utilizador num POD, é necessário que essa informação seja adicionada à respetiva ACL. Para isso, o \emph{Storage Consumer} está a escutar uma \emph{queue} de eventos de registo de origens dadas como seguras e que irá adicionar aos ficheiros ACL do respetivo utilizador (\emph{c.f.} figura \ref{autenticacao_sd3}).
-
-\begin{figure}[H]
+\begin{figure}[h]
     \begin{center}
     % Requires \usepackage{graphicx}
-    \includegraphics[width=0.8 \textwidth]{figures/authentication_sd_3.eps}
+    \includegraphics[height=0.3 \textwidth]{figures/authentication_sd_3.eps}
     \caption{Diagrama de Sequência Autenticação de utilizador - Actualização \emph{POD ACL}}
     \label{autenticacao_sd3}
     \end{center}
 \end{figure}
 
-\subsubsection{Finalização autenticação}
+Para que seja possível esta actualização da ACL, o \emph{Storage Consumer} está a escutar uma \emph{queue} de eventos de registo de origens dadas como seguras e que irá adicionar aos ficheiros ACL do respetivo utilizador (\emph{c.f.} figura \ref{autenticacao_sd3}).
 
-O ultimo passo do processo de autenticação corresponde a conceder o acesso propriamente dito da aplicação \emph{Relying Party App} ao \emph{POD} utilizador. Este acesso é conferido através da emissão de um \emph{token} no formato \emph{JWT} (\emph{c.f.} secção \ref{subsection:jwt}) devidamente assinado (\emph{c.f.} figura \ref{autenticacao_sd4}).
+\subsubsection{Finalização autenticação}
+O último passo do processo de autenticação corresponde a conceder o acesso propriamente dito da aplicação \emph{Relying Party App} ao \emph{POD} utilizador. Este acesso é conferido através da emissão de um \emph{token} no formato \emph{JWT} (\emph{c.f.} secção \ref{subsection:jwt}) devidamente assinado (\emph{c.f.} figura \ref{autenticacao_sd4}).
 
 \begin{figure}[H]
     \begin{center}

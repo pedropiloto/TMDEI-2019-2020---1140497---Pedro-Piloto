@@ -3,20 +3,10 @@
 
 \chapter{Implementação}
 \label{cap:5}
-\emph{Este capítulo incide na apresentação da forma como a arquitetura proposta foi implementada}
 
 O projeto de base a esta implementação encontra-se em num repositório público. \footnote{https://github.com/solid/node-solid-server}, este representa todo o POD desenvolvido em Node.JS sob uma arquitetura em monólito.
 
-A implementação necessária passa por reestruturar esta aplicação em 5 micro-serviços, seguindo o diagrama de componentes da arquitetura proposta apresentado na figura \ref{implementacao_arquitetura_2_diagrama_componentes}  (\emph{c.f.} secção \ref{conclusão_arquitetura}):
-\begin{itemize}
-    \item \emph{Accounts Web}
-    \item \emph{Solid-ID Web}
-    \item \emph{Solid-ID Consumer}
-    \item \emph{Storage Web}
-    \item \emph{Storage Consumer}
-\end{itemize}
-
-\begin{figure}[H]
+\begin{figure}[h]
     \begin{center}
     % Requires \usepackage{graphicx}
     \includegraphics[width=1 \textwidth]{figures/arquitetura_2_diagrama_componentes.eps}
@@ -24,6 +14,15 @@ A implementação necessária passa por reestruturar esta aplicação em 5 micro
     \label{implementacao_arquitetura_2_diagrama_componentes}
     \end{center}
 \end{figure}
+
+A implementação necessária passa por reestruturar esta aplicação em 5 micro-serviços, seguindo o diagrama de componentes da arquitetura proposta apresentado na figura \ref{implementacao_arquitetura_2_diagrama_componentes}  (\emph{c.f.} secção \ref{conclusão_arquitetura}):
+\begin{itemize}
+    \item \emph{Accounts Web};
+    \item \emph{Solid-ID Web};
+    \item \emph{Solid-ID Consumer};
+    \item \emph{Storage Web};
+    \item \emph{Storage Consumer}.
+\end{itemize}
 
 As nomenclaturas dos projetos seguem uma estrutura semelhante (\emph{c.f. excerto de código \ref{code_regex_projects_name}}) para facilitar a perceção da responsabilidade e do tipo de interação disponível em cada projeto. Sendo o primeiro nome relativo à responsabilidade lógica e o segundo nome, \emph{Web} ou \emph{Consumer} conforme a interface de aplicação que disponibilizem.
 

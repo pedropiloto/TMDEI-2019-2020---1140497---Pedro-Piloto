@@ -176,15 +176,17 @@ Toda a informação tem identificadores providenciados por Blockchain (pode ser 
 
 \subsubsection{Autenticação}
 
-Relativamente à autenticação, esta plataforma introduz um ID descentralizado (\emph{DID}\label{sym:DID}), construído na rede Blockchain, com a responsabilidade de providenciar identificadores seguros tanta para recursos como para utilizadores.
+Relativamente à autenticação, esta plataforma introduz um ID descentralizado (\emph{DID}\label{sym:DID}), construído na rede Blockchain, com a responsabilidade de providenciar identificadores seguros tanto para recursos como para utilizadores.
 
 O identificador pode ser utilizado para efeitos de rastreamento, autenticação e estabelecimento de ligações seguras. De forma simplificada, o componente \emph{Elastos Carrier} é a combinação entre \emph{DID} e a comunicação \emph{P2P}, assegurando assim que a informação é transmitida em segurança após a autenticação e a autorização serem devidamente validadas\cite{elastos_white_paper}.
 
 \subsubsection{Autorização}
-A autorização neste projeto fica a cargo do componente \emph{Elastos Runtime}, este implementa em si um sistema que valida o acesso de determinado utilizador a determinado recurso\cite{elastos_white_paper}.
+A autorização neste projeto fica a cargo do componente \emph{Elastos Runtime}. Este implementa um sistema que valida o acesso de determinado utilizador a determinado recurso\cite{elastos_white_paper}.
 
 \subsubsection{Armazenamento}
-Elastos dispõe de um componente de armazenamento descentralizado, i.e. Elastos Hive. Recorre a um sistema de arquivos interplanetário (\emph{IPFS}\label{sym:IPFS}) \cite{ipfs} como base. Oferece uma interface de aplicação para aceder à informação que será dispersa pelas diferentes regiões do planeta, garantindo assim fiabilidade às aplicações.\cite{elastos_white_paper}
+Elastos dispõe de um componente de armazenamento descentralizado, i.e. Elastos Hive. Recorre a um sistema de arquivos interplanetário (\emph{IPFS}\label{sym:IPFS}) \cite{ipfs} como base. 
+
+Oferece uma interface de aplicação para aceder à informação que será dispersa pelas diferentes regiões do planeta, garantindo assim fiabilidade às aplicações.\cite{elastos_white_paper}
 
 \begin{figure}[H]
     % Requires \usepackage{graphicx}
@@ -195,11 +197,11 @@ Elastos dispõe de um componente de armazenamento descentralizado, i.e. Elastos 
 
 \subsection{Comparação Modelos Descentralizados}
 
-De forma a resumir, numa perspetiva de comparação, a informação apresentada sobre os diferentes modelos, estes são, de seguida, expostos na  na tabela \ref{tabela_comparacao_modelos_descentralizados}, tendo por base três tópicos:
+De forma a resumir, numa perspetiva de comparação, a informação apresentada sobre os diferentes modelos, estes são, de seguida, expostos na  tabela \ref{tabela_comparacao_modelos_descentralizados}, tendo por base três tópicos:
 \begin{itemize}
     \item Autenticação - De que forma os modelos descentralizados superam a necessidade validar a identidade do utilizador;
     \item Autorização - O mecanismo utilizado para garantir que o acesso restrito de um utilizador a determinado recurso;
-    \item Armazenamento - Num contexto de descentralização, como é a garantido o acesso a determinado recurso.
+    \item Armazenamento - Num contexto de descentralização como é a garantido o acesso a determinado recurso.
 \end{itemize}
 
 \begin{center}
@@ -228,21 +230,24 @@ Elastos & Introduz um ID descentralizado (DID), construído na rede Blockchain e
 No decorrer do desenvolvimento do projeto, foram estudados e aplicados diferentes métodos, de forma a responder a diferentes necessidades surgidas. Neste contexto, os métodos consistem em todas as metodologias e técnicas utilizadas com vista a explorar conceitos. Estes tiveram principal impacto nas fase de análise, contribuindo para facilitar processos de decisão e estabelecer metas.
 
 \subsection{New Concept Development}
-O processo de inovação é divido em três componentes: \emph{Fuzzy
-Front End}, o processo \emph{New Product Development} e comercialização \cite{fuzzy_frontend}. A Figura seguinte
-apresenta o processo de inovação.
+O processo de inovação é divido em três componentes (\emph{c.f.} figura \ref{figura_processo_inovacao}): \emph{Fuzzy
+Front End}, o processo \emph{New Product Development} e comercialização \cite{fuzzy_frontend}.
 
 \begin{figure}[H]
     \begin{center}
     % Requires \usepackage{graphicx}
     \includegraphics[width=1\textwidth]{figures/new_product_development.png}
-    \caption{Representação Elastos}
+    \caption{Representação \emph{processo de inovação}}
+    \label{figura_processo_inovacao}
     \end{center}
 \end{figure}
 
 O \emph{Fuzzy Front End} é a fase inicial do processo de desenvolvimento de novos produtos, correspondendo ao momento da identificação do problema ou à captação de oportunidades para o
-projeto. Esta fase caracteriza-se por processos e decisões não estruturadas que tem como objetivo a identificação das necessidades dos potenciais clientes. A fase seguinte é o processo de  desenvolvimento do novo produto, sendo esta uma fase onde as ideias já estão mais estruturadas e os objetivos definidos. A terceira fase é a comercialização
-do produto e corresponde à fase em que o produto é introduzido no mercado \cite{fuzzy_frontend}.
+projeto. Esta fase caracteriza-se por processos e decisões não estruturadas que tem como objetivo a identificação das necessidades dos potenciais clientes. 
+
+A fase seguinte é o processo de  desenvolvimento do novo produto, sendo esta uma fase onde as ideias já estão mais estruturadas e os objetivos definidos. 
+
+A terceira fase é a comercialização do produto e corresponde à fase em que o produto é introduzido no mercado \cite{fuzzy_frontend}.
 
 O modelo \emph{New Concept Development Model} é a representação das principais atividades do Fuzzy Front End. Este consiste em três componentes:
 
@@ -268,15 +273,15 @@ O modelo apresenta duas vias de entrada e uma única saída, sendo este iniciado
 
 \subsection{\emph{Analytic Hierarchy Process} (\emph{AHP})\label{section_AHP}\label{sym:AHP}}
 
-Este método foi criado por Tomas L. Saaty em 1980, sendo um dos métodos mais conhecidos de apoio à decisão. O seu principio baseia-se em desconstruir a ideia em fragmentos cada vez mais pequenos de modo a tornar a sua análise mais fácil. Para atingir esse fim, o método divide-se em três fases: Divisão Hierárquica, Definição de Prioridades e Consistência \cite{ahp}.
+Este método foi criado por Tomas L. Saaty em 1980, sendo um dos métodos mais conhecidos de apoio à decisão. O seu principio baseia-se em desconstruir a ideia em fragmentos cada vez mais pequenos de modo a tornar a sua análise mais fácil.
+
+Para atingir esse fim, o método divide-se em três fases: Divisão Hierárquica, Definição de Prioridades e Consistência \cite{ahp}.
 
 A divisão hierárquica do AHP consiste na definição do objetivo, dos critérios de resolução do problema e, por último, nas alternativas que resolvem o problema. A lógica é que tendo este conceitos organizados hierarquicamente, conseguimos perceber a relação entre eles.
 
-Depois da divisão hierárquica, é necessário definir prioridades entre os diferentes pares de critérios escolhidos. Esta priorização é subjetiva, sendo necessário calcular o índice de consistência de modo a validar a decisão. Para fazer a priorização de critérios é possível utilizar-se a tabela que apresenta a relação entre cada par de critérios utilizando a escala de Saaty. Esta escala consiste numa escala numerada de 1 a 9, em que 1 corresponde a uma igualdade de importância entre critérios, 3 corresponde a uma fraca diferença de importância e 9 corresponde a uma diferença de importância absoluta. 
+Depois da divisão hierárquica, é necessário definir prioridades entre os diferentes pares de critérios escolhidos. Esta priorização é subjetiva, sendo necessário calcular o índice de consistência de modo a validar a decisão. Para fazer a priorização de critérios é possível utilizar-se a tabela que apresenta a relação entre cada par de critérios utilizando a escala de Saaty. Esta escala consiste numa escala numerada de 1 a 9, em que 1 corresponde a uma igualdade de importância entre critérios, 3 corresponde a uma fraca diferença de importância e 9 corresponde a uma diferença de importância absoluta.
 
-
-Por fim, é necessário garantir a consistência da decisão, uma vez que a priorização dos critérios é baseada em opinião e é subjetiva. Para isso são calculados os
-índice de consistência e a razão de consistência. Desta forma é possível medir a consistência. Se o resultado do cálculo do rácio de consistência for menor que 0.1, consideram-se os critérios consistentes.
+Por fim, é necessário garantir a consistência da decisão, uma vez que a priorização dos critérios é baseada em opinião e é subjetiva. Para isso são calculados o índice de consistência e a razão de consistência. Desta forma é possível medir a consistência. Se o resultado do cálculo do rácio de consistência for menor que 0.1, consideram-se os critérios consistentes.
 
 \subsection{\emph{Function Analysis System Technique (FAST) \label{sym:FAST}}}
 
@@ -295,24 +300,27 @@ Avaliação consiste na medição ou avaliação de uma determinada grandeza, ut
 \section{Tecnologias}
 As tecnologias, tendo por base os resultados dos processos de análise, servem como veículos para desenhar e atingir os resultados. Assim, são apresentadas, de seguida as tecnologias exploradas no seguimento deste projeto, as mesmas são separadas pelas seguintes categorias:
 \begin{itemize}
-    \item Arquiteturas
-    \item Padrões
-    \item Linguagens
-    \item Ferramentas
+    \item Arquiteturas;
+    \item Padrões;
+    \item Linguagens;
+    \item Ferramentas.
 \end{itemize}
 
 \subsection{Arquiteturas}
 Arquitetura de software corresponde ao processo de converter características de software como flexibilidade, escalabilidade, viabilidade, reutilização e segurança numa solução estruturada que permita responder às necessidades técnicas de negócio\cite{software_architecture}.
 
-Apresentam-se, de seguida, nesta secção algumas das arquiteturas de software estudadas no âmbito desta dissertação.
+Apresentam-se, de seguida, nesta secção, algumas das arquiteturas de software estudadas no âmbito desta dissertação.
 
 \subsubsection{Arquitetura orientada a micro-serviços}
 
-Uma arquitetura orientada a micros-serviços define uma configuração, na qual os componentes são aplicações independentes. Essas aplicações independentes comunicam utilizando \emph{RESTful Web Services} ou troca de mensagens \cite{building_microservices:2015}.
+Uma arquitetura orientada a micros-serviços define uma configuração, na qual os componentes são aplicações independentes.
+
+Essas aplicações independentes comunicam utilizando \emph{RESTful Web Services} ou troca de mensagens\cite{building_microservices:2015}.
+
 Seguem-se algumas características de sistemas orientados a micro-serviços\cite{monolith_to_microservices}:
 \begin{itemize}
 \item Micro-serviços em execução de forma independente;
-\item Sistema é partido em micro-serviços, tendo por base \emph{bounded context} (\emph{c.f.} secção \ref{subsubsection:bounded:context} e/ou capacidades de negócio;
+\item Sistema é partido em micro-serviços, tendo por base \emph{bounded context} (\emph{c.f.} secção \ref{subsubsection:bounded:context}) e/ou capacidades de negócio;
 \item O conceito “produto” ganha relevo face ao conceito “projeto”;
 \item Aplicações devem utilizar canais de comunicação relativamente simples, como protocolo \emph{REST} ou troca de mensagens;
 \item Diferentes micro-serviços podem seguir arquiteturas e implementações diferentes, dependendo das suas especificidades e das decisões levadas a cabo pelas equipas de desenvolvimento;
@@ -327,7 +335,7 @@ A arquitetura cliente servidor é aquela que é mais utilizada no desenvolviment
 \begin{itemize}
     \item Cliente - Responsável por gerir interação com o utilizador final;
     \item Servidor - Camada detentora da lógica de negócio responsável por servir um ou mais clientes;
-    \item Persistência - Responsável pela persistência dos dados
+    \item Persistência - Responsável pela persistência dos dados.
 \end{itemize}
 
 \begin{figure}[H]
@@ -344,29 +352,35 @@ P2P é um formato de rede de computadores, cuja principal característica é des
 O seu principal objetivo é a transmissão de recursos e o seu surgimento possibilitou a partilha em massa de músicas e filmes \cite{what_are_P2P_networks}.
 
 \subsection{Padrões}
-Um padrão consiste numa solução que resolve sucessivamente um problema comum no contexto das diferentes fases de desenvolvimento de software, sendo nesta secção expostos padrões de desenho e padrões arquiteturais. Por norma um padrão não corresponde a uma solução final, mas sim a um guia ou um \emph{template} que pode ser adaptado a diferentes situações\cite{clean_architecture}.
+Um padrão consiste numa solução que resolve sucessivamente um problema comum no contexto das diferentes fases de desenvolvimento de software, sendo nesta secção expostos padrões de desenho e padrões arquiteturais. 
+
+Por norma, um padrão não corresponde a uma solução final, mas sim a um guia ou um \emph{template} que pode ser adaptado a diferentes situações\cite{clean_architecture}.
 
 \subsubsection{JWT \label{subsection:jwt}}
-\emph{JSON Web Token} (\emph{JWT\label{sym:jwt}}) é um padrão (RFC-7519) da Internet. Este padrão define como devem ser transmitidos e armazenados objetos em formato JSON de forma compacta e segura entre diferentes aplicações. Um dos seus grandes fatores de adoção é o facto de ser assinado digitalmente, garantindo que os dados nele contidos podem ser validados a qualquer momento\cite{jwt_medium}.
+\emph{JSON Web Token} (\emph{JWT\label{sym:jwt}}) é um padrão (RFC-7519) da Internet.
+
+Este padrão define como devem ser transmitidos e armazenados objetos em formato JSON de forma compacta e segura entre diferentes aplicações. Um dos seus grandes fatores de adoção é o facto de ser assinado digitalmente, garantindo que os dados nele contidos podem ser validados a qualquer momento\cite{jwt_medium}.
 
 O objeto deve ser constituído por três secções:
 \begin{itemize}
     \item \emph{Header} - Esta secção indica o tipo de token e o o algoritmo de criptografia utilizado para a sua assinatura digital;
-    \item \emph{Payload} - Contém todo objeto JSON inicialmente criado, este na maioria dos casos deverá conter informação sobre o utilizador autenticado;
+    \item \emph{Payload} - Contém todo objeto \emph{JSON} inicialmente criado, este na maioria dos casos deverá conter informação sobre o utilizador autenticado;
     \item \emph{Signature} - Este campo tem como principal objetivo garantir a integridade do \emph{token}.
 \end{itemize}
 
 \subsubsection{\emph{Bounded Context}} \label{subsubsection:bounded:context}
-\emph{Bounded Context} é um padrão crucial em \emph{Domain Driven Design}(\emph{DDD}\label{sym:DDD}). É o foco da fase de desenho de grandes modelos. Para lidar com grandes modelos, \emph{DDD} recorre a divisão em diferentes \emph{bounded contexts}. Estes tem como objetivo delimitar o domínio complexo em contextos baseados na intenção do negócio \cite{bounded_context}.
+\emph{Bounded Context} é um padrão crucial em \emph{Domain Driven Design}(\emph{DDD}\label{sym:DDD}), na medida em que este é o foco da fase de desenho de grandes modelos.
+
+Para lidar com grandes modelos, \emph{DDD} recorre a divisão em diferentes \emph{bounded contexts}. Estes tem como objetivo delimitar o domínio complexo em contextos baseados na intenção do negócio \cite{bounded_context}.
 
 \subsubsection{\emph{REST}}
 \emph{Representational State Transfer} (\emph{REST}\label{sym:REST}), é um estilo arquitetural que torna mais fácil a comunicação entre sistemas. Sistemas compatíveis com \emph{REST}, são caracterizados por manterem um elevado desacoplamento entre o cliente e o servidor.
 Neste estilo arquitetural, as aplicações cliente fazem pedidos para obter ou alterar recursos em aplicações servidor, estes pedidos são constituídos por \cite{rest}:
 \begin{itemize}
-    \item Verbo HTTP - Define o tipo de ação a realizar, pode ser \emph{GET}, \emph{POST}, \emph{PUT}, \emph{PATCH} ou \emph{DELETE}
-    \item \emph{Header} - Permite ao cliente passar detalhes sobre o pedido
-    \item Caminho - URL onde o pedido deve ser respondido
-    \item \emph{Body} - Mensagem que contém a informação sobre o recurso a ser criado ou alterado
+    \item Verbo HTTP - Define o tipo de ação a realizar, pode ser \emph{GET}, \emph{POST}, \emph{PUT}, \emph{PATCH} ou \emph{DELETE};
+    \item \emph{Header} - Permite ao cliente passar detalhes sobre o pedido;
+    \item Caminho - URL onde o pedido deve ser respondido;
+    \item \emph{Body} - Mensagem que contém a informação sobre o recurso a ser criado ou alterado.
 \end{itemize}
 
 \subsubsection{\emph{API Gateway}} \label{api_gateway}
@@ -404,13 +418,21 @@ Dois padrões associados a este mecanismo de troca de mensagens são \emph{Messa
 \end{figure}
 
 \subsubsection{\emph{Command Query Responsability Segregation} (CQRS)} \label{cqrs}
-Nas arquiteturas mais tradicionais, é utilizado o mesmo modelo de dados tanto para consultar como para atualizar a camada de persistência da aplicação. Esta abordagem é simples e funciona bem para operações CRUD básicas. Por outro lado, em aplicações mais complexas onde as cargas de leitura e de escrita são assimétricas, esta abordagem torna-se mais problemática e pode colocar em risco a escalabilidade do sistema. Neste contexto, o padrão CQRS incide em separar o modelo de leitura do modelo de escrita, existindo múltiplas abordagens para a sua implementação. \cite{cqrs}
+Nas arquiteturas mais tradicionais, é utilizado o mesmo modelo de dados tanto para consultar como para atualizar a camada de persistência da aplicação. Esta abordagem é simples e funciona bem para operações CRUD básicas.
+
+Por outro lado, em aplicações mais complexas onde as cargas de leitura e de escrita são assimétricas, esta abordagem torna-se mais problemática e pode colocar em risco a escalabilidade do sistema.
+
+Neste contexto, o padrão CQRS incide em separar o modelo de leitura do modelo de escrita, existindo múltiplas abordagens para a sua implementação. \cite{cqrs}
 
 \subsubsection{\emph{Service} \label{service_pattern}}
 Este padrão indica que deve ser estabelecida uma camada na aplicação responsável por gerir a lógica de pedidos a serviços externos. Este padrão tem como principal objectivo abstrair a lógica de funcionamento dos diferentes serviço da lógica de negócio\cite{service_design_patterns}.
 
 \subsubsection{Teorema \emph{CAP}} \label{cap_theorem}
-O teorema \emph{CAP (Consistency, Availability, Partition) \label{sym:cap}} é uma ferramenta utilizada para ajudar a tomar decisões durante o desenho de sistemas distribuídos. Eric Brewer inferiu que em qualquer sistema distribuído existe um equilíbrio entre consistência, disponibilidade e tolerância a falhas. Afirmação corroborada em 2002 por Seth Gilbert e Nancy Lynch. O teorema afirma que sistemas distribuídos apenas podem garantir três das seguintes propriedades \cite{cap_theorem}:
+O teorema \emph{CAP (Consistency, Availability, Partition) \label{sym:cap}} é uma ferramenta utilizada para ajudar a tomar decisões durante o desenho de sistemas distribuídos.
+
+Eric Brewer inferiu, no ano de 2000, que qualquer sistema distribuído é construído com base num equilíbrio entre consistência, disponibilidade e tolerância a falhas. Afirmação corroborada em 2002 por Seth Gilbert e Nancy Lynch.
+
+Este teorema indica que sistemas distribuídos apenas podem garantir três das seguintes propriedades \cite{cap_theorem}:
 
 \begin{itemize}
     \item Consistência - Garantia que qualquer nó num sistema distribuído retorna a mesma, mais recente, escrita com sucesso. Consistência consiste em qualquer cliente ter a mesma vista de determinada informação num determinado momento;
@@ -419,7 +441,7 @@ O teorema \emph{CAP (Consistency, Availability, Partition) \label{sym:cap}} é u
 \end{itemize}
 
 \subsubsection{\emph{Event Sourcing} \label{event_sourcing}}
-\emph{Event sourcing} é um padrão que tem como objetivo garantir que as mudanças realizadas numa aplicação são armazenadas como uma sequência de eventos. Estes eventos persistidos, podem ser obtidos e utilizados para reconstruir estados da aplicação.
+\emph{Event sourcing} é um padrão que tem como objetivo garantir que as mudanças realizadas numa aplicação são armazenadas como uma sequência de eventos. Estes eventos persistidos podem ser obtidos e utilizados para reconstruir estados da aplicação.
 Neste sentido, este padrão é muitas vezes utilizado em conjunto com o padrão CQRS \cite{event_sourcing}.
 
 \subsection{Linguagens}
@@ -448,7 +470,7 @@ Por ferramentas entende-se todas as aplicações e conjuntos de funcionalidades 
 \emph{RabbitMQ} é uma implementação de um \emph{Message Broker}, este suporta, de forma nativa, os dois padrão de de troca de mensagens assíncrona (\emph{c.f.} secção \ref{message_queueing} e \ref{publish_subscribe}). Para a implementação da lógica no sentido do padrão \emph{Publish/subcribe}, \emph{RabbitMQ} introduz o conceito de \emph{Exchange}, este componente é responsável por reencaminhar a mesma mensagem para as diferentes filas que subscreveram aquele tipo de mensagem.
 
 \subsubsection{Apache Kafka}
-\emph{Apache Kafka} por outro lado, é uma plataforma distribuída de streaming. Ao contrário de \emph{RabbitMQ}, que é baseado em filas e \emph{exchanges}, a camada de armazenamento do \emph{Kafka} é implementada utilizando transações de \emph{logs} particionadas.
+\emph{Apache Kafka}, por outro lado, é uma plataforma distribuída de streaming. Ao contrário de \emph{RabbitMQ}, que é baseado em filas e \emph{exchanges}, a camada de armazenamento do \emph{Kafka} é implementada utilizando transações de \emph{logs} particionadas.
 
 Esta plataforma introduz o conceito de tópico. Um tópico representa uma categoria para a qual será mantida uma partição ordenada e imutável, de \emph{logs} com as mensagens recebidas.
 
@@ -470,7 +492,7 @@ Esta ferramenta permite ligar-se a um repositório pré-definido ou configurar r
 
 \subsubsection{\emph{Containers} \label{estado_arte_containers}}
 A tecnologia subjacente à utilização de \emph{Containers} consiste num mecanismo de criar uma espécie de contentor com o código base da aplicação e as suas dependências, e, posteriormente, este executar de formar isolada de outros processos.
-Estes \emph{containers} podem partilhar o \emph{kernel} do sistema operativo, apresentando, assim, uma solução mais leve e robusta que as tradicionais máquinas virtuais \cite{techradar_containers}.
+Estes \emph{containers} podem partilhar o \emph{kernel} do sistema operativo, apresentando, assim, uma solução mais leve e robusta que as tradicionais máquinas virtuais\cite{techradar_containers}.
 
 
 
