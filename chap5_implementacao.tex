@@ -4,7 +4,7 @@
 \chapter{Implementação}
 \label{cap:5}
 
-O projeto de base a esta implementação encontra-se em num repositório público. \footnote{https://github.com/solid/node-solid-server}, este representa todo o POD desenvolvido em Node.JS sob uma arquitetura em monólito.
+O projeto que serviu de base a esta implementação encontra-se em num repositório público\footnote{https://github.com/solid/node-solid-server}, este representa todo o \emph{\acrshort{POD}} desenvolvido em Node.JS sob uma arquitetura em monólito.
 
 \begin{figure}[h]
     \begin{center}
@@ -41,7 +41,7 @@ De forma a manter a consistência os cinco serviços foram desenvolvidos na mesm
     \end{center}
 \end{figure}
 
-O sistema foi construído com recurso à tecnologia de \emph{containers}, neste caso adjacente às ferramentas \emph{docker} e \emph{docker-compose}, permitindo que o processo de implantação seja simples e sem necessitar de configuração de máquinas. Cada projeto tem o seu \emph{dockerfile} (\emph{\emph{c.f.} excerto de código \ref{code:dockerfile}}) e na raiz do projeto principal e existe um ficheiro \emph{docker-compose.yml} (\emph{c.f.} excerto de código \ref{code:docker-compose}) que permite instanciar um sistema POD executando apenas a instrução apresentada no excerto de código \ref{code_docker_compose_up_instruction}.
+O sistema foi construído com recurso à tecnologia de \emph{containers}, neste caso adjacente às ferramentas \emph{docker} e \emph{docker-compose}, permitindo que o processo de implantação seja simples e sem necessitar de configuração de máquinas. Cada projeto tem o seu \emph{dockerfile} (\emph{\emph{c.f.} excerto de código \ref{code:dockerfile}}) e na raiz do projeto principal e existe um ficheiro \emph{docker-compose.yml} (\emph{c.f.} excerto de código \ref{code:docker-compose}) que permite instanciar um sistema \emph{\acrshort{POD}} executando apenas a instrução apresentada no excerto de código \ref{code_docker_compose_up_instruction}.
 
 \begin{lstlisting}[caption={Expressão regular}, label={code_docker_compose_up_instruction}]
 $ docker-compose build && docker-compose up
@@ -116,7 +116,7 @@ No Excerto de código \ref{code:docker-compose} é possível ver que o ficheiro 
 Com o propósito de mostrar pormenores relativos a cada sistema, estes serão, de seguida, abordados em subsecções.
 
 \section{Accounts Web}
-Este projeto apenas dispõe uma interface de aplicação REST. É responsável por receber o pedido de criação de conta e propagar o mesmo para os restantes sistemas. (\emph{c.f.} \ref{create_user_use_case_design}).
+Este projeto apenas dispõe uma interface de aplicação \emph{\acrshort{REST}}. É responsável por receber o pedido de criação de conta e propagar o mesmo para os restantes sistemas. (\emph{c.f.} \ref{create_user_use_case_design}).
 
 Conforme é possível perceber no excerto de código \ref{accounts_web_account_controller}, após a validação dos dados de entrada, a mensagem é publicada para o \emph{RabbitMQ} no \emph{controller} responsável pelo caso de uso de registo de conta - \emph{AccountController}.
 
@@ -161,7 +161,7 @@ module.exports = { createChannel, publishMessage }
 Conforme é possível perceber no excerto de código \ref{accounts_web_publisher_code}, o ficheiro \emph{Publisher} está a criar uma ligação a um \emph{exchange} de uma instância de \emph{RabbitMQ}, para onde publica mensagens com um determinado tópico.
 
 \section{\emph{Solid-ID Web}}
-Este sistema é o único, para além da \emph{API-Gateway}, exposto ao mundo por interface REST (\emph{c.f.} \ref{subsection:arquitetura_2}), esta decisão arquitetural implica que tenha de conhecer o endereço da \emph{API-Gateway}, de forma a que possa indicar à \emph{Relying Party App} onde deve aceder para obter recursos após concluir o processo de autenticação.
+Este sistema é o único, para além da \emph{API-Gateway}, exposto ao mundo por interface \emph{\acrshort{REST}} (\emph{c.f.} \ref{subsection:arquitetura_2}), esta decisão arquitetural implica que tenha de conhecer o endereço da \emph{API-Gateway}, de forma a que possa indicar à \emph{Relying Party App} onde deve aceder para obter recursos após concluir o processo de autenticação.
 
 As rotas e os \emph{Middleware} de autenticação (\emph{c.f.} secção \ref{design_authentication}) são inicializados no arranque da aplicação e está implementado de forma a suportar futuros diferentes mecanismos de autenticação diferentes do atual \emph{Open-ID Connect} (\emph{c.f.} excerto de código \ref{code_solid_web_authentication_initialization}).
 
@@ -208,7 +208,7 @@ const schema = new JSONSchema({
 
 \end{lstlisting}
 
-Este sistema expõe uma interface REST através da biblioteca externa \emph{express} e um emissor de eventos igual ao do serviço \emph{Accounts Web} recorrendo à biblioteca externa \emph{amqplib}.
+Este sistema expõe uma interface \emph{\acrshort{REST}} através da biblioteca externa \emph{express} e um emissor de eventos igual ao do serviço \emph{Accounts Web} recorrendo à biblioteca externa \emph{amqplib}.
 
 \section{\emph{Solid-ID Consumer}}
 O código desta aplicação partilha o mesmo projeto que o \emph{Solid-ID Web}, visto terem em comum grande parte das dependências e apesar de terem interfaces diferentes, os controladores de casos de uso são os mesmo.
@@ -254,7 +254,7 @@ function start (argv, accountManager, userStore) {
 
 \end{lstlisting}
 
-Este \emph{consumer} está a criar uma fila que irá escutar todos os eventos com a \emph{routing key} \emph{"*.account.*"} e está a aplicar lógica de negócio ao evento com o tipo \emph{"account\_registered"} que deverá ser emitido pelo component \emph{Accounts Web} após receber um pedido \emph{REST} de criação de um novo utilizador  (\emph{c.f.}  \ref{create_user_use_case_design}).
+Este \emph{consumer} está a criar uma fila que irá escutar todos os eventos com a \emph{routing key} \emph{"*.account.*"} e está a aplicar lógica de negócio ao evento com o tipo \emph{"account\_registered"} que deverá ser emitido pelo component \emph{Accounts Web} após receber um pedido \emph{\acrshort{REST}} de criação de um novo utilizador  (\emph{c.f.}  \ref{create_user_use_case_design}).
 
 \begin{lstlisting}[caption={código CreateAccountController}]
 async call () {
@@ -300,18 +300,18 @@ async call () {
 A lógica relativa a criar o utilizador neste sistema é posteriormente tratada no \emph{CreateController} (\emph{c.f.} secção \ref{create_user_use_case_design}).
 
 \section{Storage Web}
-Este sistema é responsável por garantir o acesso autenticado e autorizado aos recursos do utilizador, sendo esta uma peça fulcral no \emph{puzzle} do POD. A funcionalidade é relativamente simples, tratando-se na prática apenas de um repositório de ficheiro, mas as particularidades relativas ao processo de autenticação e autorização de pedidos conferem-lhe uma grande robustez.
+Este sistema é responsável por garantir o acesso autenticado e autorizado aos recursos do utilizador, sendo esta uma peça fulcral no \emph{puzzle} do \emph{\acrshort{POD}}. A funcionalidade é relativamente simples, tratando-se na prática apenas de um repositório de ficheiro, mas as particularidades relativas ao processo de autenticação e autorização de pedidos conferem-lhe uma grande robustez.
 
 Em termos de autenticação, segundo o fluxo \emph{Open-ID Connect WebID} (\emph{c.f.} figura \ref{web-id-oidc-sequence-diagram}), O componente \emph{Storage Web} representa o \emph{Resource Server}, tendo responsabilidade de garantir uma barreira de validação ao token de acesso passado no pedido \emph{HTTP/HTTPS}.
 
 A implementação do processo de autenticação dos pedidos neste componente, tratando-se de algo transversal, é alcançada com recurso à utilização de um \emph{Middleware} (funcionalidade exposta pela biblioteca externa \emph{Express}). As alterações necessárias a efectuar a este middlewar passam por garantir que irá, para cada pedido, validar a autenticidade do \emph{token de acesso} tal como explicado na secção \ref{design_authentication}.
 Assim como o projeto \emph{Solid-ID web}, este recorre às seguintes bibliotecas desenvolvidas pela comunidade Solid (\emph{c.f.} excerto de código \ref{code_storage_web_middleware_initialization}):
 \begin{itemize}
-    \item \emph{oidc-auth-manager} - Gere todo o fluxo de autenticação sob o protocolo \emph{Open-ID Connect WebID}
-    \item \emph{oidc-rs} - Implementa a lógica relativa à camada \emph{Resource Server}
+    \item \emph{oidc-auth-manager} - Gere todo o fluxo de autenticação sob o protocolo \emph{Open-ID Connect WebID};
+    \item \emph{oidc-rs} - Implementa a lógica relativa à camada \emph{Resource Server}.
 \end{itemize}
 
-\begin{lstlisting}[caption={Inicialização do \emph{Middleware} de autenticação de pedidos REST}, label={code_storage_web_middleware_initialization}]
+\begin{lstlisting}[caption={Inicialização do \emph{Middleware} de autenticação de pedidos \emph{\acrshort{REST}}}, label={code_storage_web_middleware_initialization}]
   const oidc = OidcManager.resourceServerOnly(argv)
   oidc.initRs()
   app.use('/', async (req, res, next) => {
@@ -333,7 +333,7 @@ Assim como o projeto \emph{Solid-ID web}, este recorre às seguintes bibliotecas
 O \emph{Middleware} de validação do pedido, compreende duas importantes partes (\emph{c.f.} excerto de código \ref{code_storage_web_validacao_pedido_e_token}):
 \begin{itemize}
     \item Validação Pedido - Incide principalmente em garantir que o pedido está bem formado e tem todos os campos necessários
-    \item Validação do \emph{token} de acesso - Tratando-se de um \emph{token} em formato \emph{JWT}, esta parte incide em aplicar as validações padrão (\emph{c.f.} figura \ref{retrieve_resource_sd}) de forma a garantir a autenticidade do token, bem como extrair informação como o \emph{webID} utilizador para que seja possível prosseguir para a fase de autorização
+    \item Validação do \emph{token} de acesso - Tratando-se de um \emph{token} em formato \emph{\acrshort{JWT}}, esta parte incide em aplicar as validações padrão (\emph{c.f.} figura \ref{retrieve_resource_sd}) de forma a garantir a autenticidade do token, bem como extrair informação como o \emph{webID} utilizador para que seja possível prosseguir para a fase de autorização
 \end{itemize}
 
 \begin{lstlisting}[caption={Camada de validação do pedido e do token de acesso na biblioteca \emph{oidc-rs}}, label={code_storage_web_validacao_pedido_e_token}]
@@ -372,7 +372,10 @@ O \emph{Middleware} de validação do pedido, compreende duas importantes partes
 
 \end{lstlisting}
 
-Após o pedido estar devidamente autenticado, é necessário garantir que o mesmo tem acesso ao recurso que está a tentar aceder, bem como autorização para a ação que pretende ver realizada sobre o mesmo. Para tal é utilizado também um \emph{Middleware} que será responsável por permitir que o pedido avance ou não para o acesso propriamente dito.
+Após o pedido estar devidamente autenticado, é necessário garantir que o mesmo tem acesso ao recurso que está a tentar aceder, bem como autorização para a ação que pretende ver realizada sobre o mesmo. 
+
+Para tal é utilizado também um \emph{Middleware} que será responsável por permitir que o pedido avance ou não para o acesso propriamente dito.
+
 Esta funcionalidade é implementada recorrendo à biblioteca externa \emph{acl-checker} desenvolvida pela comunidade Solid, e permite iterar sobre o sistema de ficheiros em busca de ficheiros \emph{.acl} hierarquicamente relevantes ao arquivo em causa de forma a averiguar se o pedido está de facto autorizado (\emph{c.f.} excerto de código \ref{code_storage_web_oidc_manager_lib_change}).
 
 \begin{lstlisting}[caption={Alteração ao \emph{OIDCManager} na biblioteca \emph{oidc-auth-manager}}, label={code_storage_web_oidc_manager_lib_change}]
@@ -402,7 +405,7 @@ function LdpMiddleware (corsSettings) {
 Esta aplicação tem como responsabilidade escutar eventos aplicacionais que possam ter impacto na unidade de persistência de dados, estes eventos podem ser (\emph{c.f.} excerto de código \ref{code_storage_consumer_process_events}):
 \begin{itemize}
     \item \emph{account\_created} - Este evento cria a necessidade de que seja criado no sistema de ficheiros um directório com base num template base de recursos para novos utilizadores.
-    \item \emph{register\_app} - Indica ao sistema que deve adicionar à \emph{acl} base do sistema de ficheiros do utilizador um novo domínio autorizado.
+    \item \emph{register\_app} - Indica ao sistema que deve adicionar à \emph{\acrshort{ACL}} base do sistema de ficheiros do utilizador um novo domínio autorizado.
 \end{itemize}
 
 \newpara

@@ -27,7 +27,7 @@
 \usepackage{aeguill} % to use in french \guillemotleft "«"  and \guillemotright "»" characters
 \usepackage{lscape}
 \usepackage{tabularx}
-\usepackage[]{hyperref}
+\usepackage[hidelinks]{hyperref}
 \usepackage{makeidx}
 \usepackage{citeref}
 \usepackage[english]{babel}
@@ -38,6 +38,12 @@
 \usepackage{svg}
 \usepackage{epsfig}
 \usepackage{pbox}
+
+
+% acronyms
+%\usepackage[withpage]{acronym}
+\usepackage[acronym]{glossaries}
+\makeglossaries
 
 \selectlanguage{english}
 
@@ -52,8 +58,7 @@
 \floatname{myprogram}{Code Snippets} \floatstyle{plain}
 
 %enable 4 sections levels
-\setcounter{secnumdepth}{5}
-
+%\setcounter{secnumdepth}{2}
 % *************** Enable index generation ***************
 \makeindex
 
@@ -316,6 +321,10 @@ captionpos=b
 \newcommand{\newpara}
     {
     \vskip 1cm
+    }
+\newcommand{\newhalfpara}
+    {
+    \vskip 0.5cm
     }
     
 \newcommand{\specialcell}[2][c]{%

@@ -6,32 +6,42 @@
 
 \section{Visão geral}
 
-Esta dissertação permitiu conhecer um conceito novo e disruptivo para redesenhar a Web que está a ser desenvolvido e alavancado por diferentes projetos e comunidades (\emph{c.f.} secção \ref{section_modelos_descentralizados}).
+Esta dissertação permitiu conhecer um conceito novo e disruptivo para redesenhar a \emph{Web} que está a ser desenvolvido e alavancado por diferentes projetos e comunidades (\emph{c.f.} secção \ref{section_modelos_descentralizados}).
 
 Numa primeira fase as diferentes alternativas com maior potencial foram estudadas com vista a perceber de que forma respondiam a desafios tecnológicos como escalabilidade, segurança e privacidade, este estudo foi refletido tanto no estado da arte do presente documento (\emph{c.f.} capítulo \ref{chapter_estado_arte}), como também em contribuições públicas (\emph{c.f.} secção \ref{section_contribuicoes_investigacao}).
 
-O estudo das diferentes alternativas permitiu escolher um projeto para aprofundar numa perspetiva mais técnica com vista a criar um impacto positivo de escalabilidade ao mesmo tempo que suscitou uma mentalidade de contribuir para uma comunidade \emph{open-source} e pensar fora da caixa num mundo já repleto de alicerces fortes implantados por grandes empresas e grandes engenheiros da área da informação e tecnologias de comunicações (ICT).
+O estudo das diferentes alternativas permitiu escolher um projeto para aprofundar numa perspetiva mais técnica com vista a criar um impacto positivo de escalabilidade ao mesmo tempo que suscitou uma mentalidade de contribuir para uma comunidade \emph{open-source}. Tratando-se de um projeto cujo objetivo passa por revolucionar a \emph{Web}, estas contribuições implicaram pensar fora da caixa num mundo já repleto de fortes alicerces implantados por grandes empresas e grandes engenheiros da área da informação e tecnologias de comunicações (ICT).
 
-O Solid foi o projeto escolhido e sobre o qual incidiu uma grande parte do trabalho relatado nesta dissertação, o esforço no sentido de migrar a arquitetura monolítica obrigou a perceber todo o trabalho até então realizado e distribuído por mais de 20 repositórios no \emph{github} (\emph{c.f.} secção \ref{section_contribuicoes_investigacao}). para além do \emph{solid-server} proposto (\emph{c.f.} secção \ref{section_arquitetura_proposta}), houve também trabalho desenvolvido no sentido de criar provas de conceito com interface gráfica, uma delas com co-autoria desenvolvida no sentido de colaboração com uma tese de dissertação do \emph{Massachusetts Institute of Technology (MIT\label{sym:MIT})} e outra como forma de suporte à apresentação do presente documento.
+O \emph{Solid} foi o projeto escolhido e sobre o qual incidiu uma grande parte do trabalho relatado nesta dissertação. O esforço no sentido de migrar a arquitetura monolítica obrigou a perceber todo o trabalho até então realizado e distribuído por mais de 20 repositórios no \emph{github} (\emph{c.f.} secção \ref{section_contribuicoes_investigacao}). Para além do \emph{solid-server} proposto (\emph{c.f.} secção \ref{section_arquitetura_proposta}), houve também trabalho desenvolvido no sentido de criar provas de conceito com interface gráfica, uma delas com co-autoria desenvolvida no sentido de colaboração com uma tese de dissertação do \emph{\acrshort{MIT}} e outra como forma de suporte à apresentação do presente documento.
 
 \section{Questões de investigação e contribuições}
 Desde o início que o problema foi decomposto em questões mais simples com vista a colmatar as diferentes indefinições.
 
+\newhalfpara
+
 \textbf{Q1: {Como pode o \emph{Solid} ser escalado horizontal e verticalmente?}}
 
 O escalamento vertical não deverá ser um problema, uma vez que corresponde a aumento de recursos que suportam a instância a executar.
+
 Por outro lado, o escalamento horizontal é um problema na arquitetura atual, na medida em que cada nova execução do \emph{Solid} corresponde a um nova instância totalmente independente das outras que existem no mundo (\emph{c.f.} figura 4.1).
-Uma possível solução consiste em embeber os diferentes serviços (no caso da arquitetura orientada a micro-serviços) em \emph{containers} (utilizando por exemplo a tecnologia \emph{docker}) e executar estes \emph{containers} através de uma ferramenta orquestração (como por exemplo \emph{kubernetes}). É importante denotar que para isto ser possível é também necessário que os recursos estáticos estejam disponíveis e de alguma forma sincronizados entre as diferentes instâncias de um determinado serviço(\emph{c.f.} secção \ref{section_arquitetura_proposta}).
+
+Uma possível solução consiste em embeber os diferentes serviços (no caso da arquitetura orientada a micro-serviços) em \emph{containers} (utilizando por exemplo a tecnologia \emph{docker}) e executar estes \emph{containers} através de uma ferramenta orquestração (como por exemplo \emph{kubernetes}).
+
+É importante denotar que para isto ser possível é também necessário que os recursos estáticos estejam disponíveis e de alguma forma sincronizados entre as diferentes instâncias de um determinado serviço(\emph{c.f.} secção \ref{section_arquitetura_proposta}).
+
+\newhalfpara
 
 \textbf{Q2: É possível existir apenas uma implantação do \emph{Solid} escalada de forma descentralizada e anónima?}
 
 Uma implantação única e global do \emph{Solid} seria uma possível evolução para o conceito. Esta evolução está dependente da migração para uma arquitetura orientada a micro-serviços, da adoção de um mecanismo de descoberta de novas instâncias para determinado serviço (\emph{c.f.} capítulo \ref{desenho})
 
+\newhalfpara
+
 \textbf{Q3: O mecanismo de autenticação utilizado atualmente pode ser mantido tendo em conta a migração para uma arquitetura orientada a micro-serviços?}
 
-O mecanismo de autenticação utilizado atualmente pelo \emph{Solid} é o \emph{Open-ID Connect} em combinação com a atualização de \emph{tokens} de acesso em formato \emph{JWT} (\emph{c.f.} secção \ref{section_estado_arte_solid_authentication}).
+O mecanismo de autenticação utilizado atualmente pelo \emph{Solid} é o \emph{Open-ID Connect} em combinação com a atualização de \emph{tokens} de acesso em formato \emph{\acrshort{JWT}} (\emph{c.f.} secção \ref{section_estado_arte_solid_authentication}).
 
-O fluxo de autenticação do protocolo \emph{Open-ID connect}, cria uma clara separação entre o componente responsável por gerir a autenticação (\emph{Identity Provider} e o componente que serve recursos com base na autenticidade do \emph{token} de acesso (\emph{Resource Server} (\emph{c.f.} figura 2.1). O \emph{token} garante que a validação de autenticidade não depende do componente emissor, e desta forma contribui para o baixo acoplamento característico numa arquitetura orientada a micro-serviços (\emph{c.f.} secção \ref{sym:jwt}).
+O fluxo de autenticação do protocolo \emph{Open-ID connect}, cria uma clara separação entre o componente responsável por gerir a autenticação (\emph{Identity Provider} e o componente que serve recursos com base na autenticidade do \emph{token} de acesso (\emph{Resource Server} (\emph{c.f.} figura 2.1). O \emph{token} garante que a validação de autenticidade não depende do componente emissor, e desta forma contribui para o baixo acoplamento característico numa arquitetura orientada a micro-serviços (\emph{c.f.} secção \ref{subsection:jwt}).
 
 
 \section{Resultados}

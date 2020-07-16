@@ -3,17 +3,17 @@
 \label{cap:1}
 
 \section{Contextualização}
-Numa era em que o principal ativo das empresas é a informação, a ponto de existirem empresas que trocam serviços altamente valiosos por informação pessoal (ex: Google, Facebook, etc)\cite{top_three_issues_centralized_web}, surgem inevitavelmente questões sobre para que são realmente utilizados esses dados e se o utilizador está realmente ciente que estes estão disponíveis para toda e qualquer utilização que seja proveitosa para essas empresas \cite{facebook_data_hell_medium}. Este problema torna-se crítico quando mentes geniais aliadas a poderes incríveis de processamento conseguem, literalmente, manipular opiniões que culminam em acontecimentos inéditos \cite{cambridge_analytica}.
+Numa era em que o principal ativo das empresas é a informação, a ponto de existirem empresas que trocam serviços altamente valiosos por informação pessoal (ex: Google, Facebook, etc)\cite{top_three_issues_centralized_web}, surgem inevitavelmente questões sobre para que são realmente utilizados esses dados e se o utilizador está realmente ciente que estes estão disponíveis para toda e qualquer utilização que seja proveitosa para essas empresas\cite{facebook_data_hell_medium}. Este problema torna-se crítico quando mentes geniais aliadas a poderes incríveis de processamento conseguem, literalmente, manipular opiniões que culminam em acontecimentos inéditos\cite{cambridge_analytica}.
 
-A descentralização da \emph{Web} é um tema que assenta também em como tratar estes dados, não estivesse o tema adjacente ao conceito da nova “World Wide Web”, e de entre outros projetos destaca-se o “Solid”, fundado por Tim Berners-Lee. O \emph{Solid} está ainda numa fase de desenvolvimento, estando, portanto, aberto a contribuições que possam de facto garantir melhorias e impacto positivo para o futuro \cite{why_web_decentralization_future}. Este projeto mantém atualmente duas ramificações, a original e uma outra desenvolvida e mantida pela \emph{spinoff} denominada \emph{inrupt} fundada também por Tim Berners-Lee. Esta última ramificação tem base a original mas com uma vertente mais comercial e uma visão mais ambiciosa no sentido de proliferar a utilização do Solid.
+A descentralização da \emph{Web} é um tema que assenta também em como tratar estes dados, não estivesse o tema adjacente ao conceito da nova “World Wide Web”, e de entre outros projetos destaca-se o “Solid”, fundado por Tim Berners-Lee. O \emph{Solid} está ainda numa fase de desenvolvimento, estando, portanto, aberto a contribuições que possam de facto garantir melhorias e impacto positivo para o futuro\cite{why_web_decentralization_future}. Este projeto mantém atualmente duas ramificações, a original e uma outra desenvolvida e mantida pela \emph{spinoff} denominada \emph{inrupt} fundada também por Tim Berners-Lee. Esta última ramificação tem base a original mas com uma vertente mais comercial e uma visão mais ambiciosa no sentido de proliferar a utilização do Solid.
 
 \section{Motivação}
 A descentralização da \emph{Web} não é um tema consensual, e certamente vai contra muitos modelos de negócio atuais. Porém, assim como se protege as nossas propriedades, devem ser protegidos os nossos dados, os seus acessos e respetivas utilizações.
 
-O paradigma atual gira em torno de oferecer serviços em troca de publicidade segmentada, com a justificação de sustentar custos de infraestrutura e de desenvolvimento \cite{top_three_issues_centralized_web}. Com um novo paradigma de \emph{Web} descentralizada poderiam ser cortados os custos de infraestrutura, porque deixariam de ser necessários \emph{“back-ends”}, e as aplicações cliente utilizariam apenas recursos do cliente. Restariam os custos desenvolvimento, que poderiam eventualmente ser sustentados pela extinção do conceito “gratuito” nas empresas de base digital \cite{why_web_decentralization_future}.
+O paradigma atual gira em torno de oferecer serviços em troca de publicidade segmentada, com a justificação de sustentar custos de infraestrutura e de desenvolvimento\cite{top_three_issues_centralized_web}. Com um novo paradigma de \emph{Web} descentralizada poderiam ser cortados os custos de infraestrutura, porque deixariam de ser necessários \emph{“back-ends”}, e as aplicações cliente utilizariam apenas recursos do cliente. Restariam os custos desenvolvimento, que poderiam eventualmente ser sustentados pela extinção do conceito “gratuito” nas empresas de base digital\cite{why_web_decentralization_future}.
 
 É possível que este tema seja apenas um “não tema” e que não seja plausível a sua implementação de forma massiva, mas todo o contexto por trás e a quantidade de dados sensíveis (saúde, seguros, etc) que circulam todos os segundos nos trâmites do atual paradigma da \emph{Web},
-merece que sejam dedicados esforços e que pelo menos sirva de alavanca a uma reformulação profunda daquilo que é a \emph{Web} que conhecemos hoje \cite{why_web_decentralization_future}.
+merece que sejam dedicados esforços e que pelo menos sirva de alavanca a uma reformulação profunda daquilo que é a \emph{Web} que conhecemos hoje\cite{why_web_decentralization_future}.
 
 \section{Objectivos \label{objetivos}}
 Os objetivos desta dissertação passam por explorar o tema da descentralização da \emph{Web}. O estudo irá ter em conta as alternativas mais relevantes apresentadas neste contexto até ao dia de hoje. Destas alternativas, serão trabalhadas soluções de escalabilidade para o projeto que se apresentar mais promissor.
@@ -33,7 +33,7 @@ Estas hipóteses levantam uma série de questões que deverão servir também po
 \begin{enumerate}
     \item \textbf{Como pode o \emph{Solid} ser escalado horizontal e verticalmente?}
     \begin{itemize}
-        \item A escalabilidade horizontal e vertical correspondem a escalar os recursos de determinada instância e escalar o numero de instâncias, respetivamente. Estas duas abordagens tem custos e benefícios diferentes, que devem pesados nas diferentes circunstâncias em que exista decréscimo de performance na instância atual.
+        \item A escalabilidade horizontal e vertical correspondem a escalar os recursos de determinada instância e incrementar o numero de instâncias, respetivamente. Estas duas abordagens tem custos e benefícios diferentes, que devem pesados nas diferentes circunstâncias em que exista decréscimo de performance na instância atual.
         \item O escalamento horizontal implica que possa existir redundância de determinado serviço ou de todo o monólito no caso de se tratar de uma arquitetura monolítica.
     \end{itemize}
     \item \textbf{É possível existir apenas uma implantação do \emph{Solid} escalada de forma descentralizada e anónima?}
@@ -48,14 +48,14 @@ Estas hipóteses levantam uma série de questões que deverão servir também po
 \end{enumerate}
 
 \section{Metodologia de Investigação}
-Para a investigação no âmbito do desenvolvimento deste projeto foi utilizado o método \emph{Design Science Research}. Esta abordagem aplica-se sobretudo a investigações com vista a construir novas soluções ou implantar soluções inovadoras sobre problemas que possam já ter outras resoluções descobertas\cite{design_science_research}.
+Para a investigação, no âmbito do desenvolvimento deste projeto, foi utilizado o método \emph{Design Science Research}. Esta abordagem aplica-se sobretudo a investigações com vista a construir novas soluções ou implantar soluções inovadoras sobre problemas que possam já ter outras resoluções descobertas\cite{design_science_research}.
 
 Este processo inclui geralmente seis passos\cite{design_science_research}:
 \begin{enumerate}
     \item Identificar o problema, assim como identificar os desafios da investigação e os potenciais benefícios da solução;
     \item \textbf{Definição} dos objetivos para a solução;
-    \item \textbf{Desenho} e desenvolvimento os artefactos;
-    \item \textbf{Demonstração} da resolução do problema com recursos aos artefactos desenvolvidos;
+    \item \textbf{Desenho} e desenvolvimento dos artefactos;
+    \item \textbf{Demonstração} da resolução do problema com recurso aos artefactos desenvolvidos;
     \item \textbf{Avaliação} da solução, comparando os objetivos com os resultados obtidos;
     \item \textbf{Comunicação} do problema, dos artefactos constituintes da solução, a sua utilidade e a forma como realmente contribuir para criar impacto positivo.
 \end{enumerate}
@@ -64,13 +64,13 @@ Este processo inclui geralmente seis passos\cite{design_science_research}:
 O trabalho resultante desta dissertação tem como objetivo criar uma possível solução escalável e capaz de alicerçar a proliferação de uma nova \emph{world Wide Web} descentralizada. Seguem-se algumas contribuições resultantes do mesmo:
 \begin{itemize}
     \item \emph{A Study About Web Development Frameworks Focused on Users’ Privacy}\cite{solid_article}
-    \item Repositório \emph{Node Solid Server} segundo arquitetura orientada a micro-serviços proposta\cite{repo_node_solid_server}
-    \item Repositório \emph{OpenID Connect provider} para \emph{Node.js}\cite{repo_oidc_op}.
-    \item Repositório \emph{OpenID Connect relying party client}\cite{repo_oidc_rp}.
-    \item Repositório \emph{OpenID Connect authentication manager}\cite{repo_oidc_auth_manager}.
-    \item Repositório \emph{Solid auth client}\cite{repo_solid_auth_client}.
-    \item Repositório aplicação cliente \emph{Solid} micro-serviços com funcionalidade de gestão de ficheiros\cite{repo_solid_filemanager}
-    \item Repositório aplicação cliente \emph{Solid} monólito com funcionalidades clínicas\cite{repo_steve_clinic}.
+    \item Repositório do \emph{Node Solid Server} segundo arquitetura orientada a micro-serviços proposta\cite{repo_node_solid_server}
+    \item Repositório do \emph{OpenID Connect provider} para \emph{Node.js}\cite{repo_oidc_op}.
+    \item Repositório do \emph{OpenID Connect relying party client}\cite{repo_oidc_rp}.
+    \item Repositório do \emph{OpenID Connect authentication manager}\cite{repo_oidc_auth_manager}.
+    \item Repositório do \emph{Solid auth client}\cite{repo_solid_auth_client}.
+    \item Repositório da aplicação cliente \emph{Solid} micro-serviços com funcionalidade de gestão de ficheiros\cite{repo_solid_filemanager}
+    \item Repositório da aplicação cliente \emph{Solid} monólito com funcionalidades clínicas\cite{repo_steve_clinic}.
 \end{itemize}
 
 \section{Estrutura da Tese}

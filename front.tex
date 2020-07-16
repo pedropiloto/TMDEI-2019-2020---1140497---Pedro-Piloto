@@ -32,9 +32,8 @@
 \input{resumo.tex}
 \cleardoublepage
 % *************** Table of contents ***************
-\renewcommand*\contentsname{Índice}
-\pagenumbering{roman} \pagestyle{headings} \tableofcontents
-\cleardoublepage \addtocontents{toc}{\setcounter{tocdepth}{2}} 
+\input{index.tex}
+\cleardoublepage
 % *************** Table of figures ***************
 \renewcommand{\listfigurename}{Lista de Figuras}
 \listoffigures \cleardoublepage
@@ -42,7 +41,9 @@
 \renewcommand{\listtablename}{Lista de Tabelas}
 \listoftables \cleardoublepage
 % *************** Table of symbols ***************
-\input{glossary.tex}
+
+\input{acronyms.tex}
+
 \cleardoublepage
 % *************** Acknowledgments ***************
 \addcontentsline{toc}{chapter}{Agradecimentos}

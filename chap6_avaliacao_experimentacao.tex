@@ -10,37 +10,46 @@ Neste contexto, uma experiência ou teste, assim como definido na secção \ref{
 Assim, para a realização de um teste é preciso definir as grandezas, as hipóteses e as metodologias de avaliação.
 
 \subsection{Grandezas a Avaliar}
-Os objetivos definidos na secção \ref{objetivos} implicam na contribuição para o projeto \emph{Solid} com vista a incrementar o seu potencial de escalabilidade, e desta forma cumprir, também, as hipóteses formuladas na secção \ref{section_hypothesis}. Tendo isto em consideração, existem duas potenciais grandezas a avaliar:
+Os objetivos definidos na secção \ref{objetivos} induzem uma contribuição para o projeto \emph{Solid} com vista a incrementar o seu potencial de escalabilidade, e desta forma cumprir, também, as hipóteses formuladas na secção \ref{section_hypothesis}.
+
+Tendo isto em consideração, existem duas potenciais grandezas a avaliar:
 \begin{itemize}
-    \item Qualidade da implementação - A qualidade da implementação é crucial para tornar viável a aceitação da solução como uma contribuição para a comunidade em volta do Solid. A qualidade deverá ser mensurada tendo em conta métricas como resultados de software.
-    \item Performance - Tendo em conta o mesmo escalamento, é relevante conseguir apurar se a solução desenvolvida consegue melhores resultados em termos de performance
-    \item Escalabilidade - É importante perceber se de facto a solução implementada é mais escalável horizontalmente que a plataforma atual
+    \item Qualidade da implementação - A qualidade da implementação é crucial para tornar viável a aceitação da solução como uma contribuição para a comunidade em volta do Solid. A qualidade deverá ser mensurada tendo em conta métricas como resultados de software;
+    \item Performance - Tendo em conta o mesmo escalamento, é relevante conseguir apurar se a solução desenvolvida consegue melhores resultados em termos de performance;
+    \item Escalabilidade - Como complemento ponto referente à performance, é importante perceber se de facto a solução implementada é mais escalável horizontalmente que a plataforma atual.
 \end{itemize}
 
 \subsection{Hipóteses \label{avaliacao_experimentacao_hypothesis}}
 Uma hipótese consiste numa afirmação que se quer corroborar através de testes estatísticos utilizando grandezas identificadas.
 
 No contexto deste projeto, foram definidas duas hipóteses em linha com aquelas que foram formuladas na secção \ref{section_hypothesis}:
-\begin{description}
-    \item - Sucesso 100\% dos testes de software e cobertura superior a 80\%. Este valor vai em linha com o valor recomendado para criar um balanço entre cobertura de cenários de utilização e cobertura de código testado\cite{code_coverage}.;
-    \item - Capacidade de cada micro-serviço deve ser de pelo menos 75\% da suportada pela plataforma atual (monolítico) para uma determinada carga, mantendo o tempo máximo de resposta de cada pedido inferior a 400 milissegundos.
+\begin{itemize}
+    \item Hipótese referente a testes aplicacionais - Sucesso 100\% dos testes de software e cobertura superior a 80\%. Este valor vai em linha com o valor recomendado para criar um balanço entre cobertura de cenários de utilização e cobertura de código testado\cite{code_coverage};
+    \item Hipótese referente a testes de performance - Capacidade de cada micro-serviço deve ser de pelo menos 75\% da suportada pela plataforma atual (monolítico) para uma determinada carga, mantendo o tempo máximo de resposta de cada pedido inferior a 400 milissegundos.
     O racional para a escolha do valor de 75\% surge no sentido de que podemos assumir que a performance individual dos serviços pode ser um pouco inferior do que o monólito, sem que isso afete o sistema orientado a micro-serviços como um todo, na medida em que o fator de escalabilidade flexível irá garantir melhor performance que o monólito.
     Por outro lado, o valor de 400 milissegundos foi obtido a partir da exploração das médias de tempo resposta para um conjunto basto de aplicações web através da fonte \cite{average_server_response_time}.
-\end{description}
+\end{itemize}
 
 \subsection{Metodologias de Avaliação}
 As metodologias de avaliação consistem na forma como serão verificadas as hipóteses definidas. A metodologia a utilizar irá depender da hipótese e da grandeza em causa.
 
-A primeira hipótese, tendo em conta a qualidade da solução implementada, deve recorrer a testes de software, nomeadamente testes unitários e testes de integração que são executados através de ferramentas específicas para este efeito. Tendo em conta que esta metodologia é directa, não deverá ser necessário tratamento estatístico.
+A Hipótese referente a testes aplicacionais, tendo em conta a qualidade da solução implementada, deve recorrer a testes de software, nomeadamente testes unitários e testes de integração que são executados através de ferramentas específicas para este efeito. Tendo em conta que esta metodologia é directa, não deverá ser necessário tratamento estatístico.
 
-A segunda hipótese consiste em corroborar que cada micro-serviço do sistema, sob uma determinada carga, consegue suportar pelo menos 75\% do \emph{throughput} da plataforma atual (monólito), mantendo o tempo de resposta de cada pedido abaixo de 400 milissegundos. Para esta hipótese, deverão ser realizados testes de performance e capacidade aos diferentes micro-serviços e à plataforma atual. Estes testes deverão ser executados recorrendo a ferramentas para este efeito (como por exemplo JMeter) e os resultados devem ser apontados de forma a poderem ser tiradas conclusões. É importante referir que no caso dos micro-serviços, é expectável que os pedidos realizados durante os testes de carga passem pela \emph{API-Gateway}, de forma a que o cenário se aproxime o mais possível da realidade.
+A Hipótese referente a testes de performance consiste em corroborar que cada micro-serviço do sistema, sob uma determinada carga, consegue suportar pelo menos 75\% do \emph{throughput} da plataforma atual (monólito), mantendo o tempo de resposta de cada pedido abaixo de 400 milissegundos.
+
+Para esta hipótese deverão ser realizados testes de performance e capacidade aos diferentes micro-serviços e à plataforma atual.
+
+Estes testes deverão ser executados recorrendo a ferramentas para este efeito (como por exemplo JMeter) e os resultados devem ser apontados de forma a poderem ser tiradas conclusões.
+
+É importante referir que no caso dos micro-serviços, é expectável que os pedidos realizados durante os testes de carga passem pela \emph{API-Gateway}, de forma a que o cenário se aproxime o mais possível da realidade.
 
 \section{Resultados}
-Definidas as hipóteses e os meios e as metodologias de avaliação, resta executar os testes e apurar os resultados. Seguem-se resultados para cada uma das hipóteses propostas.
+Definidas as hipóteses e os meios e as metodologias de avaliação, seguem-se os resultados para cada uma das hipóteses propostas.
 
 \subsection{Hipótese referente a testes aplicacionais}
 Esta hipótese indica que os testes de Software devem ter uma taxa de sucesso de 100\%, bem como uma cobertura superior a 80\%.
 No contexto da implementação foram utilizadas as bibliotecas \emph{mocha} e \emph{chai} para criar e mensurar os testes, tanto unitários como de integração.
+
 Os números apresentados na tabela \ref{table_testes_aplicacionais_micro_services} correspondem ao conjunto de todos os projetos e bibliotecas externas alteradas no decorrer da implementação desta nova arquitetura para o Solid (\emph{c.f.} secção \ref{section_contribuicoes_investigacao}).
 Numa perspetiva de estabelecer um ponto de comparação para perceber se existem diferenças substanciais nos números de testes e percentagem face à solução monolítica.
 
@@ -68,24 +77,27 @@ Testes Unitários & Testes de Integração & Cobertura \\
 \end{tabular}
 \end{table}
 
-Com base nos resultados apresentados na tabela \ref{table_testes_aplicacionais_micro_services} é possível inferir que tanto a taxa de sucesso como a taxa de cobertura permitem corroborar a hipótese estipulada. Na mesma linha de raciocínio, quando comparados estes valores com os correspondentes à solução monolítica (\emph{c.f.} tabela \ref{table_testes_aplicacionais_monolito}) é possível que houve uma ligeira melhoria cobertura como no número de testes realizados à plataforma como um todo.
+Com base nos resultados apresentados na tabela \ref{table_testes_aplicacionais_micro_services} é possível inferir que tanto a taxa de sucesso como a taxa de cobertura permitem corroborar a hipótese estipulada.
+
+Na mesma linha de raciocínio, quando comparados estes valores com os correspondentes à solução monolítica (\emph{c.f.} tabela \ref{table_testes_aplicacionais_monolito}) é possível perceber que houve uma ligeira melhoria tanto em termos de cobertura como em número de testes realizados à plataforma.
 
 \subsection{Hipótese referente a testes de performance}
 A segunda hipótese incide na análise de performance dos micro-serviços desenvolvidos, com vista a inferir se houve de facto ganhos justificativos em relação à arquitetura atual.
 
 \subsubsection{\emph{Setup} dos Testes \label{section_setup_testes}}
 
-A premissa base foi de que tanto o monólito, como os micro-serviços seriam testados estando a ser executados apenas numa instância sem qualquer tipo de escalamento, isto porque o monólito não suporta escalamento horizontal e, desta forma os resultados obtidos poderiam não ser fiáveis. Esta premissa vai de encontro à hipótese referente a performance do sistema desenvolvido, formulada na secção \ref{section_hypothesis}
+A premissa base foi de que tanto o monólito, como os micro-serviços seriam testados estando a ser executados apenas numa instância sem qualquer tipo de escalamento, isto porque o monólito não suporta escalamento horizontal e, desta forma os resultados obtidos poderiam não ser fiáveis. 
 
-Para a realização dos testes foi utilizada a ferramenta de testes de carga \emph{JMeter}, que permite simular utilizadores e pedidos simultâneos a um determinado serviço. Esta ferramenta disponibiliza a funcionalidade de executar contra interfaces de aplicação REST através da configuração dos seguintes parâmetros:
+Esta premissa vai de encontro à hipótese referente a performance do sistema desenvolvido, formulada na secção \ref{section_hypothesis}.
+
+Para a realização dos testes foi utilizada a ferramenta de testes de carga \emph{JMeter}, que permite simular utilizadores e pedidos simultâneos a um determinado serviço. Esta ferramenta disponibiliza a funcionalidade de executar contra interfaces de aplicação \emph{\acrshort{REST}} através da configuração dos seguintes parâmetros:
 \begin{itemize}
-    \item Caminho - O caminho que permite chegar ao serviço.
-    \item Método - Método HTTP do \emph{endpoint} especifico.
-    \item Numero de \emph{Threads} - Cada \emph{thread} permite simular um utilizador a executar pedidos, sendo que múltiplas \emph{threads} irão ser executadas em paralelo e, por consequência, simular múltiplos utilizadores a fazer pedidos em simultâneo
-    \item Período \emph{Ramp-up}: Variável em segundos que indica quão gradual devem ser criadas novas \emph{threads}. A divisão do numero de \emph{threads} pelo valor configurado nesta variável indica o numero de novas \emph{threads} que serão criadas por segundo até que seja atingido o numero total.
+    \item Caminho - O caminho que permite chegar ao serviço;
+    \item Método - Método HTTP do \emph{endpoint} específico;
+    \item Numero de \emph{Threads} - Cada \emph{thread} permite simular um utilizador a executar pedidos, sendo que múltiplas \emph{threads} irão ser executadas em paralelo e, por consequência, simular múltiplos utilizadores a fazer pedidos em simultâneo;
+    \item Período \emph{Ramp-up} - Variável em segundos que indica quão gradual devem ser criadas novas \emph{threads}. A divisão do numero de \emph{threads} pelo valor configurado nesta variável indica o numero de novas \emph{threads} que serão criadas por segundo até que seja atingido o numero total;
     \item Total repetições - Numero de pedidos que cada \emph{thread} irá fazer. Assim que todas terminarem de executar o valor total de repetições, está concluído.
 \end{itemize}
-
 
 De forma a perceber o numero de utilizadores simultâneos que deveriam ser configurados, foram efectuados sucessivos testes de performance com incremento do número de \emph{threads} e, assim, perceber qual o número máximo de utilizadores simultâneos que uma instância de \emph{Solid} consegue servir mantendo um tempo de resposta inferior a 400milissegundos.
 
@@ -103,11 +115,11 @@ De forma a perceber o numero de utilizadores simultâneos que deveriam ser confi
 
 Utilizando as configurações da tabela \ref{jmeter_configs}, ao fim de 10 segundos teremos 10 utilizadores simultâneos que irão fazer um total de 200 pedidos cada um.
 
-De forma a manter a equidade em termos de \emph{hardware}, os diferentes serviços serão testados a executar em \emph{VPSs (Virtual Private Servers) \label{sym:vps}} compradas apenas para estas experiências, com as configurações base referidas na tabela \ref{vps_configs}.
+De forma a manter a equidade em termos de \emph{hardware}, os diferentes serviços serão testados a executar em \emph{\acrfull{VPS}} adquiridos apenas para estas experiências, com as configurações base referidas na tabela \ref{vps_configs}.
 
 \begin{table}[h]
 \centering
-\caption{Tabela configurações base \emph{VPS}}
+\caption{Tabela configurações base \emph{\acrshort{VPS}}}
 \vspace{0.5cm}
 \label{vps_configs}
 \begin{tabular}{c|c|c|c|} 
@@ -117,7 +129,7 @@ CPU & RAM & Disco & Sistema Operativo \\
 \end{tabular}
 \end{table}
 
-Estas experiências deverão incidir sobre, por um lado, sobre casos de uso que permitam exercitar os diferentes micro-serviços na arquitetura proposta ({c.f.} secção \ref{section_arquitetura_proposta}), e, por outro lado, casos de uso que representem funcionalidades cruciais para o \emph{POD}. Assim, os testes de performance irão incidir sobre três casos de uso:
+Estas experiências deverão incidir, por um lado, sobre casos de uso que permitam exercitar os diferentes micro-serviços na arquitetura proposta ({c.f.} secção \ref{section_arquitetura_proposta}), e, por outro lado, sobre casos de uso que representem funcionalidades cruciais para o \emph{\acrshort{POD}}. Assim, os testes de performance irão incidir sobre três casos de uso:
 \begin{itemize}
     \item Criação de uma nova conta
     \item Autenticação
@@ -128,14 +140,14 @@ No caso do monólito, o teste deverá incidir sobre a mesma instância aplicacio
 
 Para a arquitetura orientada a micro-serviços, estes testes deverão fazer incidir os pedidos, de forma independente, nos serviços responsáveis pelos respetivos casos de uso:
 \begin{itemize}
-    \item \emph{Accounts Web} - Criação de uma nova conta
-    \item \emph{Solid ID Web} - Autenticação
-    \item \emph{Solid Storage Web} - Obter recurso
+    \item \emph{Accounts Web} - Criação de uma nova conta;
+    \item \emph{Solid ID Web} - Autenticação;
+    \item \emph{Solid Storage Web} - Obter recurso.
 \end{itemize}
 
 \subsubsection{Teste Monólito \label{section_tests_monolith}}
 
-Para o teste de performance ao monólito foi implantado o sistema \emph{Solid} sob a arquitetura monolítica numa das \emph{VPS} (\emph{c.f.} figura \ref{monolith_tests_implantation_diagram}). Estes testes incluíram, assim como proposto na secção \ref{section_setup_testes}), pedidos a três diferentes \emph{endpoints}, correspondentes a interações de registo de conta, autenticação e obtenção de recurso.
+Para o teste de performance ao monólito foi implantado o sistema \emph{Solid} sob a arquitetura monolítica numa das \emph{\acrshort{VPS}} (\emph{c.f.} figura \ref{monolith_tests_implantation_diagram}). Estes testes incluíram, assim como proposto na secção \ref{section_setup_testes}, pedidos a três diferentes \emph{endpoints}, correspondentes a interações de registo de conta, autenticação e obtenção de recurso.
 
 \begin{figure}[H]
     \begin{center}
@@ -152,6 +164,7 @@ Os dados relevantes para este cenário de teste são o tempo médio de resposta 
 \centering
 
 \caption{Resultados teste performance \emph{solid server} monólito}
+\label{table_resultados_testes_performance_monolith}
 \vspace{0.5cm}
 \begin{tabular}{c|c|c|c}
  - & Média tempo de resposta (ms) & \emph{Throughput} (p/s) \\
@@ -175,7 +188,7 @@ Para este cenário de teste a solução orientada a micro-serviços (\emph{c.f.}
 
 
 Os resultados para este teste são apresentados na tabela \ref{r_t_m_s_1}, incluindo para cada um dos micro-serviços, os valores de tempo médio de resposta e \emph{throughput}.
-Conforme é possível perceber, face à ao resultados do teste ao monólito expostos na tabela \ref{monolith_tests_implantation_diagram}, os valores demonstram perdas significativas em ambas as métricas, colocando, assim, em risco a inferência da hipótese formulada no âmbito dos testes de performance (\emph{c.f.} \ref{avaliacao_experimentacao_hypothesis}).
+Conforme é possível perceber, face aos resultados do teste ao monólito expostos na tabela \ref{monolith_tests_implantation_diagram}, os valores demonstram perdas significativas em ambas as métricas, colocando, assim, em risco a inferência da hipótese formulada no âmbito dos testes de performance (\emph{c.f.} \ref{avaliacao_experimentacao_hypothesis}).
 
 \begin{table}[h]
 \centering
@@ -229,6 +242,7 @@ Com base nos valores apresentados na tabela \ref{r_t_m_s_2} é possível corrobo
 \subsubsection{Teste arquitetura micro-serviços distribuídos sem \emph{containers} \label{tests_micro_services_3}}
 
 Conforme explicado, apesar dos resultados dos testes documentados na secção \ref{tests_micro_services_2} serem relativamente satisfatórios tendo em conta àquilo que foi estipulado pela hipótese formulada, segue-se um novo teste com uma abordagem de implantação sem recurso à tecnologia \emph{containers}.
+
 Neste teste, o sistema \emph{Solid} sob arquitetura orientada a micro-serviços seguiu, tal como no teste \ref{tests_micro_services_2}, uma implantação distribuída em mais do que um nó (\emph{c.f.} figura \ref{figure_solid_micro_services_multiples_vps_implantation_diagram}), mas neste cenário não foi utilizada qualquer tecnologia de \emph{containers}, estando os serviços a ser executados diretamente sobre o sistema operativo da máquina.
 
 \begin{table}[h]
@@ -239,7 +253,7 @@ Neste teste, o sistema \emph{Solid} sob arquitetura orientada a micro-serviços 
 \begin{tabular}{c|c|c|c} 
  - & Média tempo de resposta (ms) & \emph{Throughput} (p/s) \\
 \hline                          
-\emph{Solid ID Web} & 385 & 19 \\
+\emph{Solid ID Web} & 385 & 19.0 \\
 \emph{Solid Storage Web} & 370 & 20.2 \\
 \emph{Accounts Web} & 300 & 22.6 \\
 \end{tabular}
@@ -250,24 +264,21 @@ Os resultados apresentados na tabela \ref{r_t_m_s_3} parecem corroborar a teoria
 \subsubsection{Análise Resultados}
 Com base nos testes de performance realizados ao monólito (\emph{c.f.} tabela \ref{table_resultados_testes_performance_monolith}), foi possível obter um \emph{throughput} de 20.6 pedidos por segundo com uma média de tempo de resposta de 380ms, desta forma, segundo a hipótese formulada, o valor de \emph{throughput} para os micro-serviços deverá ser no mínimo de 75\% esse valor, ou seja, superior a 15.45 pedidos por segundo e mantendo um tempo médio de resposta inferior a 400ms.
 
-Tendo por base os três diferentes testes realizados à arquitetura orientada a micro-serviços: (i): Teste arquitetura micro-serviços em apenas um nó (\emph{c.f.} secção \ref{tests_micro_services_1}); (ii): Teste arquitetura micro-serviços distribuídos (\emph{c.f.}\ref{tests_micro_services_2}); (iii): Teste arquitetura micro-serviços distribuídos sem \emph{containers} (\emph{c.f.} secção \ref{tests_micro_services_3}).
-Foi construída a tabela \ref{tabela_resultados_aglomerados} com vista a apresentar as diferenças percentuais dos valores de tempo médio de resposta e \emph{Troughput} face aos testes realizados ao \emph{Solid} monolítico, e, desta forma, ser permitir obter conclusões mais fundamentadas sobre a performance da solução da desenvolvida.
-
-O primeiro teste aos micro-serviços seguiu uma implantação relativamente simples e com potencial de custos reduzidos, tendo sido toda a arquitetura implantada numa única máquina.
-Porém, utilizando esta solução sem qualquer tipo de escalamento vertical ou horizontal, acaba por tornar o \emph{hardware} o \emph{bottleneck} da arquitetura, afetando tanto o \emph{throughput} como o tempo médio de resposta de cada pedido processado.
-
-Tendo em conta que o teste anterior não cumpre com as metas inferidas nesta hipótese, um novo teste foi desenhado recorrendo a uma implantação distribuída (\emph{c.f.} figura \ref{figure_solid_micro_services_multiples_vps_implantation_diagram}), mantendo, desta forma, a premissa de não recorrer nestes testes a escalamento vertical ou horizontal e ao mesmo tempo eliminar o \emph{bottleneck} do \emph{hardware}. Os resultados deste segundo teste foram mais satisfatórios e permitem inferior que esta hipótese está também cumprida. Os resultados um pouco inferiores aos do monólito podem ser explicados pelo facto dos micro-serviços estarem a ser executados sobre um ambiente de \emph{containers} com a tecnologia \emph{docker}, sendo esta ultima teoria comprovada com base nos testes apresentados na secção \ref{tests_micro_services_3}.
-
-Estes resultados permitem, desta forma, aferir que o sistema desenvolvido confere, garantindo a mesma experiência de utilização, uma performance não inferior quando submetido às mesmas condições de escalamento horizontal e vertical, corroborando os pressupostos adjacentes a esta dissertação (\emph{c.f. secção \ref{section_hypothesis}}).
+A tabela \ref{tabela_resultados_aglomerados} foi construída com o objetivo de, tendo por base testes realizados ao \emph{Solid} monolítico (\emph{c.f.} secção \ref{section_tests_monolith}), salientar as evoluções percentuais dos valores de tempo médio de resposta e \emph{Troughput} para os diferentes testes realizados à arquitetura orientada a micro-serviços:
+\begin{itemize}
+    \item este arquitetura micro-serviços em apenas um nó (\emph{c.f.} secção \ref{tests_micro_services_1});
+    \item Teste arquitetura micro-serviços distribuídos (\emph{c.f.}\ref{tests_micro_services_2});
+    \item Teste arquitetura micro-serviços distribuídos sem \emph{containers} (\emph{c.f.} secção \ref{tests_micro_services_3}).
+\end{itemize}
 
 \begin{center}
-\begin{table}[H]
+\begin{table}[h]
 \caption{Tabela de resultados percentuais dos testes face ao teste realizado ao \emph{Solid} monolítico}
 \label{tabela_resultados_aglomerados}
  \centering
  \begin{tabular}{|c|l|c|c|c|c|}
  \hline
- & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{\specialcell{Evolução\\Tempo\\médio\\de resposta\\(\%)}} & \multicolumn{1}{c|}{\specialcell{Evolução\\\emph{Throughput}\\(\%)}}\\
+ & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{\specialcell{Evolução\\Tempo médio\\de resposta\\(\%)}} & \multicolumn{1}{c|}{\specialcell{Evolução\\\emph{Throughput}\\(\%)}}\\
  \hline
 \multirow{3}{*}{\specialcell{Micro-serviços\\apenas um nó}} & \emph{Solid ID Web} &-39&-46\\
  & \emph{Solid Storage Web} &-58&-42\\
@@ -284,6 +295,16 @@ Estes resultados permitem, desta forma, aferir que o sistema desenvolvido confer
  \end{tabular}
  \end{table}
 \end{center}
+
+O primeiro teste aos micro-serviços seguiu uma implantação relativamente simples e com potencial de custos reduzidos, tendo sido toda a arquitetura implantada numa única máquina.
+
+Porém, utilizando esta solução sem qualquer tipo de escalamento vertical ou horizontal, acaba por tornar o \emph{hardware} o \emph{bottleneck} da arquitetura, afetando tanto o \emph{throughput} como o tempo médio de resposta de cada pedido processado.
+
+Tendo em conta que o teste anterior não cumpre com as metas inferidas nesta hipótese, um novo teste foi desenhado recorrendo a uma implantação distribuída (\emph{c.f.} figura \ref{figure_solid_micro_services_multiples_vps_implantation_diagram}), mantendo, desta forma, a premissa de não recorrer nestes testes a escalamento vertical ou horizontal e ao mesmo tempo eliminar o \emph{bottleneck} do \emph{hardware}.
+
+Os resultados deste segundo teste foram mais satisfatórios e permitem inferior que esta hipótese está também cumprida. Os resultados um pouco inferiores aos do monólito podem ser explicados pelo facto dos micro-serviços estarem a ser executados sobre um ambiente de \emph{containers} com a tecnologia \emph{docker}, sendo esta ultima teoria comprovada com base nos testes apresentados na secção \ref{tests_micro_services_3}.
+
+Estes resultados permitem, desta forma, aferir que o sistema desenvolvido confere, garantindo a mesma experiência de utilização, uma performance não inferior quando submetido às mesmas condições de escalamento horizontal e vertical, corroborando os pressupostos adjacentes a esta dissertação (\emph{c.f. secção \ref{section_hypothesis}}).
 
 
 
