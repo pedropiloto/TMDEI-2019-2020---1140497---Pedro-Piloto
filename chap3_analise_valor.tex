@@ -4,7 +4,11 @@
 \label{cap:3}
 %\emph{Este capítulo incide em apresentar de que forma as diferentes alternativas criam valor para o público alvo, e desta forma tirar conclusões sobre qual alternativa deve ser aprofundada}
 
-Aplicando o modelo de Peter A. Koen, \emph{New Concept Development}, é possível mapear uma oportunidade para um conceito, seguindo todos elementos chave do modelo e percebendo assim
+A análise das diferentes alternativas de modelos descentralizados apresentados na secção \ref{section_modelos_descentralizados} consolida-se tendo em conta certos parâmetros e tem como objetivo decidir a solução sobre a qual serão dedicados esforços no sentido de criar contribuições com potencial de melhoria de escalabilidade.
+
+\section{Análise de Valor\label{section_analise}}
+
+Aplicando o modelo de Peter A. Koen, \emph{New Concept Development} (\emph{c.f} \ref{subsection_new_concept_development}), é possível mapear uma oportunidade para um conceito, seguindo todos elementos chave do modelo e percebendo assim
 se esta oportunidade representa ou não valor para a organização.
 
 \subsection{Identificação da Oportunidade}
@@ -13,17 +17,14 @@ Neste contexto, a oportunidade surge no sentido de prevenir o acontecimento de e
 \subsection{Análise da Oportunidade}
 O conceito “descentralização da \emph{Web}” não é novo, mas tem ganho ênfase nos últimos tempos e existem esforços notáveis para tornar este conceito numa realidade e tornar viável o surgimento de uma \emph{Web} mais livre e mais transparente.
 
-Esta tese passa inicialmente por perceber que alternativas existem e qual pode ter mais potencial numa vertente de adoção massiva a médio prazo.
-
-Os projetos que serão analisados são aqueles que foram abordados com maior destaque no estado da arte (\emph{c.f. secção \ref{section_modelos_descentralizados}}): \emph{Solid}, \emph{Blockstack}, \emph{Diaspora} e \emph{Elastos}.
+Esta dissertação passa inicialmente por perceber que alternativas existem e qual pode ter mais potencial numa vertente de adoção massiva a médio prazo. Os projetos que serão analisados são aqueles que foram abordados com maior destaque no estado da arte (\emph{c.f. secção \ref{section_modelos_descentralizados}}): \emph{Solid}, \emph{Blockstack}, \emph{Diaspora} e \emph{Elastos}.
 
 \subsection{Enriquecimento da ideia}
 Nesta fase é importante perceber os fatores que se apresentam como mais relevantes para uma \emph{framework} capaz de potencializar um novo paradigma de \emph{Web} descentralizada:
-
 \begin{itemize}
-\item  Gestão de informação - No sentido de prevenir escândalos de acessos indevidos a informação pessoal e combater a monopolização dos dados, existe necessidade de garantir a defesa da sua propriedade. O facto de ser num contexto descentralizado, torna relevante perceber como poderão eventualmente ser acedidos os dados em diferentes contextos e aplicações;
+\item  Gestão de informação - No sentido de prevenir escândalos de acessos indevidos a informação pessoal e combater a monopolização dos dados, existe necessidade de garantir a defesa da sua propriedade.
 
-\item Mecanismo de autenticação e autorização - A propriedade dos dados é assegurada por mecanismos de autenticação e autorização. Este é um ponto crucial e complexo, na medida em que terá de ser o ponto de entrada para acesso a qualquer recurso.
+\item Mecanismo de autenticação e autorização - A propriedade dos dados é assegurada por mecanismos de autenticação e autorização.
 
 \end{itemize}
 
@@ -31,13 +32,16 @@ Nesta fase é importante perceber os fatores que se apresentam como mais relevan
 
 Para esta componente foi utilizada a técnica \acrshort{AHP} (\emph{c.f.} secção \ref{section_AHP}).
 
-\subsubsection{Divisão Hierárquica}
+\subsubsection*{Divisão Hierárquica}
 
 A primeira fase desta técnica é apresentar os critérios mais relevantes para a tomada de decisão.
+
+Neste sentido, para perceber qual a relevância de cada critério é apresentada uma tabela com a matriz dos critérios (\emph{c.f.} tabela \ref{table_matriz_criterios}) e a tabela com a matriz de critérios normalizada (\emph{c.f.} tabela \ref{table_matriz_criterios_normalizada}).
 
 \begin{table}[h]
 \centering
 \caption{Matriz Critérios}
+\label{table_matriz_criterios}
 \vspace{0.5cm}
 \begin{tabular}{c|c|c|c} 
  - & Autenticação & Autorização & Armazenamento \\
@@ -52,6 +56,7 @@ Soma & 2 5/21 & 3 3/10 & 4 \\
 \begin{table}[h]
 \centering
 \caption{Matriz Critérios Normalizada}
+\label{table_matriz_criterios_normalizada}
 \vspace{0.5cm}
 \begin{tabular}{c|c|c|c|c} 
  - & Autenticação & Autorização & Armazenamento & Média Ponderada \\
@@ -65,10 +70,10 @@ Soma & 1 & 1 & 1 & 100\% \\
 
 \pagebreak
 
-\subsubsection{Definição de Prioridades}
+\subsubsection*{Definição de Prioridades}
 Após os critérios e as devidas prioridades estarem identificadas, segue-se a apresentação das diferentes alternativas, bem como a sua prestação face aos diferentes critérios: Autenticação (tabela 3.3), autorização (tabela 3.4) e armazenamento (tabela 3.5). 
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \caption{Prioridades Relativas Autenticação}
 \vspace{0.5cm}
@@ -82,7 +87,7 @@ Elastos & 28\% & 16\% & 22\% & 22\% & 22\% \\
 \end{tabular}
 \end{table}
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \caption{Prioridades Relativas Autorização}
 \vspace{0.5cm}
@@ -96,7 +101,7 @@ Elastos & 13\% & 28\% &	42\% & 24\% & 27\% \\
 \end{tabular}
 \end{table}
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \caption{Prioridades Relativas Armazenamento}
 \vspace{0.5cm}
@@ -110,9 +115,7 @@ Elastos & 13\% & 28\% & 42\% & 24\% & 27\% \\
 \end{tabular}
 \end{table}
 
-\newpara
-
-\subsubsection{Consistência}
+\subsubsection*{Consistência}
 
 \begin{table}[h]
 \centering
@@ -129,41 +132,40 @@ Elastos & 22\% & 27\% & 27\% & 25\% & \\
 \end{tabular}
 \end{table}
 
-
 Tendo em conta os estudos apresentados na tabela \ref{tabela_resultados_ahp}, o caminho a seguir será aprofundar a framework Solid de forma a torná-la mais escalável e preparada para a uma possível adoção massiva.
 
 \subsection{Definição do Conceito}
-O momento da definição do conceito corresponde à fase final da formalização da ideia já escolhida anteriormente.
+O momento da definição do conceito corresponde à fase final da formalização da ideia já escolhida anteriormente. O conceito introduzido pelo Solid, em conjunto com o possível potencial de escalabilidade, permite tornar o conceito de “\emph{Web} Descentralizada” numa realidade.
 
-O conceito introduzido pelo Solid, em conjunto com o possível potencial de escalabilidade, permite tornar o conceito de “\emph{Web} Descentralizada” numa realidade.
+\section{Proposta de Valor \label{section_proposta_de_valor}}
+Para estudar da proposta de valor serão utilizados o modelo \emph{\acrshort{FAST}} (\emph{c.f. secção \ref{subsection_modelo_fast}}) e o modelo de negócio Canvas (\emph{c.f.} secção \ref{subsection_modelo_canvas}).
+Estes modelos tem como objetivo ajudar a desenhar o sistema tendo por base objetivos numa perspetiva de negócio e de sustentabilidade.
 
-\section{Proposta de Valor}
-Para estudar da proposta de valor serão utilizados o modelo \emph{\acrshort{FAST}} e o modelo de negócio Canvas.
+\subsection{Modelo \emph{\acrshort{FAST}}\label{subsection_modelo_fast}}
+Com base na sua representação (\emph{c.f. figura \ref{figura_modelo_fast}} é possível perceber que o “core” de toda framework são os dados e que estes estão sob alçada do seu utilizador, podendo o mesmo a qualquer momento tomar ações como revogar acesso a determinadas aplicações (\emph{relying party} \footnote{\emph{\acrshort{POD}} ou aplicação cliente que utiliza um token providenciado por um servidor de identidade.}).
 
-\subsection{Modelo \emph{\acrshort{FAST}}}
-Este modelo permite, de forma esquematizada, representar a funcionalidade do sistema tendo por base pensamento crítico.
-
-\begin{figure}[h]
+\begin{figure}[H]
     \begin{center}
     % Requires \usepackage{graphicx}
-    \includegraphics[width=1\textwidth]{figures/Canvas-FAST.png}
+    \includegraphics[height=0.4\textwidth]{figures/Canvas-FAST.png}
     \caption{Modelo \emph{\acrshort{FAST}}}
+    \label{figura_modelo_fast}
     \end{center}
 \end{figure}
 
-Este modelo permite perceber que o “core” de toda framework são os dados dos utilizadores. 
-Essa é a grande falha do modelo atual de \emph{Web}, modelo este que torna a informação infinitamente redundante e a expropria do utilizador.
+\subsection{Modelo Canvas\label{subsection_modelo_canvas}}
+O modelo canvas é uma ferramenta de gestão estratégica que permite o desenvolvimento do modelo de negócio para determinado projeto. A sua estrutura conta com nove blocos pré-definidos que permitem, de forma visual, criar ou adaptar um modelo já existente\cite{alexander:2006}.
 
-Um novo paradigma deve garantir que os dados estão sob alçada do seu utilizador, podendo o mesmo a qualquer momento tomar ações como revogar acesso a determinadas aplicações (\emph{relying party} \footnote{\emph{\acrshort{POD}} ou aplicação cliente que utiliza um token providenciado por um servidor de identidade.}).
-
-\subsection{Modelo Canvas}
-O modelo canvas é uma ferramenta de gestão estratégica que permite o desenvolvimento do modelo de negócio para determinado projeto.
-
-A sua estrutura conta com nove blocos pré-definidos que permitem, de forma visual, criar ou adaptar um modelo já existente\cite{alexander:2006}.
-\begin{figure}[h]
+\begin{figure}[H]
     \begin{center}
     % Requires \usepackage{graphicx}
-    \includegraphics[width=1 \textwidth, angle=90]{figures/Canvas-Canvas.png}
+    \includegraphics[height=0.9 \textwidth, angle=90]{figures/Canvas-Canvas.png}
     \caption{Modelo Canvas}
     \end{center}
 \end{figure}
+
+\section{Sumário}
+Tendo por base o modelo de análise \emph{New Concept Development} e o processo de apoio à decisão \emph{AHP}, são apresentados dados que permitem concluir que o \emph{Solid} é o modelo descentralizado com maior potencial tendo em conta os parâmetros estabelecidos (\emph{c.f.} secção \ref{section_analise}).
+
+A proposta de valor apresentada na secção \ref{section_proposta_de_valor} permite criar uma ideia geral da arquitetura e casos de uso que deverão ser desenhados no capítulo \ref{cap:4} de forma a melhorar o potencial da plataforma \emph{Solid}.
+

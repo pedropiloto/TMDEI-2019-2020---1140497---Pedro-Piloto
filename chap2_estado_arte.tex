@@ -23,6 +23,7 @@ Um dos conceitos fundamentais do \emph{Solid} é o \emph{\acrfull{POD}}, este, n
 
 A arquitetura implícita para o desenvolvimento de aplicações baseadas em Solid permite que os utilizadores escolham um \emph{\acrshort{POD}} à sua escolha, podendo este ser próprio ou recorrendo a um servidor partilhado para conceder às aplicações autorização para armazenar ou ler informação a partir do mesmo. Por si só, este facto permite que os utilizadores escapem dos tradicionais “silos de dados”. Além disto, esses \emph{PODs} podem oferecer diferentes granularidades de privacidade, confiabilidade, disponibilidade, proteção legal e reutilização de dados\cite{solid_official}. Desta forma, este componente do Solid confere a camada de persistência de informação dos utilizadores, podendo inclusive ser visto como o novo \emph{backend} das aplicações, que poderão aceder à informação através da interface \emph{\acrfull{REST}}\cite{rest_foundations} disponibilizada por cada \emph{\acrshort{POD}}, baseada em \emph{\acrfull{LDP}}, uma recomendação da comunidade W3C, assim como um mecanismo baseado em queries SPARQL\cite{solid_spec}.
 
+
 \subsubsection{Autenticação \label{section_estado_arte_solid_authentication}}
 A identidade dos utilizadores no Solid baseia-se em \emph{URIs WebID}, estes funcionam como nomes universais que permitem identificar determinado utilizador de forma descentralizada. Segue-se um exemplo de um possível \emph{WebID}:
 
@@ -41,7 +42,7 @@ Este mecanismo, apesar de poder ainda ser utilizado, deixou de ser a configuraç
 \newpara
 \textbf{\emph{WebID-OIDC}} é também um mecanismo de autenticação baseado \emph{WebID}, tendo a particularidade de ser baseado no protocolo \emph{OpenID connect} (\emph{OIDC}). 
 
-Este mecanismo adiciona ao fluxo normal de \emph{OIDC} um passo extra que permite obter um URI \emph{WebID} através de um \emph{token} \emph{OIDC}\cite{solid_webid_oidc}.
+Este mecanismo adiciona ao fluxo normal de \emph{OIDC} um passo extra que permite obter um URI \emph{WebID} através de um \emph{token} \emph{OIDC}\cite{solid_webid_oidc}, conforme é possível perceber na figura \ref{open-id-connect-sequence-diagram}.
 
 Seguem-se alguns dos conceitos mais relevantes neste protocolo:
 \begin{itemize}
@@ -50,35 +51,32 @@ Seguem-se alguns dos conceitos mais relevantes neste protocolo:
     \item \emph{Identity Provider (OP)} - Um servidor de identidade baseado no protocolo \emph{OpenID Connect}. Pode ser utilizado o próprio \emph{\acrshort{POD}} uma instância externa;
     \item \emph{Resource Server} - Um servidor responsável por alojar recursos que o utilizador precisa eventualmente de aceder, tais como \emph{HTML}, imagens, \emph{Linked Data} / \emph{RDF sources}, entre outros tipos de recursos;
     \item \emph{Relying Party (RP)} - É um \emph{\acrshort{POD}} ou uma aplicação cliente que assenta a sua lógica num \emph{token} providenciado por um servidor de identidade;
-    \item \emph{\acrshort{POD}} - Unidade online de armazenamento pessoal. Este componente do sistema desempenha vários papéis na arquitetura atual: armazena informação do utilizador (actua como \emph{Resource Server}), instancia um servidor de identidade \emph{webID-OIDC} e pode também actuar como \emph{Relying Party} quando um utilizador requisita recursos a partir de um \emph{token}.
+    \item \emph{\acrshort{POD}} - Unidade online de armazenamento pessoal, este componente é, assim, responsável por gerir a informação do utilizador, actuando como um \emph{Resource Server}.
 \end{itemize}
 
+\begin{figure}[H]
+    \centering
+    % Requires \usepackage{graphicx}
+    \includegraphics[width=0.8 \textwidth]{figures/WebId-OIDC}
+    \caption{Diagrama de sequência \emph{WebID-OIDC}}
+    \label{web-id-oidc-sequence-diagram}
+\end{figure}
 
-
-Conforme é possível perceber pela figura \ref{web-id-oidc-sequence-diagram}, assemelha-se bastante ao protocolo OpenID Connect (figura \ref{open-id-connect-sequence-diagram}), adicionando dois passos extra\cite{solid_webid_oidc}:
+Este protocolo assemelha-se bastante ao protocolo OpenID Connect (\emph{c.f} figura \ref{open-id-connect-sequence-diagram}), adicionando ao mesmo dois passos\cite{solid_webid_oidc}:
 \begin{itemize}
     \item Obter o \emph{WebID} através do \emph{token} de acesso;
     \item Verificar se o servidor indicado para autenticação é de facto o servidor de identidade autorizado para o \emph{WebID} em questão.
 \end{itemize}
 
-
 \begin{figure}[H]
     \centering
     % Requires \usepackage{graphicx}
-    \includegraphics[width=0.9 \textwidth]{figures/open_id_connect_sd.eps}
+    \includegraphics[width=0.8 \textwidth]{figures/open_id_connect_sd.eps}
     \caption{Diagrama de sequência \emph{OpenID Connect}}
     \label{open-id-connect-sequence-diagram}
 \end{figure}
 
-\begin{figure}[H]
-    \centering
-    % Requires \usepackage{graphicx}
-    \includegraphics[width=0.9 \textwidth]{figures/WebId-OIDC}
-    \caption{Diagrama de sequência \emph{WebID-OIDC}}
-    \label{web-id-oidc-sequence-diagram}
-\end{figure}
-
-\subsubsection{Autorização}
+\subsubsection*{Autorização}
 A autorização no Solid é garantida por um componente com o nome \emph{\acrfull{WAC}}. Este componente consiste num sistema de controlo de acesso entre domínios de origem cruzada. Os seus conceitos principais baseiam-se em modelos de controlo de acesso a diferentes sistemas de ficheiros e as suas principais responsabilidades consistem em garantir acesso a agentes (utilizadores, grupos, entre outros) para conseguirem realizar ações (ler, escrever, editar, eliminar, entre outras)\cite{solid_web_access_control}.
 Seguem-se algumas das suas principais características:
 \begin{itemize}
@@ -88,7 +86,7 @@ Seguem-se algumas das suas principais características:
     \item Agnóstico em termos de domínio, ou seja, as politicas de acesso a um determinado ficheiro podem conter utilizadores e grupos alojados em qualquer servidor de identidade existente.
 \end{itemize}
 
-\subsubsection{Armazenamento \label{subsection_solid_armazenamento}}
+\subsubsection*{Armazenamento \label{subsection_solid_armazenamento}}
 O \emph{\acrshort{POD}} representa o componente que lida com toda a gestão de recursos do utilizador através da disponibilização de uma interface de aplicação \emph{\acrshort{REST}} (\emph{c.f.} \ref{estado_arte_representacao_solid}). Este componente permite ao \emph{Solid} suportar dois tipos de informação:
 \begin{itemize}
     \item Recursos \emph{Linked Data}, que podem recorrer às capacidades implícitas no Solid para aplicar lógica no lado da aplicação cliente;
@@ -118,15 +116,15 @@ Os recursos são agrupados em contentores baseados em directórios (cumprindo a 
 	\item Bibliotecas e \emph{SDKs} - Ferramentas para facilitar o desenvolvimento de aplicações baseadas em \emph{Blockstack}\cite{blockstack_white_paper}.
 \end{itemize}
 
-\subsubsection{Autenticação}
+\subsubsection*{Autenticação}
 Em termos de autenticação, o Blockstack consegue providenciar autenticação descentralizada através do mecanismo de autenticação por chave pública criptográfica. 
 
 A partir do login, a aplicação recebe três componentes essenciais de informação: o nome de utilizador, uma chave privada específica de aplicação e a localização do repositório para armazenar informação\cite{blockstack_white_paper}.
 
-\subsubsection{Autorização}
+\subsubsection*{Autorização}
 Os pedidos \emph{\acrshort{REST}} para aceder a informação de determinado utilizador devem ser acompanhado por um \emph{token} de autenticação assinado e validado pelo repositório. Cada aplicação tem uma chave privada que confere acesso a uma partição especifica do repositório impedindo que, ao contrário do Solid, possa haver partilha de informação entre as diferentes aplicações.
 
-\subsubsection{Armazenamento}
+\subsubsection*{Armazenamento}
 
 Um dos conceitos chave da arquitetura desta plataforma é o sistema de ficheiros descentralizado chamado \emph{Gaia Hub}, que permite aos utilizadores escolher e providenciar o seu repositório de informação, podendo estes ser partilhados entre a comunidade ou ser propriedade de cada utilizador.
 
@@ -146,20 +144,22 @@ Sendo que cada pedido deve ser acompanhado por um \emph{token} autenticação as
 \subsection{\emph{Diaspora}}
 Diaspora é um projeto com uma visão um pouco mais reduzida que as restantes alternativas, na medida em que foca-se apenas em apresentar um protótipo daquilo que poderia ser uma rede social descentralizada. Este projeto assenta em servidores de informação independentes, que o utilizador pode escolher ou até mesmo configurar um por si próprio\cite{diaspora_wiki}.
 
-\subsubsection{Autenticação}
+\subsubsection*{Autenticação}
 Relativamente a autenticação, não é adotado nenhum mecanismo fora do comum, sendo apenas o método comum \emph{username/password}.
 
-\subsubsection{Autorização}
+\subsubsection*{Autorização}
 No contexto de autorização, este projeto dispõe do conceito \emph{Aspect}, este permite criar regras de acesso a recursos para determinados conjuntos de utilizadores\cite{diaspora_wiki}.
 
-\subsubsection{Armazenamento}
+\subsubsection*{Armazenamento}
 O conceito principal desta rede é o \emph{\acrshort{POD}} (assim como no Solid), este representa o componente que gere e persiste a informação do utilizador. A informação entre todas as instâncias deste componente é mantida em sincronização utilizando a tecnologia \emph{WebSub}, conforme é possível observar na figura \ref{estado_arte_representacao_diaspora}\cite{diaspora_wiki}.
 
 \begin{figure}[H]
-    % Requires \usepackage{graphicx}
-    \includegraphics[width=0.8\textwidth]{figures/estado_arte-Diaspora.eps}
-    \caption{Representação arquitetura Diaspora}
-    \label{estado_arte_representacao_diaspora}
+    \begin{center}
+        % Requires \usepackage{graphicx}
+        \includegraphics[width=0.8\textwidth]{figures/estado_arte-Diaspora.eps}
+        \caption{Representação arquitetura Diaspora}
+        \label{estado_arte_representacao_diaspora}
+    \end{center}
 \end{figure}
 
 \subsection{\emph{Elastos}}
@@ -175,25 +175,27 @@ O conceito baseia-se num sistema operativo relativamente leve que armazena a inf
 
 Toda a informação tem identificadores providenciados por \emph{Blockchain} (pode ser Bitcoin ou uma rede de \emph{Blockchain} alternativa \footnote{Qualquer outra rede Blockchain, não necessariamente a que serve de base à conhecida criptomoeda Bitcoin}), sendo estes \emph{IDs} verificados antes de os ativos digitais serem transmitidos entre as diferentes máquinas virtuais, utilizando comunicação \emph{\acrfull{P2P}}\cite{what_are_P2P_networks} providenciada pelo \emph{Elastos Carrier}\cite{elastos_developer}.
 
-\subsubsection{Autenticação}
+\subsubsection*{Autenticação}
 
 Relativamente à autenticação, esta plataforma introduz um \emph{\acrfull{DID}}, construído na rede \emph{Blockchain}, com a responsabilidade de providenciar identificadores seguros tanto para recursos como para utilizadores.
 
 O identificador pode ser utilizado para efeitos de rastreamento, autenticação e estabelecimento de ligações seguras. De forma simplificada, o componente \emph{Elastos Carrier} é a combinação entre \emph{\acrshort{DID}} e a comunicação \emph{\acrshort{P2P}}, assegurando assim que a informação é transmitida em segurança após a autenticação e a autorização serem devidamente validadas\cite{elastos_white_paper}.
 
-\subsubsection{Autorização}
+\subsubsection*{Autorização}
 A autorização neste projeto fica a cargo do componente \emph{Elastos Runtime}. Este implementa um sistema que valida o acesso de determinado utilizador a determinado recurso\cite{elastos_white_paper}.
 
-\subsubsection{Armazenamento}
+\subsubsection*{Armazenamento}
 Elastos dispõe de um componente de armazenamento descentralizado, i.e. \emph{Elastos Hive}. Recorre a um sistema de arquivos do tipo \emph{\acrfull{IPFS}}\cite{ipfs} como base. 
 
 Oferece uma interface de aplicação para aceder à informação que será dispersa pelas diferentes regiões do planeta, garantindo assim fiabilidade às aplicações.\cite{elastos_white_paper}
 
 \begin{figure}[H]
-    % Requires \usepackage{graphicx}
-    \includegraphics[width=0.8\textwidth]{figures/estado_arte-Elastos.eps}
-    \caption{Representação arquitetura \emph{Elastos}}
-    \label{estado_arte_representacao_elastos}
+    \begin{center}
+        % Requires \usepackage{graphicx}
+        \includegraphics[width=0.8\textwidth]{figures/estado_arte-Elastos.eps}
+        \caption{Representação arquitetura \emph{Elastos}}
+        \label{estado_arte_representacao_elastos}
+    \end{center}
 \end{figure}
 
 \subsection{Comparação Modelos Descentralizados}
@@ -207,7 +209,7 @@ De forma a resumir, numa perspetiva de comparação, a informação apresentada 
 
 \begin{center}
 \small
-\begin{longtable}{c|p{4cm}|p{4cm}|p{4cm}}
+\begin{longtable}{c|p{3.4cm}|p{3.4cm}|p{3.4cm}}
 \caption{Tabela de comparação entre modelos descentralizados}
 \label{tabela_comparacao_modelos_descentralizados}
 \\
@@ -227,10 +229,10 @@ De forma a resumir, numa perspetiva de comparação, a informação apresentada 
 \end{longtable}
 \end{center}
 
-\section{Métodos}
+\section{Métodos\label{section_metodos}}
 No decorrer do desenvolvimento do projeto, foram estudados e aplicados diferentes métodos, de forma a responder a diferentes necessidades surgidas. Neste contexto, os métodos consistem em todas as metodologias e técnicas utilizadas com vista a explorar conceitos. Estes tiveram principal impacto nas fase de análise, contribuindo para facilitar processos de decisão e estabelecer metas.
 
-\subsection{New Concept Development}
+\subsection{New Concept Development \label{subsection_new_concept_development}}
 O processo de inovação é divido em três componentes (\emph{c.f.} figura \ref{figura_processo_inovacao}): \emph{Fuzzy
 Front End}, o processo \emph{New Product Development} e comercialização\cite{fuzzy_frontend}.
 
@@ -298,7 +300,7 @@ O modelo de negócio Canvas foi apresentado por Alex Osterwalder na sua tese de 
 \subsection{Avaliação \label{estado_arte_avaliacao}}
 Avaliação consiste na medição ou avaliação de uma determinada grandeza, utilizando uma metodologia ou técnica específica de modo a validar ou refutar uma hipótese. Sendo, assim, para a realização de um teste de avaliação, a definição de grandezas, hipóteses e as metodologias de avaliação\cite{experimentation_principles}.
 
-\section{Tecnologias}
+\section{Tecnologias\label{section_tecnologias}}
 As tecnologias, tendo por base os resultados dos processos de análise, servem como veículos para desenhar e atingir os resultados. Assim, são apresentadas, de seguida as tecnologias exploradas no seguimento deste projeto, as mesmas são separadas pelas seguintes categorias:
 \begin{itemize}
     \item Arquiteturas;
@@ -312,7 +314,7 @@ Arquitetura de software corresponde ao processo de converter características de
 
 Apresentam-se, de seguida, nesta secção, algumas das arquiteturas de software estudadas no âmbito desta dissertação.
 
-\subsubsection{Arquitetura orientada a micro-serviços}
+\subsubsection*{Arquitetura orientada a micro-serviços}
 
 Uma arquitetura orientada a micros-serviços define uma configuração, na qual os componentes são aplicações independentes.
 
@@ -330,7 +332,7 @@ Seguem-se algumas características de sistemas orientados a micro-serviços\cite
 \item \emph{Deploys} independentes.
 \end{itemize}
 
-\subsubsection{Arquitetura cliente servidor \label{estado_arte_cliente_servidor}}
+\subsubsection*{Arquitetura cliente servidor \label{estado_arte_cliente_servidor}}
 A arquitetura cliente servidor é aquela que é mais utilizada no desenvolvimento de Software à data desta dissertação. Nesta, existem tipicamente três camadas (\emph{c.f.} figura 4.1):
 
 \begin{itemize}
@@ -342,12 +344,12 @@ A arquitetura cliente servidor é aquela que é mais utilizada no desenvolviment
 \begin{figure}[H]
     \begin{center}
     % Requires \usepackage{graphicx}
-    \includegraphics[width=0.5 \textwidth]{figures/actual_web.eps}
+    \includegraphics[height=0.5 \textwidth]{figures/actual_web.eps}
     \caption{Diagrama de Componentes Arquitetura Cliente Servidor}
     \end{center}
 \end{figure}
 
-\subsubsection{\emph{\acrshort{P2P}} \label{subsection:p2p}}
+\subsubsection*{\emph{\acrshort{P2P}} \label{subsection:p2p}}
 \emph{\acrshort{P2P}} é um formato de rede de computadores, cuja principal característica é descentralização das funções convencionais de rede. Neste conceito, o computador de cada utilizador conectado acaba por realizar simultaneamente as funções de servidor e de cliente\cite{what_are_P2P_networks}.
 
 O seu principal objetivo é a transmissão de recursos e o seu surgimento possibilitou a partilha em massa de músicas e filmes\cite{what_are_P2P_networks}.
@@ -357,7 +359,7 @@ Um padrão consiste numa solução que resolve sucessivamente um problema comum 
 
 Por norma, um padrão não corresponde a uma solução final, mas sim a um guia ou um \emph{template} que pode ser adaptado a diferentes situações\cite{clean_architecture}.
 
-\subsubsection{\emph{\acrfull{JWT}}\label{subsection:jwt}}
+\subsubsection*{\emph{\acrfull{JWT}}\label{subsection:jwt}}
 \emph{\acrshort{JWT}} é um padrão (RFC-7519) da Internet.
 
 Este padrão define como devem ser transmitidos e armazenados objetos em formato JSON de forma compacta e segura entre diferentes aplicações. Um dos seus grandes fatores de adoção é o facto de ser assinado digitalmente, garantindo que os dados nele contidos podem ser validados a qualquer momento\cite{jwt_medium}.
@@ -369,12 +371,12 @@ O objeto deve ser constituído por três secções:
     \item \emph{Signature} - Este campo tem como principal objetivo garantir a integridade do \emph{token}.
 \end{itemize}
 
-\subsubsection{\emph{Bounded Context}} \label{subsubsection:bounded:context}
+\subsubsection*{\emph{Bounded Context}} \label{subsubsection:bounded:context}
 \emph{Bounded Context} é um padrão crucial em \emph{\acrfull{DDD}}, na medida em que este é o foco da fase de desenho de grandes modelos.
 
 Para lidar com grandes modelos, \emph{\acrshort{DDD}} recorre a divisão em diferentes \emph{bounded contexts}. Estes tem como objetivo delimitar o domínio complexo em contextos baseados na intenção do negócio\cite{bounded_context}.
 
-\subsubsection{\emph{\acrshort{REST}}}
+\subsubsection*{\emph{\acrshort{REST}}}
 \emph{\acrshort{REST}} é um estilo arquitetural que torna mais fácil a comunicação entre sistemas. Sistemas compatíveis com \emph{\acrshort{REST}}, são caracterizados por manterem um elevado desacoplamento entre o cliente e o servidor.
 Neste estilo arquitetural, as aplicações cliente fazem pedidos para obter ou alterar recursos em aplicações servidor, estes pedidos são constituídos por\cite{rest}:
 \begin{itemize}
@@ -384,7 +386,7 @@ Neste estilo arquitetural, as aplicações cliente fazem pedidos para obter ou a
     \item \emph{Body} - Mensagem que contém a informação sobre o recurso a ser criado ou alterado.
 \end{itemize}
 
-\subsubsection{\emph{API Gateway}} \label{api_gateway}
+\subsubsection*{\emph{API Gateway}} \label{api_gateway}
 Uma \emph{API Gateway} é uma interface que se situa entre a aplicação cliente e os micro-serviços. Esta interface é utilizada para criar uma camada de abstração entre as aplicações e as APIs providenciadas pelos diferentes micro-serviços, permitindo, assim, um elevado desacoplamento entre as diferentes APIs do sistema.
 
 A adoção deste padrão confere ao sistema vantagens como as seguintes destacadas:
@@ -394,7 +396,7 @@ A adoção deste padrão confere ao sistema vantagens como as seguintes destacad
     \item Segurança - A camada da API Gateway deverá centralizar responsabilidades como \emph{throttling} e inibição de tráfego com base em características do pedido (por exemplo \emph{IP} de origem). O componente Solid-ID, não deverá estar “escondido” atrás da API Gateway, porque se trata de uma camada que deverá estar visível para o cliente, devendo esta ser utilizada para obter posteriormente acesso às funcionalidades expostas através da API Gateway.
 \end{itemize}
 
-\subsubsection{\emph{Troca de Mensagens Assíncrona}} \label{troca_mensagens_assincrona}
+\subsubsection*{\emph{Troca de Mensagens Assíncrona}} \label{troca_mensagens_assincrona}
 A troca de mensagens assíncrona consiste numa forma de troca de mensagens em que a aplicação que emite a mensagem não conhece o(s)seu(s) recetor(es), contribuindo para o incremento do desacoplamento entre as diferentes aplicações de um sistema.
 Dois padrões associados a este mecanismo de troca de mensagens são \emph{Message Queueing} e \emph{Publish/Subscribe}.
 
@@ -418,17 +420,17 @@ Dois padrões associados a este mecanismo de troca de mensagens são \emph{Messa
     \end{center}
 \end{figure}
 
-\subsubsection{\emph{Command Query Responsability Segregation} (CQRS)} \label{cqrs}
+\subsubsection*{\emph{Command Query Responsability Segregation} (CQRS)} \label{cqrs}
 Nas arquiteturas mais tradicionais, é utilizado o mesmo modelo de dados tanto para consultar como para atualizar a camada de persistência da aplicação. Esta abordagem é simples e funciona bem para operações CRUD básicas.
 
 Por outro lado, em aplicações mais complexas onde as cargas de leitura e de escrita são assimétricas, esta abordagem torna-se mais problemática e pode colocar em risco a escalabilidade do sistema.
 
 Neste contexto, o padrão CQRS incide em separar o modelo de leitura do modelo de escrita, existindo múltiplas abordagens para a sua implementação\cite{cqrs}.
 
-\subsubsection{\emph{Service} \label{service_pattern}}
+\subsubsection*{\emph{Service} \label{service_pattern}}
 Este padrão indica que deve ser estabelecida uma camada na aplicação responsável por gerir a lógica de pedidos a serviços externos. Este padrão tem como principal objectivo abstrair a lógica de funcionamento dos diferentes serviço da lógica de negócio\cite{service_design_patterns}.
 
-\subsubsection{Teorema \emph{\acrfull{CAP}}} \label{cap_theorem}
+\subsubsection*{Teorema \emph{\acrfull{CAP}}} \label{cap_theorem}
 O teorema \emph{\acrshort{CAP}} é uma ferramenta utilizada para ajudar a tomar decisões durante o desenho de sistemas distribuídos.
 
 Eric Brewer inferiu, no ano de 2000, que qualquer sistema distribuído é construído com base num equilíbrio entre consistência, disponibilidade e tolerância a falhas. Afirmação corroborada em 2002 por Seth Gilbert e Nancy Lynch.
@@ -441,41 +443,41 @@ Este teorema indica que sistemas distribuídos apenas podem garantir duas das se
     \item Tolerância a falhas - O sistema continua a funcionar e mantêm consistência mesmo em cenários de falha de rede.
 \end{itemize}
 
-\subsubsection{\emph{Event Sourcing} \label{event_sourcing}}
+\subsubsection*{\emph{Event Sourcing} \label{event_sourcing}}
 \emph{Event sourcing} é um padrão que tem como objetivo garantir que as mudanças realizadas numa aplicação são armazenadas como uma sequência de eventos. Estes eventos persistidos podem ser obtidos e utilizados para reconstruir estados da aplicação.
 Neste sentido, este padrão é muitas vezes utilizado em conjunto com o padrão CQRS\cite{event_sourcing}.
 
 \subsection{Linguagens}
 Nesta secção incluem-se as linguagens de programação e modelação estudadas e utilizadas no decorrer da dissertação. Nesta secção incluem-se, portanto, linguagens que tiveram principal impacto no desenho e implementação da solução final.
 
-\subsubsection{\emph{JavaScript} \label{estado_arte_javascript}}
+\subsubsection*{\emph{JavaScript} \label{estado_arte_javascript}}
 
 \emph{JavaScript} é uma linguagem de programação criada em 1994 com o principal objetivo de adicionar funcionalidade e interação a \emph{web sites}. Assim, o \emph{JavaScript} foi originalmente desenhado para ser usado exclusivamente no \emph{front-end}, porém a introdução do \emph{engine V8} pela Google e, consequentemente, as melhorias de velocidade funcionalidade, introduziram não só o desenvolvimento de novas frameworks de \emph{front-end}, mas também uma nova linguagem de programação paradigma para o \emph{back-end}, o \emph{Node.js} (\emph{c.f. \ref{estado_arte_node_js}})\cite{javascript}.
 
-\subsubsection{Node.js \label{estado_arte_node_js}}
+\subsubsection*{Node.js \label{estado_arte_node_js}}
 Node.js pode ser considerado, mais do que uma linguagem de programação, um ambiente de execução multi-plataforma para JavaScript\cite{node_js}.
 
 Uma das grandes particularidades do \emph{Node.js} é o facto de não criar uma nova \emph{thread} para cada pedido, optando por adotar mecanismos assíncronos para lidar com operações de \emph{I/O} e, desta forma, prevenir que exista código bloqueante. Estes mecanismos conseguem garantir alto desempenho sem a necessidade de lidar com problemas de concorrência entre \emph{threads}\cite{node_js}.
 
-\subsubsection{\emph{\acrfull{YAML}}}
+\subsubsection*{\emph{\acrfull{YAML}}}
 \emph{\acrshort{YAML}} foi desenhada para ser uma linguagem com características capazes de a tornar fácil de perceção. Esta linguagem é maioritariamente utilizada em ficheiros de configuração em diversas ferramentas (e.g. docker) e frameworks (e.g. springboot)\cite{yaml}.
 
-\subsubsection{\emph{\acrfull{UML}}}
+\subsubsection*{\emph{\acrfull{UML}}}
 
 \emph{\acrshort{UML}} é uma forma de criar representações visuais de um software, permitindo, também, fazer uma análise orientada a objetos através de notações gráficas. Foi inventada com objetivo de criar uma linguagem de modelação gráfica padrão para o design, arquitetura e execução de sistemas de software complexos\cite{uml}.
 
 \subsection{Ferramentas}
 Por ferramentas entende-se todas as aplicações e conjuntos de funcionalidades disponíveis com vista a criar valor nos diferentes processos de desenvolvimento\cite{software_tools}.
 
-\subsubsection{\emph{RabbitMQ}}
+\subsubsection*{\emph{RabbitMQ}}
 \emph{RabbitMQ} é uma implementação de um \emph{Message Broker}, este suporta, de forma nativa, os dois padrão de troca de mensagens assíncrona (\emph{c.f.} secção \ref{message_queueing} e \ref{publish_subscribe}). Para a implementação da lógica no sentido do padrão \emph{Publish/subcribe}, \emph{RabbitMQ} introduz o conceito de \emph{Exchange}, este componente é responsável por reencaminhar a mesma mensagem para as diferentes filas que subscreveram aquele tipo de mensagem.
 
-\subsubsection{Apache Kafka}
+\subsubsection*{Apache Kafka}
 \emph{Apache Kafka}, por outro lado, é uma plataforma distribuída de streaming. Ao contrário de \emph{RabbitMQ}, que é baseado em filas e \emph{exchanges}, a camada de armazenamento do \emph{Kafka} é implementada utilizando transações de \emph{logs} particionadas.
 
 Esta plataforma introduz o conceito de tópico, este representa uma categoria para a qual será mantida uma partição ordenada e imutável de \emph{logs} com as mensagens recebidas.
 
-\subsubsection{\emph{JMeter} \label{estado_arte_jmeter}}
+\subsubsection*{\emph{JMeter} \label{estado_arte_jmeter}}
 \emph{JMeter} é uma ferramenta \emph{open-source} desenhada para realizar testes funcionais de carga, com vista a obter dados relativos a performance de determinado serviço\cite{jmeter}.
 
 Esta ferramenta disponibiliza a funcionalidade de executar pedidos contra interfaces de aplicação \emph{\acrshort{REST}} através da configuração dos seguintes parâmetros\cite{jmeter}:
@@ -487,13 +489,16 @@ Esta ferramenta disponibiliza a funcionalidade de executar pedidos contra interf
     \item Total repetições - Numero de pedidos que cada \emph{thread} irá fazer. Assim que todas terminarem de executar o valor total de repetições, está concluído.
 \end{itemize}
 
-\subsubsection{\emph{Node Package Manager (NPM) \label{sym:npm}}\label{estado_arte_npm}}
+\subsubsection*{\emph{Node Package Manager (NPM) \label{sym:npm}}\label{estado_arte_npm}}
 \emph{NPM}, conforme sugere o nome, é um gestor de dependências \emph{Javascript}, que vem pré-instalado com o \emph{NodeJS}.
 Esta ferramenta permite ligar-se a um repositório pré-definido ou configurar repositórios customizados, nestes é possível encontrar diferentes bibliotecas desenvolvidas e publicadas que podem ser utilizadas em novos projetos\cite{npm_explanation}.
 
-\subsubsection{\emph{Containers} \label{estado_arte_containers}}
+\subsubsection*{\emph{Containers} \label{estado_arte_containers}}
 A tecnologia subjacente à utilização de \emph{containers} consiste num mecanismo de criar uma espécie de contentor com o código base da aplicação e as suas dependências, e, posteriormente, este executar de formar isolada de outros processos.
 Estes \emph{containers} podem partilhar o \emph{kernel} do sistema operativo, apresentando, assim, uma solução mais leve e robusta que as tradicionais máquinas virtuais\cite{techradar_containers}.
+
+\section{Sumário}
+Estudados os diferentes conceitos relevantes para esta dissertação, é, agora, possível correlacionar os modelos descentralizados (\emph{c.f.} secção \ref{section_modelos_descentralizados}) com os métodos (\emph{c.f.} secção \ref{section_metodos}) e elaborar uma análise de valor (capítulo \ref{cap:3}) sobre as diferentes alternativas apresentadas. Por outro lado, as tecnologias (\emph{c.f} secção \ref{section_tecnologias}) servirão de base não apenas não apenas ao desenho da solução (capítulo \ref{cap:4}), mas também à implementação (capítulo \ref{cap:5}) e à avaliação da solução final desenvolvida (capítulo \ref{cap:6}).
 
 
 

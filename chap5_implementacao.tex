@@ -6,15 +6,6 @@
 
 O projeto que serviu de base a esta implementação encontra-se em num repositório público\footnote{https://github.com/solid/node-solid-server}, este representa todo o \emph{\acrshort{POD}} desenvolvido em Node.JS sob uma arquitetura em monólito.
 
-\begin{figure}[h]
-    \begin{center}
-    % Requires \usepackage{graphicx}
-    \includegraphics[width=1 \textwidth]{figures/arquitetura_2_diagrama_componentes.eps}
-    \caption{Diagrama de Componentes arquitetura proposta}
-    \label{implementacao_arquitetura_2_diagrama_componentes}
-    \end{center}
-\end{figure}
-
 A implementação necessária passa por reestruturar esta aplicação em 5 micro-serviços, seguindo o diagrama de componentes da arquitetura proposta apresentado na figura \ref{implementacao_arquitetura_2_diagrama_componentes}  (\emph{c.f.} secção \ref{conclusão_arquitetura}):
 \begin{itemize}
     \item \emph{Accounts Web};
@@ -24,7 +15,16 @@ A implementação necessária passa por reestruturar esta aplicação em 5 micro
     \item \emph{Storage Consumer}.
 \end{itemize}
 
-As nomenclaturas dos projetos seguem uma estrutura semelhante (\emph{c.f. excerto de código \ref{code_regex_projects_name}}) para facilitar a perceção da responsabilidade e do tipo de interação disponível em cada projeto. Sendo o primeiro nome relativo à responsabilidade lógica e o segundo nome, \emph{Web} ou \emph{Consumer} conforme a interface de aplicação que disponibilizem.
+\begin{figure}[H]
+    \begin{center}
+    % Requires \usepackage{graphicx}
+    \includegraphics[width=1 \textwidth]{figures/arquitetura_2_diagrama_componentes.eps}
+    \caption{Diagrama de Componentes arquitetura proposta}
+    \label{implementacao_arquitetura_2_diagrama_componentes}
+    \end{center}
+\end{figure}
+
+As nomenclaturas dos projetos seguem uma estrutura semelhante (\emph{c.f.} excerto de código \ref{code_regex_projects_name}) para facilitar a perceção da responsabilidade e do tipo de interação disponível em cada projeto. Sendo o primeiro nome relativo à responsabilidade lógica e o segundo nome, \emph{Web} ou \emph{Consumer} conforme a interface de aplicação que disponibiliza.
 
 \begin{lstlisting}[caption={Expressão regular}, label={code_regex_projects_name}]
 (.*?)\b[^] (Web|Consumer)
@@ -43,7 +43,7 @@ De forma a manter a consistência os cinco serviços foram desenvolvidos na mesm
 
 O sistema foi construído com recurso à tecnologia de \emph{containers}, neste caso adjacente às ferramentas \emph{docker} e \emph{docker-compose}, permitindo que o processo de implantação seja simples e sem necessitar de configuração de máquinas. Cada projeto tem o seu \emph{dockerfile} (\emph{\emph{c.f.} excerto de código \ref{code:dockerfile}}) e na raiz do projeto principal e existe um ficheiro \emph{docker-compose.yml} (\emph{c.f.} excerto de código \ref{code:docker-compose}) que permite instanciar um sistema \emph{\acrshort{POD}} executando apenas a instrução apresentada no excerto de código \ref{code_docker_compose_up_instruction}.
 
-\begin{lstlisting}[caption={Expressão regular}, label={code_docker_compose_up_instruction}]
+\begin{lstlisting}[caption={Instrução para instanciar \emph{Solid}}, label={code_docker_compose_up_instruction}]
 $ docker-compose build && docker-compose up
 \end{lstlisting}
 
@@ -53,13 +53,6 @@ COPY . .
 COPY config.json-default config.json
 RUN npm install
 RUN chmod +x wait-for-it.sh
-RUN openssl req \
-    -new \
-    -newkey rsa:4096 \
-    -x509 \
-    -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=*.solid.com" \
-    -keyout ../privkey.pem \
-    -out ../fullchain.pem
 \end{lstlisting}
 
 \begin{lstlisting}[language=docker-compose-2,caption={Ficheiro \emph{docker-compose.yml}},breaklines=true,label={code:docker-compose}]
@@ -84,26 +77,6 @@ services:
     volumes:
       - ./store:/usr/src/app/.db
     depends_on:
-      - rabbitmq
-
-  solid-id-consumer:
-    build:
-      context: ./solid-id
-      dockerfile: Dockerfile
-    command:
-      ["./wait-for-it.sh", "rabbitmq:5672", "--", "node", "bin/solid", "start"]
-    environment:
-      AMQP_URL: amqp://guest:guest@rabbitmq:5672
-      SOLID_SSL_KEY: ../privkey.pem
-      SOLID_SSL_CERT: ../fullchain.pem
-      SOLID_SERVER_URI: https://solid-id.com:8443
-      SOLID_PORT: 8443
-      SOLID_GATEWAY_URI: https://solid.com:8442
-    volumes:
-      - ./store:/usr/src/app/.db
-    depends_on:
-      - rabbitmq
-    links:
       - rabbitmq
 
   rabbitmq:
@@ -198,10 +171,7 @@ const schema = new JSONSchema({
   type: "object",
   properties: {
     \\ ...
-    gateway: {
-      type: "string",
-      format: "uri",
-    },
+    gateway: {type: "string", format: "uri"},
     // ...
   }  
 });
@@ -217,39 +187,22 @@ Este sistema é responsável por disponibilizar um consumidor para eventos lógi
 
 \begin{lstlisting}[caption={\emph{Consumer} responsável pela ligação ao \emph{RabbitMQ}}, label={code_solid_id_consumer_rabbitmq_connection}]
 function start (argv, accountManager, userStore) {
-  amqp.connect(argv.amqpUrl, function (
-    error0,
-    connection
-  ) {
-    if (error0) {
-      throw error0
-    }
+  amqp.connect(argv.amqpUrl, function (error0, connection) {
+    //...
     connection.createChannel(function (error1, channel) {
-      var exchange = 'solid.events'
-
-      channel.assertExchange(exchange, 'topic', {
-        durable: true
-      })
+      channel.assertExchange('solid.events', 'topic', {durable: true})
       channel.assertQueue(
         'solid-id-consumer.queue',
         {   exclusive: false    },
         function (error2, q) {
-          channel.bindQueue(q.queue, exchange, '*.account.*')
-          channel.consume(
-            q.queue,
+          channel.bindQueue(q.queue, 'solid.events', '*.account.*')
+          channel.consume q.queue,
             function (msg) {
-              console.log(
               const body = JSON.parse(msg.content.toString())
               if (body.event === 'account_registered') {
                 new CreateAccountController(accountManager, userStore, body.object.account).call()
-              }
-            },
-            {   noAck: true }
-          )
-        }
-      )
-    })
-  })
+              }}, {   noAck: true })
+  //...
 }
 
 \end{lstlisting}
@@ -262,17 +215,9 @@ async call () {
       this.validate()
       await this.createAccount()
     } catch (error) {
-      debug('error creating account:', error)
     }
   }
 
-  /**
-   * Creates an account for a given user (from a POST to `/api/accounts/new`)
-   *+
-   * @throws {Error} If errors were encountering while validating the username.
-   *
-   * @return {Promise<UserAccount>} Resolves with newly created account instance
-   */
   async createAccount () {
     const userAccount = this.userAccount
     const accountManager = this.accountManager
@@ -282,16 +227,9 @@ async call () {
     if (!await this.userStore.findUser(userAccount.id)) {
       await this.createAccountStorage(userAccount)
       await this.saveCredentialsFor(userAccount)
-      // 'return' not used deliberately, no need to block and wait for email
       if (userAccount && userAccount.email) {
-        debug('Sending Welcome email')
         accountManager.sendWelcomeEmail(userAccount)
       }
-      debug('user created with success')
-    } else {
-      debug('user could not be created because already existed')
-    }
-
     return userAccount
   }
 
@@ -420,17 +358,11 @@ channel.assertQueue(
         exclusive: false,
       },
       function (error2, q) {
-        console.log(' [*] Waiting for logs. To exit press CTRL+C')
         channel.bindQueue(q.queue, exchange, '*.account.*')
 
         channel.consume(
           q.queue,
           function (msg) {
-            console.log(
-              ' [x] %s: \'%s\'',
-              msg.fields.routingKey,
-              msg.content.toString()
-            )
             let body = JSON.parse(msg.content.toString())
             if (body.event === 'account_created') {
               handleBootstrapAccount(accountManager, body.object)
@@ -447,4 +379,9 @@ channel.assertQueue(
     )
 
 \end{lstlisting}
+
+\section{Sumário}
+O presente capítulo demonstra os detalhes mais técnicos da implementação da solução desenhada no capítulo \ref{cap:4}, assim como alguns detalhes técnicos sobre como pode uma nova instância de \emph{Solid} ser instalada.
+
+Os dados apresentados servem, sobretudo, como base para a avaliação solução face aos objetivos propostos inicialmente (\emph{c.f.} capítulo \ref{cap:6}).
 

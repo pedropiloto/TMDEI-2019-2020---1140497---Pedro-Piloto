@@ -1,11 +1,8 @@
-%\setcounter{tocdepth}{1} % Show sections
-%\setcounter{tocdepth}{2} % + subsections
-%\setcounter{tocdepth}{3} % + subsubsections
-%\setcounter{tocdepth}{4} % + paragraphs
-%\setcounter{tocdepth}{5} % + subparagraphs
-%...
+
 \renewcommand*\contentsname{Índice}
 \pagenumbering{roman} \pagestyle{headings}
-\setcounter{tocdepth}{1}
-\tableofcontents
+%\setcounter{tocdepth}{1}
+\begin{KeepFromToc}
+    \tableofcontents
+\end{KeepFromToc}
 %...
