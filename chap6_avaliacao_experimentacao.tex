@@ -24,7 +24,7 @@ Uma hipótese consiste numa afirmação que se quer corroborar através de teste
 
 No contexto deste projeto, foram definidas duas hipóteses em linha com aquelas que foram formuladas na secção \ref{section_hypothesis}:
 \begin{itemize}
-    \item H1 - Hipótese referente a testes aplicacionais - Sucesso 100\% dos testes de software e cobertura superior a 80\%. Este valor vai em linha com o valor recomendado para criar um balanço entre cobertura de cenários de utilização e cobertura de código testado\cite{code_coverage};
+    \item H1 - Hipótese referente a testes aplicacionais - Sucesso 100\% dos testes de software e cobertura superior a 80\%. Este valor vai em linha com o valor recomendado para criar um balanço entre cobertura de cenários de utilização e cobertura de código testado \cite{code_coverage};
     \item H2 - Hipótese referente a testes de performance - Capacidade de cada micro-serviço deve ser de pelo menos 75\% da suportada pela plataforma atual (monolítico) para uma determinada carga, mantendo o tempo máximo de resposta de cada pedido inferior a 400 milissegundos.
     O racional para a escolha do valor de 75\% surge no sentido de que podemos assumir que a performance individual dos serviços pode ser um pouco inferior do que o monólito, sem que isso afete o sistema orientado a micro-serviços como um todo, na medida em que o fator de escalabilidade flexível irá garantir melhor performance que o monólito.
     Por outro lado, o valor de 400 milissegundos foi obtido a partir da exploração das médias de tempo resposta para um conjunto basto de aplicações web através da fonte \cite{average_server_response_time}.
@@ -33,7 +33,7 @@ No contexto deste projeto, foram definidas duas hipóteses em linha com aquelas 
 \subsection{Metodologias de Avaliação}
 As metodologias de avaliação consistem na forma como serão verificadas as hipóteses definidas. A metodologia a utilizar irá depender da hipótese e da grandeza em causa.
 
-A hipótese referente a testes aplicacionais, tendo em conta a qualidade da solução implementada, deve recorrer a testes de software, nomeadamente testes unitários e testes de integração que são executados através de ferramentas específicas para este efeito. Tendo em conta que esta metodologia é directa, não deverá ser necessário tratamento estatístico.
+A hipótese referente a testes aplicacionais, tendo em conta a qualidade da solução implementada, deve recorrer a testes de software, nomeadamente testes unitários e testes de integração que são executados através de ferramentas específicas para este efeito. Tendo em conta que esta metodologia é directa, não deverá ser necessário tratamento estatístico \cite{software_testing_2}.
 
 A hipótese referente a testes de performance consiste em corroborar que cada micro-serviço do sistema, sob uma determinada carga, consegue suportar pelo menos 75\% do \emph{throughput} da plataforma atual (monólito), mantendo o tempo de resposta de cada pedido abaixo de 400 milissegundos.
 

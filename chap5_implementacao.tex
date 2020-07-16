@@ -207,7 +207,7 @@ function start (argv, accountManager, userStore) {
 
 \end{lstlisting}
 
-Este \emph{consumer} está a criar uma fila que irá escutar todos os eventos com a \emph{routing key} \emph{"*.account.*"} e está a aplicar lógica de negócio ao evento com o tipo \emph{"account\_registered"} que deverá ser emitido pelo component \emph{Accounts Web} após receber um pedido \emph{\acrshort{REST}} de criação de um novo utilizador  (\emph{c.f.}  \ref{create_user_use_case_design}).
+Este \emph{consumer} está a criar uma fila que irá escutar todos os eventos com a \emph{routing key} \emph{“*.account.*”} e está a aplicar lógica de negócio ao evento com o tipo \emph{“account\_registered”} que deverá ser emitido pelo component \emph{Accounts Web} após receber um pedido \emph{\acrshort{REST}} de criação de um novo utilizador  (\emph{c.f.}  \ref{create_user_use_case_design}).
 
 \begin{lstlisting}[caption={código CreateAccountController}]
 async call () {
@@ -215,6 +215,7 @@ async call () {
       this.validate()
       await this.createAccount()
     } catch (error) {
+        debug('Error on creating account')
     }
   }
 
@@ -224,14 +225,31 @@ async call () {
 
     this.cancelIfUsernameInvalid(userAccount)
     this.cancelIfBlacklistedUsername(userAccount)
+    
     if (!await this.userStore.findUser(userAccount.id)) {
       await this.createAccountStorage(userAccount)
       await this.saveCredentialsFor(userAccount)
+    }
+    
       if (userAccount && userAccount.email) {
         accountManager.sendWelcomeEmail(userAccount)
       }
     return userAccount
   }
+  
+  createAccountStorage (userAccount) {
+    return this.accountManager.createAccountFor(userAccount)
+  }
+  
+  saveCredentialsFor (userAccount) {
+    return this.userStore
+      .createUser(userAccount, this.password)
+      .then(() => {
+        debug('User credentials stored')
+        return userAccount
+      })
+  }
+  
 
 \end{lstlisting}
 
@@ -352,6 +370,22 @@ Esta aplicação tem como responsabilidade escutar eventos aplicacionais que pos
 \newpara
 
 \begin{lstlisting}[caption={\emph{Consumer} responsável por interpretar os eventos aplicacionais com impacto no sistema de ficheiros}, label={code_storage_consumer_process_events}]
+amqp.connect(config.amqpUrl, function (
+  error0,
+  connection
+) {
+  if (error0) {
+    throw error0
+  }
+  connection.createChannel(function (error1, channel) {
+    if (error1) {
+      throw error1
+    }
+    var exchange = 'solid.events'
+
+    channel.assertExchange(exchange, 'topic', {
+      durable: true,
+    })
 channel.assertQueue(
       'ldp-consumer.queue',
       {
@@ -381,7 +415,11 @@ channel.assertQueue(
 \end{lstlisting}
 
 \section{Sumário}
-O presente capítulo demonstra os detalhes mais técnicos da implementação da solução desenhada no capítulo \ref{cap:4}, assim como alguns detalhes técnicos sobre como pode uma nova instância de \emph{Solid} ser instalada.
+O presente capítulo apresenta os detalhes mais técnicos da implementação da solução desenhada no capítulo \ref{cap:4}.
 
-Os dados apresentados servem, sobretudo, como base para a avaliação solução face aos objetivos propostos inicialmente (\emph{c.f.} capítulo \ref{cap:6}).
+Numa primeira fase, são expostos pormenores sobre a instalação da plataforma através de \emph{containers} e é, também, explicada a nomenclatura atribuída a cada micro-serviço.
+
+Posteriormente, são apresentados detalhes técnicos relevantes da implementação contextualizados para cada um dos micro-serviços implementados.
+
+A solução implementada deverá ser avaliada face aos objetivos inicialmente propostos, com base em hipóteses e metodologias previamente estabelecidas (\emph{c.f.} capítulo \ref{cap:6}), permitindo, desta forma, que sejam obtidas conclusões sobre limitações e trabalho futuro (\emph{c.f.} capítulo \ref{cap:7}).
 

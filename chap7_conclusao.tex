@@ -4,8 +4,6 @@
 \chapter{Conclusões e trabalho futuro}
 \label{cap:7}
 
-\section{Visão geral}
-
 Esta dissertação permitiu conhecer um conceito novo e disruptivo para redesenhar a \emph{Web} que está a ser desenvolvido e alavancado por diferentes projetos e comunidades (\emph{c.f.} secção \ref{section_modelos_descentralizados}).
 
 Numa primeira fase as diferentes alternativas com maior potencial foram estudadas com vista a perceber de que forma respondiam a desafios tecnológicos como escalabilidade, segurança e privacidade, este estudo foi refletido tanto no estado da arte do presente documento (\emph{c.f.} capítulo \ref{chapter_estado_arte}), como também em contribuições públicas (\emph{c.f.} secção \ref{section_contribuicoes_investigacao}).
@@ -33,7 +31,7 @@ Uma possível solução consiste em embeber os diferentes serviços (no caso da 
 
 \textbf{Q2: É possível existir apenas uma implantação do \emph{Solid} escalada de forma descentralizada e anónima?}
 
-Uma implantação única e global do \emph{Solid} seria uma possível evolução para o conceito. Esta evolução está dependente da migração para uma arquitetura orientada a micro-serviços, da adoção de um mecanismo de descoberta de novas instâncias para determinado serviço (\emph{c.f.} capítulo \ref{desenho})
+Uma implantação única e global do \emph{Solid} seria uma possível evolução para o conceito. Esta evolução está dependente da migração para uma arquitetura orientada a micro-serviços, da adoção de um mecanismo de descoberta de novas instâncias para determinado serviço (\emph{c.f.} capítulo \ref{desenho}).
 
 \newhalfpara
 
@@ -49,15 +47,22 @@ o trabalho desenvolvido demonstra que é possível migrar a atual arquitetura mo
 
 Esta nova arquitetura não compromete nem as funcionalidades de negócio nem a segurança, sendo possível manter todos os mesmos protocolos que suportam o projeto hoje em dia.
 
-\section{Trabalho futuro e limitações}
+\section{Limitações}
 
-No seguimento do trabalho desenvolvido é possível, também, denotar funcionalidades que devem ser implementadas no futuro, bem como limitação que devem ser colmatadas.
+No seguimento do trabalho desenvolvido é possível denotar que existem limitações que devem ser tidas em conta, das quais destacam-se:
 
-\subsection{Dependência sistema de ficheiros}
-O sistema \emph{Storage Web} e o \emph{Storage Consumer} tem uma dependência do sistema de ficheiros como forma de persistência que pode ser um possível \emph{bottleneck} em termos de escalabilidade desta nova arquitetura, devendo ser estudada a migração para um sistema de ficheiros virtual ou mesmo uma diferente forma de persistência mais robusta.
-\subsection{Orquestração de \emph{containers}} O projeto desenvolvido foi desenhado no sentido de todos os diferentes projeto poderem ser executados em \emph{containers}, os próximos passos passam pela integração com uma ferramenta de orquestração de \emph{containeirs} (exemplo: \emph{kubernetes}
-\subsection{\emph{Continuous Integration} e \emph{Continuous Delivery}}
-A adoção em grande escala deste projeto implica o desenvolvimento de \emph{pipelines} robustas de integração e entrega contínua.
+\begin{itemize}
+    \item Dependência sistema de ficheiros - O sistema \emph{Storage Web} e o \emph{Storage Consumer} tem uma dependência do sistema de ficheiros como forma de persistência que pode ser um possível \emph{bottleneck} em termos de escalabilidade desta nova arquitetura, devendo ser estudada a migração para um sistema de ficheiros virtual ou mesmo uma diferente forma de persistência mais robusta;
+    \item Eventual falta de consistência - Característico das arquiteturas orientadas a micro-serviços, conforme explicado pelo teorema \acrshort{CAP} (\emph{c.f.} secção \ref{cap_theorem}), é possível em determinadas circunstâncias o sistema \emph{Solid} ter de lidar com eventuais faltas de consistência entre os diferentes serviços. As situações em que a utilização fica comprometida devem ser identificadas e criados mecanismos de mitigação.
+\end{itemize}
 
-\subsection{Considerações finais}
+\section{Trabalho futuro}
+No mesmo sentido, são identificados pontos de trabalho futuro que deverão servir como forma de continuação ao trabalho desenvolvido no decorrer da dissertação:
+
+\begin{itemize}
+    \item Orquestração de \emph{containers} - O projeto desenvolvido foi desenhado no sentido de todos os diferentes micro-serviços poderem ser executados em \emph{containers}. Assim, os próximos passos passam pela integração com uma ferramenta de orquestração de \emph{containeirs} (exemplo: \emph{kubernetes});
+    \item \emph{Continuous Integration} e \emph{Continuous Delivery} - A adoção em grande escala deste projeto implica o desenvolvimento de \emph{pipelines} robustas de integração e entrega contínua.
+\end{itemize}
+
+\section{Apreciação final}
 A disrupção foi certamente o combustível de motivação para o desenvolvimento desta dissertação, que, numa perspetiva global cumpriu os objetivos inicialmente propostos bem como conclusões e desafios futuros com potencial de contribuição positiva para uma sociedade cibernética mais protegida e livre.

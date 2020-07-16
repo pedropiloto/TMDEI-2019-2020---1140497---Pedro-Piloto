@@ -12,13 +12,13 @@ O pilar do Solid é a descentralização, e por descentralização entende-se re
 
 No atual paradigma mais frequentemente utilizado, a arquitetura cliente servidor (\emph{c.f.} \ref{estado_arte_cliente_servidor}), a propriedade dos dados está condenada a perder-se na confiança para com a entidade de gere a camada de persistência de dados.
 
-Numa perspetiva um pouco mais global, o que o Solid ambiciona substituir é a camada de persistência e possivelmente nas aplicações menos complexas a camada de backend também, entendo-se por complexidade a lógica de negócio que pode ou não precisar de ser assegurada em outro sistema que não a aplicação por motivos de segurança ou até mesmo performance.
+Numa perspetiva um pouco mais global, o que o Solid ambiciona substituir é a camada de persistência e possivelmente nas aplicações menos complexas a camada de backend também, entendendo-se por complexidade a possibilidade da lógica de negócio poder ser ou não assegurada em outro sistema.
 
-As aplicações cliente (\emph{Relying Party App} conectam-se ao \emph{\acrshort{POD}} escolhido no momento de autenticação e, através de um ontologia própria ou uma já existente, são capazes proporcionar a experiência final existente nos dias de hoje, mas garantindo que a informação está sobre alçada do seu legítimo proprietário (\emph{c.f.} figura 2.2).
+Num cenário ideal, as aplicações cliente (\emph{Relying Party App} conectam-se ao \emph{\acrshort{POD}} escolhido no momento de autenticação e, através de um ontologia própria ou uma já existente, são capazes proporcionar a mesma experiência existente nos dias de hoje ao utilizador.
 
 Existem dois cenários possíveis de evolução do conceito Solid: (i) Manter a existência de múltiplas instâncias de Solid, e o utilizador pode escolher ao que pretende ligar-se; (ii) Existir apenas uma que pode ser entendida de forma semelhante a uma rede \emph{P2P} (\emph{c.f.} secção \ref{subsection:p2p}).
 
-O cenário de múltiplas instâncias corresponde ao atual e permite que possam existir globalmente diversas instâncias de \emph{\acrshort{POD}}, podendo inclusive existirem instâncias mais fechadas (por exemplo: família, empresa, etc) ou até mesmo instâncias privadas para apenas um utilizador (\emph{c.f.} figura \ref{figure_solid_multiple_instances}). Este modelo apresenta, contudo, alguns desafios de \emph{continuous delivery}, na medida em que tem de ser criados mecanismos que permitam manter todas as instâncias de \emph{\acrshort{POD}} serem atualizadas.
+O cenário de múltiplas instâncias corresponde ao atual e permite que possam existir globalmente diversas instâncias de \emph{\acrshort{POD}}, podendo inclusive existirem instâncias mais restritas ou até mesmo instâncias privadas para apenas um utilizador (\emph{c.f.} figura \ref{figure_solid_multiple_instances}). Este modelo apresenta, contudo, alguns desafios de \emph{continuous delivery}, na medida em que tem de ser criados mecanismos que permitam manter todas as instâncias de \emph{\acrshort{POD}} serem atualizadas.
 
 \begin{figure}[H]
     \begin{center}
@@ -30,11 +30,11 @@ O cenário de múltiplas instâncias corresponde ao atual e permite que possam e
 \end{figure}
 
 
-Por outro lado, e numa perspetiva um pouco mais disruptiva, O Solid poderia evoluir para uma solução única globalmente distribuída através de uma rede de “pequenas partes” do \emph{\acrshort{POD}} que iriam comunicar entre si. Este modelo parte do principio que o Solid segue uma arquitetura orientada a micro-serviços e que estes podem executados e ligados à rede em qualquer parte do planeta e por qualquer pessoa, de forma a que iríamos assistir a uma única instância global de Solid, escalada por uma comunidade de cidadãos (\emph{c.f.} figura \ref{figure_solid_p2p_network}).
+Por outro lado, e numa perspetiva um pouco mais disruptiva, O Solid poderia evoluir para uma solução única globalmente distribuída através de uma rede de “pequenas partes” do \emph{\acrshort{POD}} que iriam comunicar entre si. Este modelo parte do principio que o Solid segue uma arquitetura orientada a micro-serviços e que estes podem executados e ligados à rede em qualquer parte do globo, de forma a que iríamos assistir a uma única instância global de Solid, escalada por uma comunidade de cidadãos (\emph{c.f.} figura \ref{figure_solid_p2p_network}).
 Este conceito tem sérios desafios como:
 \begin{itemize}
-    \item \emph{continuous delivery} - Seria também um desafio neste modelo, na medida em que seria necessário garantir que todas as instâncias dos diferentes micro-serviços estão devidamente atualizados
-    \item Descoberta de novas instâncias - O Solid teria de implementar um mecanismo de registo de novas instâncias para que o tráfego pudesse ser encaminhado para novas instâncias
+    \item \emph{continuous delivery} - Seria também um desafio neste modelo, na medida em que seria necessário garantir que todas as instâncias dos diferentes micro-serviços estão devidamente atualizadas;
+    \item Descoberta de novas instâncias - O Solid teria de implementar um mecanismo de registo de novas instâncias para que o tráfego pudesse ser encaminhado para novas instâncias.
 \end{itemize}
 
 \begin{figure}[H]
@@ -52,7 +52,7 @@ de forma a cumprir a hipótese de manter a experiência para utilizador final (\
 Assim, nas secções que se seguem apresentam-se as alterações estruturais propostas de forma a potenciar uma migração de uma arquitetura em monólito para uma arquitetura orientada a micro-serviços.
 
 \section{Arquitetura \label{section_arquitetura_proposta}}
-Um dos problemas da arquitetura atual é a centralização de muitas camadas importantes no mesmo processo, afetando assim a sua escalabilidade, e pode consequentemente condenar o sucesso desta framework (\emph{c.f.} secção 2.1.1).
+Um dos problemas da arquitetura atual é a centralização de muitas camadas importantes no mesmo processo, afetando assim a sua escalabilidade, e pode consequentemente condenar o sucesso desta plataforma (\emph{c.f.} secção \ref{estado_arte_solid}).
 
 Existe, desta forma, espaço para evoluir para uma arquitetura orientada a micro-serviços, potencialmente assente na divisão por capacidades de negócio, resumindo-se estas às seguintes:
 \begin{itemize}
@@ -62,7 +62,7 @@ Existe, desta forma, espaço para evoluir para uma arquitetura orientada a micro
     \item Aceder e efetuar operações sobre recursos - O utilizador deve conseguir (se autenticado e autorizado) efectuar operações sobre recursos.
 \end{itemize}
 
-Desta forma, a arquitetura proposta deverá ter em consideração a separação da plataforma atual em quatro possíveis componentes (cada um deles responsável por uma das capacidades de negócio identificadas):
+Desta forma, a arquitetura proposta deverá ter em consideração a separação da plataforma atual em quatro possíveis componentes (cada um deles responsável por uma das capacidades de negócio identificadas) \cite{monolith_to_microservices}:
 \begin{itemize}
     \item \emph{Solid-ID} - Camada responsável pela autenticação do utilizador, esta autenticação.
     \item \emph{Permissions} - Camada responsável pela autorização.
@@ -103,7 +103,7 @@ A figura \ref{component_diagram_arquitetura1} apresenta uma demonstração gráf
     \begin{center}
     % Requires \usepackage{graphicx}
     \includegraphics[width=0.6 \textwidth]{figures/arquitetura_1_diagrama_componentes.eps}
-    \caption{Diagrama de Componentes Arquitetura 1}
+    \caption{Diagrama de Componentes Arquitetura não orientada a eventos}
     \label{component_diagram_arquitetura1}
     \end{center}
 \end{figure}
@@ -114,7 +114,7 @@ Esta arquitetura mantêm o conceito de API Gateway, mas introduz a adoção de m
 
 Na prática o que isto permite é, por exemplo, a propagação de um evento de criação de um novo utilizador. Aplicando-se, desta forma, o padrão CQRS (\emph{c.f.} secção \ref{cqrs}), contribuindo para um menor acoplamento entre as diferentes aplicações que lidam com escritas e com leituras de informação acerca dos utilizadores. Este padrão introduz indiretamente um outro: \emph{Eventual Consistency}, este por sua vez consiste na assunção de que alterações a um determinado modelo eventualmente induzirão num estado consistente no sistema como um todo. De acordo com o teorema de \acrshort{CAP} (\emph{\emph{c.f.} secção} \ref{cap_theorem}), consistência é o parâmetro que devemos abdicar para conseguirmos escalabilidade e tolerância a falhas.
 
-A utilização desta arquitetura permite também a adoção do padrão \emph{Event Sourcing} (\emph{c.f.} secção \ref{event_sourcing}), este consiste na persistência dos eventos de alteração de estado e permite que o estado do sistema seja obtido a qualquer momento pela "soma" das alterações de estado a que o mesmo foi sujeito.
+A utilização desta arquitetura permite também a adoção do padrão \emph{Event Sourcing} (\emph{c.f.} secção \ref{event_sourcing}), este consiste na persistência dos eventos de alteração de estado e permite que o estado do sistema seja obtido a qualquer momento pela “soma” das alterações de estado a que o mesmo foi sujeito.
 
 Em termos de componentes, é possível perceber na figura \ref{component_diagram_arquitetura2} que o componente Permissions desaparece em detrimento do componente Accounts. O racional para esta decisão prende-se no facto de, na solução atual, o componente que controla as permissões baseia-se em ficheiros \emph{\acrshort{ACL}} geridos pela mesma camada responsável pela restante informação para determinada conta e, desta forma, o custo-benefício de criar um novo serviço que estaria, na prática, a replicar o serviço que gere informação da conta pode não ser de todo justificável.
 
@@ -148,13 +148,13 @@ Latência & Elevada & Reduzida \\
 
 Assim, e tendo em conta uma decisão fundada em critérios como escalabilidade e manutenabilidade, será seguida a arquitetura orientada a eventos. Seguem-se alguns detalhes arquiteturais numa perspetiva de mais baixo nível.
 
-\section{Casos de uso}
+\section{Casos de uso \label{section_casos_de_uso}}
 Nesta secção é apresentada uma vista arquitetural numa perspetiva de mais baixo nível, dando a entender de que forma os diferentes componentes interagem no contexto dos casos de uso.
 
 \begin{figure}[H]
     \begin{center}
     % Requires \usepackage{graphicx}
-    \includegraphics[height=0.7 \textwidth]{figures/uc_diagram.eps}
+    \includegraphics[height=1 \textwidth]{figures/uc_diagram.eps}
     \caption{Diagrama de casos de uso
     \emph{Solid}}
     \label{uc_diagram}
@@ -169,20 +169,20 @@ O caso de uso de criar um novo utilizador representa uma funcionalidade arquitet
 
 De forma a tornar mais clara a interação entre os diferentes componentes neste caso de uso, e pelo facto do diagrama de sequência ser extenso, o caso de uso é apresentado divido em nas três subsecções com os respetivos diagramas de sequência:
 
-\subsubsection*{Registo de conta}
+\subsubsection{Registo de conta}
 
 O ponto de entrada para este caso de uso é a \emph{API Gateway} que reencaminha o pedido para o \emph{Accounts Web} através do protocolo \emph{HTTP/HTTPS}. Este, por sua vez é responsável por validar os campos preenchidos pelo utilizador segundo a lógica de negócio e no caso da informação ser válida propagá-la para \emph{Message Broker} através do protocolo \emph{AMQP} (\emph{c.f.} figura \ref{registo_conta_sd1}).
 
 \begin{figure}[H]
     \begin{center}
     % Requires \usepackage{graphicx}
-    \includegraphics[width=1 \textwidth]{figures/create_account_sd_diagram_1.eps}
+    \includegraphics[width=0.8 \textwidth]{figures/create_account_sd_diagram_1.eps}
     \caption{Diagrama de Sequência criação novo utilizador - registo de conta}
     \label{registo_conta_sd1}
     \end{center}
 \end{figure}
 
-\subsubsection*{Actualização \emph{Solid-ID}}
+\subsubsection{Actualização \emph{Solid-ID}}
 
 Assim que o evento de criação de uma nova conta chega ao \emph{Message Broker}, este encaminha-o para as \emph{queues} que estiverem configuradas para a sua \emph{routing key}. A partir desse momento, o \emph{Solid-ID Consumer} e qualquer outro consumidor  destas \emph{queues} irá processar assincronamente os eventos.
 
@@ -197,7 +197,7 @@ O \emph{Solid-ID Consumer} é responsável por gerir a conta e todo o processo d
     \end{center}
 \end{figure}
 
-\subsubsection*{Actualização \emph{Storage}}
+\subsubsection{Actualização \emph{Storage}}
 
 O \emph{Storage Consumer} irá, por sua vez, processar o evento de utilizador registado com sucesso para providenciar a estrutura de ficheiros template para todas as novas contas e terminar o processo de criação de uma nova conta num \emph{\acrshort{POD}} do \emph{Solid} (\emph{c.f.} figura \ref{registo_conta_sd3}).
 
@@ -205,7 +205,7 @@ O \emph{Storage Consumer} irá, por sua vez, processar o evento de utilizador re
     \begin{center}
     % Requires \usepackage{graphicx}
     \includegraphics[width=1 \textwidth]{figures/create_account_sd_diagram_3.eps}
-    \caption{Diagrama de Sequência criação novo utilizador - atualizar \emph{Storage}}
+    \caption{Diagrama de Sequência criação novo utilizador - atualização \emph{Storage}}
         \label{registo_conta_sd3}
     \end{center}
 \end{figure}
@@ -215,49 +215,59 @@ Nesta secção é apresentado o processo de autenticação através de uma \emph
 
 Este caso de uso será também subdividido em sub-partes de forma a apresentar diagramas de sequência menos complexos e mais claros.
 
-\subsubsection*{Início autenticação}
+\subsubsection{Início autenticação}
 
 O cenário de autenticação deverá começar com a interação numa \emph{Relying Party App}, esta por sua vez irá encaminhar para um formulário de login servido pelo \emph{Solid-ID Web}.
 
 \begin{figure}[H]
     \begin{center}
     % Requires \usepackage{graphicx}
-    \includegraphics[height=0.6 \textwidth]{figures/authentication_sd_1.eps}
-    \caption{Diagrama de Sequência Autenticação de utilizador - Início autenticação}
+    \includegraphics[height=0.7 \textwidth]{figures/authentication_sd_1.eps}
+    \caption{Diagrama de Sequência Autenticação - Início}
         \label{autenticacao_sd1}
     \end{center}
 \end{figure}
 
-Os dados preenchidos no formulário serão de seguida validados, de forma a corresponder os as credenciais com as de algum utilizador registado naquele determinado \emph{POD}. Em caso de sucesso, o utilizador será reencaminhado para o seguinte passo se as credenciais introduzidas estiverem correctas (\emph{c.f.} figura \ref{autenticacao_sd1}).
+Os dados preenchidos no formulário serão de seguida validados, de forma a corresponder os as credenciais com as de algum utilizador registado naquele determinado \emph{POD} (\emph{c.f.} figura \ref{autenticacao_sd1}).
 
-\subsubsection*{Filtrar nível de acesso}
-O passo seguinte corresponde à escolha do nível de acesso da aplicação cliente aos dados no \emph{\acrshort{POD}}, esta escolha poderá ser editada pelo utilizador a qualquer altura.
-Este passo só deverá ser necessário realizar uma vez, sendo que nas restantes será avançado diretamente para o passo de geração do \emph{token} de acesso (\emph{c.f.} figura \ref{autenticacao_sd2}).
+\subsubsection{Filtrar nível de acesso}
+O passo seguinte corresponde à escolha do nível de acesso da aplicação cliente aos dados no \emph{\acrshort{POD}}, esta escolha poderá ser editada pelo utilizador a qualquer altura (\emph{c.f.} figura \ref{figure_filter_app_access}).
+
+\begin{figure}[H]
+    \begin{center}
+    % Requires \usepackage{graphicx}
+    \includegraphics[width=0.9 \textwidth]{figures/solid_filter_app_access.png}
+    \caption{Ecrã correspondente a autorização de acesso}
+            \label{figure_filter_app_access}
+    \end{center}
+\end{figure}
+
+Este passo deverá ser necessário realizado durante a primeira autenticação (\emph{c.f.} figura \ref{autenticacao_sd2}).
 
 \begin{figure}[H]
     \begin{center}
     % Requires \usepackage{graphicx}
     \includegraphics[width=1 \textwidth]{figures/authentication_sd_2.eps}
-    \caption{Diagrama de Sequência Autenticação de utilizador - Filtrar nível de acesso}
+    \caption{Diagrama de Sequência Autenticação - Filtrar nível de acesso}
             \label{autenticacao_sd2}
     \end{center}
 \end{figure}
 
-\subsubsection*{Atualização \emph{\acrshort{POD} \acrshort{ACL}}}
-Ainda no seguimento da escolha do nível de acesso de determinada aplicação cliente aos dados de um utilizador num \emph{\acrshort{POD}}, é necessário que essa informação seja adicionada à respetiva \emph{\acrshort{ACL}}.
+\subsubsection{Atualização \emph{\acrshort{POD} \acrshort{ACL}}}
+No seguimento da escolha do nível de acesso de determinada aplicação, é necessário que essa informação seja adicionada à respetiva \emph{\acrshort{ACL}}.
 
 \begin{figure}[H]
     \begin{center}
     % Requires \usepackage{graphicx}
     \includegraphics[height=0.3 \textwidth]{figures/authentication_sd_3.eps}
-    \caption{Diagrama de Sequência Autenticação de utilizador - Actualização \emph{\acrshort{POD} \acrshort{ACL}}}
+    \caption{Diagrama de Sequência Autenticação - Actualização \emph{\acrshort{POD} \acrshort{ACL}}}
     \label{autenticacao_sd3}
     \end{center}
 \end{figure}
 
 Para que seja possível esta actualização da \emph{\acrshort{ACL}}, o \emph{Storage Consumer} está a escutar uma \emph{queue} de eventos de registo de origens dadas como seguras e que irá adicionar aos ficheiros \emph{\acrshort{ACL}} do respetivo utilizador (\emph{c.f.} figura \ref{autenticacao_sd3}).
 
-\subsubsection*{Finalização autenticação}
+\subsubsection{Finalização autenticação}
 O último passo do processo de autenticação corresponde a conceder o acesso propriamente dito da aplicação \emph{Relying Party App} ao \emph{\acrshort{POD}} utilizador.
 
 Este acesso é conferido através da emissão de um \emph{token} no formato \emph{\acrshort{JWT}} (\emph{c.f.} secção \ref{subsection:jwt}) devidamente assinado (\emph{c.f.} figura \ref{autenticacao_sd4}).
@@ -265,7 +275,7 @@ Este acesso é conferido através da emissão de um \emph{token} no formato \emp
 \begin{figure}[H]
     \begin{center}
     % Requires \usepackage{graphicx}
-    \includegraphics[width=0.6 \textwidth]{figures/authentication_sd_4.eps}
+    \includegraphics[width=0.7 \textwidth]{figures/authentication_sd_4.eps}
     \caption{Diagrama de Sequência Autenticação de utilizador - Finalização autenticação}
     \label{autenticacao_sd4}
     \end{center}
@@ -274,14 +284,14 @@ Este acesso é conferido através da emissão de um \emph{token} no formato \emp
 \subsection{Obter recurso}
 Este caso de uso implica aceder à unidade de armazenamento do utilizador na instância de \emph{Solid}, o \emph{\acrshort{POD}} (\emph{c.f.} secção \ref{subsection_solid_armazenamento}). 
 
-Assim, este caso de uso inicia-se com a interação entre uma \emph{Relying Party App} e o \emph{Storage-Web}, esta interação acontece sob o protocolo \emph{http/https} e deve ser autenticada através do token de acesso fornecido do passo de autorização.
+Assim, este caso de uso inicia-se com a interação entre uma \emph{Relying Party App} e o \emph{Storage Web}, esta interação acontece sob o protocolo \emph{http/https} e deve ser autenticada através do token de acesso fornecido do passo de autorização.
 Como o token de acesso foi gerado no \emph{Solid-ID}, o componente \emph{Storage} necessita de garantir que aquele token é válido e também se pode conceder acesso ao recurso pedido.
 
 O primeiro passo é necessário efetuar a validação do token de acesso, para tal deverá ser validada a assinatura, a data de expiração e os \emph{scopes} (\emph{c.f.} figura \ref{retrieve_resource_sd})
 
 Após a validação do token de acesso, é necessário validar se o \emph{webID} obtido através do token tem de facto acesso ao recurso que pretende. Esta validação é realizada com recurso a uma biblioteca desenvolvida pela comunidade do Solid - \emph{ACL-Checker} - que recursivamente valida os ficheiros \emph{\acrshort{ACL}} com hierarquia sobre o recurso pretendido e analisa se o webID tem acesso e que tipo de acesso tem (\emph{c.f.} figura \ref{retrieve_resource_sd}).
 
-A partir do momento em que os dois \emph{middlewar} (validação token e validação \emph{\acrshort{ACL}}) permitem avançar, é possível seguir para a lógico de leitura / escrita do recurso.
+A partir do momento em que os dois \emph{middleware} (validação token e validação \emph{\acrshort{ACL}}) permitem avançar, é possível seguir para a lógica de leitura / escrita do recurso.
 
 \begin{figure}[H]
     \begin{center}
@@ -291,6 +301,16 @@ A partir do momento em que os dois \emph{middlewar} (validação token e valida�
             \label{retrieve_resource_sd}
     \end{center}
 \end{figure}
+
+\section{Sumário}
+O capítulo apresenta o desenho da solução da solução contextualizando com as tecnologias estudadas no capítulo \ref{cap:2}.
+Este desenho é apresentado segundo duas perspetivas arquiteturais: Uma mais alto nível (\emph{c.f.} secção \ref{section_arquitetura_proposta}) e uma outra mais baixo nível (\emph{c.f.} secção \ref{section_casos_de_uso}).
+
+A perspetiva mais alto nível, apresenta alternativas de decomposição do monólito em micro-serviços. E para cada uma das alternativas, é, também, explicada a disposição dos diferentes componentes que surgem como potenciais constituintes da plataforma \emph{Solid}, bem como as responsabilidades inerentes a cada um destes componentes.
+
+Por outro lado, numa perspetiva mais baixo nível, o objetivo é demonstrar de forma mais detalhada e granular as interações entre os diferentes componentes. Assim, estas interações são apresentadas no contexto de casos de uso, sendo este o principal foco desta perspetiva arquitetural.
+
+Os diagramas e notas arquiteturais resultantes deste capítulo são o ponto de partida para a implementação (\emph{c.f.} capítulo \ref{cap:4}) e consequente avaliação da solução desenvolvida (\emph{c.f.} capítulo \ref{cap:6}).
 
 
 
