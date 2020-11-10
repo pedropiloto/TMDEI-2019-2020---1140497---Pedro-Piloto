@@ -223,7 +223,7 @@ O cenário de autenticação deverá começar com a interação numa \emph{Relyi
     \begin{center}
     % Requires \usepackage{graphicx}
     \includegraphics[height=0.7 \textwidth]{figures/authentication_sd_1.eps}
-    \caption{Diagrama de Sequência Autenticação - Início}
+    \caption{Diagrama de Sequência autenticação - Início}
         \label{autenticacao_sd1}
     \end{center}
 \end{figure}
@@ -248,7 +248,7 @@ Este passo deverá ser necessário realizado durante a primeira autenticação (
     \begin{center}
     % Requires \usepackage{graphicx}
     \includegraphics[width=1 \textwidth]{figures/authentication_sd_2.eps}
-    \caption{Diagrama de Sequência Autenticação - Filtrar nível de acesso}
+    \caption{Diagrama de Sequência autenticação - Filtrar nível de acesso}
             \label{autenticacao_sd2}
     \end{center}
 \end{figure}
@@ -260,7 +260,7 @@ No seguimento da escolha do nível de acesso de determinada aplicação, é nece
     \begin{center}
     % Requires \usepackage{graphicx}
     \includegraphics[height=0.3 \textwidth]{figures/authentication_sd_3.eps}
-    \caption{Diagrama de Sequência Autenticação - Actualização \emph{\acrshort{POD} \acrshort{ACL}}}
+    \caption{Diagrama de Sequência autenticação - Actualização \emph{\acrshort{POD} \acrshort{ACL}}}
     \label{autenticacao_sd3}
     \end{center}
 \end{figure}
@@ -276,7 +276,7 @@ Este acesso é conferido através da emissão de um \emph{token} no formato \emp
     \begin{center}
     % Requires \usepackage{graphicx}
     \includegraphics[width=0.7 \textwidth]{figures/authentication_sd_4.eps}
-    \caption{Diagrama de Sequência Autenticação de utilizador - Finalização autenticação}
+    \caption{Diagrama de Sequência autenticação de utilizador - Finalização autenticação}
     \label{autenticacao_sd4}
     \end{center}
 \end{figure}
@@ -297,7 +297,7 @@ A partir do momento em que os dois \emph{middleware} (validação token e valida
     \begin{center}
     % Requires \usepackage{graphicx}
     \includegraphics[width=1 \textwidth]{figures/retrieve_resource_sd_complete.eps}
-    \caption{Diagrama de Sequência Obter recurso}
+    \caption{Diagrama de Sequência obter recurso}
             \label{retrieve_resource_sd}
     \end{center}
 \end{figure}
@@ -306,9 +306,9 @@ A partir do momento em que os dois \emph{middleware} (validação token e valida
 O capítulo apresenta o desenho da solução da solução contextualizando com as tecnologias estudadas no capítulo \ref{cap:2}.
 Este desenho é apresentado segundo duas perspetivas arquiteturais: Uma mais alto nível (\emph{c.f.} secção \ref{section_arquitetura_proposta}) e uma outra mais baixo nível (\emph{c.f.} secção \ref{section_casos_de_uso}).
 
-A perspetiva mais alto nível, apresenta alternativas de decomposição do monólito em micro-serviços. E para cada uma das alternativas, é, também, explicada a disposição dos diferentes componentes que surgem como potenciais constituintes da plataforma \emph{Solid}, bem como as responsabilidades inerentes a cada um destes componentes.
+A perspetiva mais alto nível, apresenta alternativas de decomposição do monólito em micro-serviços. Para cada uma das alternativas, é, também, explicada a disposição dos diferentes componentes que surgem como potenciais constituintes da plataforma \emph{Solid}, bem como as responsabilidades inerentes a cada um destes componentes.
 
-Por outro lado, numa perspetiva mais baixo nível, o objetivo é demonstrar de forma mais detalhada e granular as interações entre os diferentes componentes. Assim, estas interações são apresentadas no contexto de casos de uso, sendo este o principal foco desta perspetiva arquitetural.
+Por outro lado, numa perspetiva mais baixo nível, o objetivo é demonstrar de forma mais detalhada e granular as interações entre os diferentes componentes no contexto de casos de uso.
 
 Os diagramas e notas arquiteturais resultantes deste capítulo são o ponto de partida para a implementação (\emph{c.f.} capítulo \ref{cap:4}) e consequente avaliação da solução desenvolvida (\emph{c.f.} capítulo \ref{cap:6}).
 
